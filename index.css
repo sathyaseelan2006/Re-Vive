@@ -1,0 +1,197 @@
+/* Heritage Login Page Theme - Dark Temple Background */
+
+:root {
+  --heritage-gold: #d4a855;
+  --heritage-dark: #1a0f0a;
+  --heritage-brown: #2d1810;
+  --heritage-orange: #c17a28;
+  --heritage-light-gold: #f5d79e;
+  --heritage-error: #ff6b6b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url('desktopbg_reviva.png') center/cover no-repeat fixed;
+  background-color: var(--heritage-dark);
+  font-family: 'Merriweather', 'Georgia', serif;
+  color: var(--heritage-light-gold);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 5, 0, 0.6);
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem;
+}
+
+.heritage-header-section {
+  text-align: center;
+  margin-bottom: 3rem;
+}/* Main Title */
+.heritage-main-title {
+	font-size: 5rem;
+	font-weight: 400;
+	color: var(--heritage-gold);
+	text-align: center;
+	margin-bottom: 0.5rem;
+	letter-spacing: 0.05em;
+	text-shadow: 0 2px 8px rgba(212, 168, 85, 0.3);
+}
+
+.heritage-subtitle {
+	font-size: 1.25rem;
+	font-weight: 300;
+	color: var(--heritage-light-gold);
+	text-align: center;
+	margin-bottom: 3rem;
+	letter-spacing: 0.08em;
+}
+
+.heritage-form-container {
+	background: rgba(45, 24, 16, 0.85);
+	border: 2px solid rgba(212, 168, 85, 0.4);
+	border-radius: 24px;
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+	padding: 3rem 2.5rem;
+	max-width: 420px;
+	width: 90%;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.heritage-icon {
+	display: none;
+}
+
+.heritage-title {
+	display: none;
+}
+
+.heritage-form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	margin-top: 0;
+}
+
+.heritage-input {
+	padding: 1rem 1.25rem;
+	border: none;
+	border-radius: 12px;
+	font-size: 1rem;
+	background: rgba(20, 12, 8, 0.7);
+	color: var(--heritage-light-gold);
+	outline: none;
+	transition: all 0.3s;
+	font-family: 'Merriweather', 'Georgia', serif;
+}
+
+.heritage-input::placeholder {
+	color: rgba(245, 215, 158, 0.6);
+}
+
+.heritage-input:focus {
+	background: rgba(30, 18, 12, 0.9);
+	box-shadow: 0 0 0 2px rgba(212, 168, 85, 0.3);
+}
+
+.heritage-btn {
+	background: linear-gradient(135deg, var(--heritage-orange) 0%, #d4a855 100%);
+	color: #1a0f0a;
+	font-weight: 600;
+	border: none;
+	border-radius: 12px;
+	padding: 1rem 1.5rem;
+	font-size: 1.1rem;
+	cursor: pointer;
+	margin-top: 1rem;
+	box-shadow: 0 4px 16px rgba(193, 122, 40, 0.4);
+	transition: all 0.3s;
+	font-family: 'Merriweather', 'Georgia', serif;
+	letter-spacing: 0.05em;
+}
+
+.heritage-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(193, 122, 40, 0.6);
+}
+
+.heritage-error {
+	color: var(--heritage-error);
+	font-size: 0.95rem;
+	margin-top: -0.5rem;
+	text-align: center;
+	min-height: 1.2rem;
+}
+
+.heritage-error:empty {
+	display: none;
+}
+
+.heritage-switch {
+	margin-top: 1.5rem;
+	font-size: 0.95rem;
+	color: var(--heritage-light-gold);
+	text-align: center;
+	line-height: 1.8;
+}
+
+.heritage-switch span {
+	color: var(--heritage-light-gold);
+	margin-right: 0.25rem;
+}
+
+.heritage-link {
+	background: none;
+	border: none;
+	color: var(--heritage-gold);
+	font-weight: 600;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 0.95rem;
+	padding: 0;
+	transition: color 0.3s;
+}
+
+.heritage-link:hover {
+	color: var(--heritage-light-gold);
+	text-decoration: underline;
+}

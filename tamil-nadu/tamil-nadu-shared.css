@@ -1,0 +1,38 @@
+/* Tamil Nadu Heritage Sites Shared Styles */
+
+:root {
+  --heritage-primary: #8b4513;
+  --heritage-secondary: #daa520;
+  --heritage-accent1: #cd853f;
+  --heritage-background: #f5f1e6;
+  --heritage-text-dark: #3e2d1a;
+  --heritage-text-light: #f8f4eb;
+  --heritage-gold: #e2b76d;
+  --heritage-brown: #7a5c2e;
+}
+
+/* Base styles for all heritage sites */
+.heritage-site-body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--heritage-background);
+  font-family: 'Cinzel', 'Cormorant Garamond', serif;
+  color: var(--heritage-text-dark);
+  min-height: 100vh;
+}
+
+/* Decorative corners */
+.decorative-corner {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  z-index: 1000;
+  background-image: url('../../assets/decorative_corner.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.top-left { top: 0; left: 0; }
+.top-right { top: 0; right: 0; transform: rotate(90deg); }
+.bottom-right { bottom: 0; right: 0; transform: rotate(180deg); }
+.bottom-left { bottom: 0; left: 0; transform: rotate(270deg); }

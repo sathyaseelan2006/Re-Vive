@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✅ Backend Server Running - Thanjavur Chatbot</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            border-radius: 10px;
+        }
+        .status-icon {
+            font-size: 40px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        h1 { color: #28a745; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 18px; margin-bottom: 30px; }
+        .info-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .info-box p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .button.secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .endpoints {
+            list-style: none;
+            margin: 15px 0;
+        }
+        .endpoints li {
+            padding: 10px;
+            background: #e9ecef;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        .endpoints li span {
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="status">
+            <div class="status-icon">✅</div>
+            <div>
+                <h1>Backend Server is Running!</h1>
+                <p class="subtitle">Your Thanjavur Heritage Chatbot backend is operational</p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>ℹ️ Why "Cannot GET /" ?</h3>
+            <p>The message "<strong>Cannot GET /</strong>" is normal! This is a <strong>backend API server</strong>, not a website. It doesn't have a home page - it only responds to specific API endpoints.</p>
+            <p>Think of it as the "brain" of your chatbot - it processes requests but doesn't show a webpage.</p>
+        </div>
+
+        <div class="info-box">
+            <h3>✨ How to Use the Chatbot</h3>
+            <p><strong>Step 1:</strong> Keep this backend server running (you'll see the logs above)</p>
+            <p><strong>Step 2:</strong> Open the Thanjavur heritage page in your browser</p>
+            <p><strong>Step 3:</strong> Look for the floating chat button (💬) in the bottom-right corner</p>
+            <p><strong>Step 4:</strong> Click it and start chatting with Dr. Thornbury!</p>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="file:///d:/underprogress/edaproject/tamil-nadu/thanjavur/index.html" class="button">
+                🏛️ Open Thanjavur Page
+            </a>
+            <a href="file:///d:/underprogress/edaproject/tamil-nadu/thanjavur/test-chatbot.html" class="button secondary">
+                🧪 Open Test Page
+            </a>
+        </div>
+
+        <div class="info-box">
+            <h3>🔌 Available API Endpoints</h3>
+            <ul class="endpoints">
+                <li><span>✅</span> /api/health - Server status</li>
+                <li><span>✅</span> /api/chatbot/health - Chatbot status & API key check</li>
+                <li><span>✅</span> /api/chatbot/chat - Chat with Dr. Thornbury</li>
+                <li><span>✅</span> /api/auth/* - User authentication</li>
+                <li><span>✅</span> /api/user/* - User profile & preferences</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>🔧 Server Configuration</h3>
+            <div class="code">
+                🚀 Server: http://localhost:5000<br>
+                📊 API: http://localhost:5000/api<br>
+                💾 MongoDB: Connected<br>
+                🤖 Gemini AI: Configured<br>
+                ✨ Status: OPERATIONAL
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #fff3cd; border-radius: 10px; border-left: 4px solid #ffc107;">
+            <h3 style="color: #856404; margin-bottom: 10px;">💡 Quick Tip</h3>
+            <p style="color: #856404;">If the chatbot doesn't appear on the Thanjavur page:</p>
+            <ol style="color: #856404; margin-left: 20px; margin-top: 10px;">
+                <li>Make sure this backend server is running</li>
+                <li>Refresh the webpage (Ctrl + F5)</li>
+                <li>Check the browser console (F12) for errors</li>
+                <li>Verify you're opening the HTML file directly or via a local server</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Auto-refresh status every 5 seconds
+        setInterval(() => {
+            fetch('http://localhost:5000/api/chatbot/health')
+                .then(r => r.json())
+                .then(data => {
+                    console.log('✅ Backend is alive:', data);
+                })
+                .catch(err => {
+                    console.log('❌ Backend connection lost');
+                });
+        }, 5000);
+    </script>
+</body>
+</html>

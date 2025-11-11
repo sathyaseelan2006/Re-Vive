@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tell Us Your Interests - Re:Vive</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="preferences.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="root">
+        <div class="app-container">
+            <div class="preference-header">
+                <h1 class="heritage-main-title">Welcome to Re:Vive!</h1>
+                <p class="heritage-subtitle">Let's personalize your heritage journey</p>
+                <p class="preference-instruction">Select the themes that resonate with you</p>
+            </div>
+            
+            <div class="preference-form-container">
+                <div class="preference-grid">
+                    <div class="preference-card" data-preference="romantic">
+                        <div class="preference-icon">💕</div>
+                        <h3 class="preference-title">Romantic</h3>
+                        <p class="preference-desc">Love stories, scenic beauty, peaceful ambiance</p>
+                    </div>
+                    
+                    <div class="preference-card" data-preference="spiritual">
+                        <div class="preference-icon">🕉️</div>
+                        <h3 class="preference-title">Spiritual</h3>
+                        <p class="preference-desc">Temples, sacred sites, divine experiences</p>
+                    </div>
+                    
+                    <div class="preference-card" data-preference="war">
+                        <div class="preference-icon">⚔️</div>
+                        <h3 class="preference-title">War & Battles</h3>
+                        <p class="preference-desc">Military history, fortifications, strategic sites</p>
+                    </div>
+                    
+                    <div class="preference-card" data-preference="heroic">
+                        <div class="preference-icon">🦸</div>
+                        <h3 class="preference-title">Heroic</h3>
+                        <p class="preference-desc">Legendary warriors, valor, epic tales</p>
+                    </div>
+                    
+                    <div class="preference-card" data-preference="history">
+                        <div class="preference-icon">📜</div>
+                        <h3 class="preference-title">History</h3>
+                        <p class="preference-desc">Ancient civilizations, dynasties, timelines</p>
+                    </div>
+                    
+                    <div class="preference-card" data-preference="architecture">
+                        <div class="preference-icon">🏛️</div>
+                        <h3 class="preference-title">Architecture</h3>
+                        <p class="preference-desc">Design, craftsmanship, structural marvels</p>
+                    </div>
+                    
+                    <div class="preference-card" data-preference="nature">
+                        <div class="preference-icon">🌿</div>
+                        <h3 class="preference-title">Nature</h3>
+                        <p class="preference-desc">Scenic landscapes, hills, coastal beauty</p>
+                    </div>
+                    
+                    <div class="preference-card" data-preference="cultural">
+                        <div class="preference-icon">🎭</div>
+                        <h3 class="preference-title">Cultural</h3>
+                        <p class="preference-desc">Traditions, festivals, arts, customs</p>
+                    </div>
+                </div>
+                
+                <div class="preference-actions">
+                    <p class="selection-count">Selected: <span id="selectedCount">0</span> (Choose at least 2)</p>
+                    <button id="submitPreferences" class="heritage-btn" disabled>Continue to Heritage Explorer</button>
+                </div>
+                
+                <div id="errorMessage" class="heritage-error"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+        const selectedPreferences = new Set();
+        const preferenceCards = document.querySelectorAll('.preference-card');
+        const submitBtn = document.getElementById('submitPreferences');
+        const selectedCount = document.getElementById('selectedCount');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Get user info from localStorage
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const userId = user.id;
+
+        if (!userId) {
+            alert('Please login first');
+            window.location.href = 'login.html';
+        }
+
+        // Add click handlers to preference cards
+        preferenceCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const preference = card.dataset.preference;
+                
+                if (selectedPreferences.has(preference)) {
+                    selectedPreferences.delete(preference);
+                    card.classList.remove('selected');
+                } else {
+                    selectedPreferences.add(preference);
+                    card.classList.add('selected');
+                }
+                
+                updateUI();
+            });
+        });
+
+        function updateUI() {
+            const count = selectedPreferences.size;
+            selectedCount.textContent = count;
+            submitBtn.disabled = count < 2;
+        }
+
+        submitBtn.addEventListener('click', async () => {
+            errorMessage.textContent = '';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Analyzing your preferences...';
+            
+            try {
+                const response = await fetch(`${API_URL}/user/preferences`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId: userId,
+                        preferences: Array.from(selectedPreferences)
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Store preferences and recommendations in localStorage
+                    localStorage.setItem('userPreferences', JSON.stringify(data.data.preferences));
+                    localStorage.setItem('emotionalProfile', data.data.emotionalProfile);
+                    localStorage.setItem('recommendedSites', JSON.stringify(data.data.recommendedSites));
+                    
+                    // Update user object
+                    user.isFirstLogin = false;
+                    localStorage.setItem('user', JSON.stringify(user));
+                    
+                    // Show success and redirect
+                    alert('Preferences saved! We have personalized recommendations for you.');
+                    window.location.href = 'index.html';
+                } else {
+                    errorMessage.textContent = data.message || 'Failed to save preferences';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Continue to Heritage Explorer';
+                }
+            } catch (error) {
+                console.error('Error saving preferences:', error);
+                errorMessage.textContent = 'Connection error. Please try again.';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Continue to Heritage Explorer';
+            }
+        });
+    </script>
+</body>
+</html>

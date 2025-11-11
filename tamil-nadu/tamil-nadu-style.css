@@ -1,0 +1,1744 @@
+/* Tamil Nadu State Heritage Styles - Consistent Theme */
+
+/* Heritage Site Standard Colors */
+:root {
+  --heritage-primary: #8b4513;
+  --heritage-secondary: #daa520;
+  --heritage-accent: #cd853f;
+  --heritage-background: #f5f1e6;
+  --heritage-text-dark: #3e2d1a;
+  --heritage-text-light: #f8f4eb;
+  --heritage-gold: #e2b76d;
+  --heritage-brown: #7a5c2e;
+  --tamil-nadu-primary: #8b4513;
+  --tamil-nadu-secondary: #daa520;
+  --tamil-nadu-accent: #cd853f;
+}
+
+/* Performance Optimizations */
+* {
+  will-change: auto !important;
+}
+
+img, svg, video {
+  content-visibility: auto;
+}
+
+/* Hardware Acceleration for Interactive Elements */
+.heritage-marker,
+.nav-link,
+.heritage-card,
+.modal,
+.chatbot-toggle {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.heritage-site-body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--heritage-background);
+  font-family: 'Georgia', serif;
+  color: var(--heritage-text-dark);
+  min-height: 100vh;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+}
+
+/* Decorative corners */
+.decorative-corner {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  z-index: 1000;
+  background-image: url('../assets/decorative_corner.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.top-left { top: 0; left: 0; transform: rotate(0deg); }
+.top-right { top: 0; right: 0; transform: rotate(90deg); }
+.bottom-right { bottom: 0; right: 0; transform: rotate(180deg); }
+.bottom-left { bottom: 0; left: 0; transform: rotate(270deg); }
+
+/* Ornate frame */
+.ornate-frame {
+  border: 12px solid transparent;
+  border-image: url('../assets/ornate-border-frame.svg') 12 repeat;
+  margin: 20px;
+  min-height: calc(100vh - 40px);
+  position: relative;
+  background-color: rgba(245, 241, 230, 0.9);
+}
+
+/* Navigation */
+.heritage-nav {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  background-color: rgba(139, 69, 19, 0.1);
+  border-bottom: 2px solid var(--tamil-nadu-secondary);
+  margin-bottom: 30px;
+}
+
+.nav-link {
+  color: var(--tamil-nadu-primary);
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: 1px solid var(--tamil-nadu-primary);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  background-color: var(--tamil-nadu-secondary);
+  color: var(--heritage-background);
+}
+
+/* Hero Section */
+.site-hero-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin-bottom: 40px;
+  background: linear-gradient(135deg, rgba(218, 165, 32, 0.2), rgba(139, 69, 19, 0.1));
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(92, 68, 35, 0.1);
+}
+
+.site-hero-content {
+  flex: 1;
+  padding-right: 30px;
+}
+
+.site-hero-content .site-title {
+  color: var(--tamil-nadu-primary);
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.site-hero-content .site-subtitle {
+  color: var(--tamil-nadu-accent);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.site-hero-content .site-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+/* Section Headers */
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  color: var(--tamil-nadu-primary);
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.title-ornament {
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--tamil-nadu-secondary), var(--tamil-nadu-accent), var(--tamil-nadu-secondary), transparent);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* Heritage Buttons */
+.heritage-btn {
+  background: var(--tamil-nadu-secondary);
+  color: var(--heritage-text-light);
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.heritage-btn:hover {
+  background: var(--tamil-nadu-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+}
+
+.heritage-btn.secondary-btn {
+  background: var(--tamil-nadu-accent);
+}
+
+.heritage-btn.accent-btn {
+  background: var(--heritage-accent);
+}
+
+/* Tamil Nadu State Heritage Styling - Complete */
+
+/* Keyframe animations for glowing effects */
+@keyframes frameGlow {
+    0% {
+        box-shadow: 
+            0 8px 32px rgba(0,0,0,0.7), 
+            inset 0 0 0 1px rgba(226,183,109,0.1),
+            0 0 30px rgba(205, 133, 63, 0.4),
+            0 0 60px rgba(205, 133, 63, 0.2),
+            inset 0 0 20px rgba(205, 133, 63, 0.1);
+    }
+    50% {
+        box-shadow: 
+            0 12px 48px rgba(0,0,0,0.8), 
+            inset 0 0 0 1px rgba(226,183,109,0.2),
+            0 0 40px rgba(205, 133, 63, 0.6),
+            0 0 80px rgba(205, 133, 63, 0.3),
+            inset 0 0 30px rgba(205, 133, 63, 0.15);
+    }
+    100% {
+        box-shadow: 
+            0 8px 32px rgba(0,0,0,0.7), 
+            inset 0 0 0 1px rgba(226,183,109,0.1),
+            0 0 30px rgba(205, 133, 63, 0.4),
+            0 0 60px rgba(205, 133, 63, 0.2),
+            inset 0 0 20px rgba(205, 133, 63, 0.1);
+    }
+}
+
+@keyframes containerGlow {
+    0% {
+        box-shadow: 
+            0 0 20px rgba(205, 133, 63, 0.3),
+            0 0 40px rgba(205, 133, 63, 0.15);
+    }
+    100% {
+        box-shadow: 
+            0 0 30px rgba(205, 133, 63, 0.5),
+            0 0 60px rgba(205, 133, 63, 0.25);
+    }
+}
+
+@keyframes containerGlowHover {
+    0% {
+        box-shadow: 
+            0 0 40px rgba(205, 133, 63, 0.6),
+            0 0 80px rgba(205, 133, 63, 0.3),
+            0 0 120px rgba(205, 133, 63, 0.1);
+    }
+    100% {
+        box-shadow: 
+            0 0 60px rgba(205, 133, 63, 0.8),
+            0 0 120px rgba(205, 133, 63, 0.4),
+            0 0 180px rgba(205, 133, 63, 0.15);
+    }
+}
+
+.tamil-nadu-body {
+    background: linear-gradient(135deg, #2a1a0e 0%, #1a0f08 50%, #2a1a0e 100%);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: #e2b76d;
+    overflow-x: hidden;
+}
+
+/* Ornate Border Frame */
+.ornate-frame {
+    border: 4px solid #8B4513;
+    border-radius: 12px;
+    margin: 20px;
+    min-height: calc(100vh - 40px);
+    background: rgba(42, 26, 14, 0.95);
+    box-shadow: 
+        inset 0 0 20px rgba(139, 69, 19, 0.3),
+        0 0 30px rgba(0, 0, 0, 0.8);
+    position: relative;
+    padding: 20px;
+}
+
+/* Navigation Header */
+.heritage-nav {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    padding: 20px 0;
+    border-bottom: 2px solid #8B4513;
+    margin-bottom: 30px;
+}
+
+.nav-link {
+    color: #e2b76d;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #FFD700;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #FFD700;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Main Header Section */
+.main-header {
+    text-align: center;
+    margin: 30px 0 50px 0;
+    padding: 0 20px;
+}
+
+.heritage-title {
+    font-size: 3.2rem;
+    color: #e2b76d;
+    margin: 0;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+    letter-spacing: 4px;
+    font-weight: bold;
+}
+
+.heritage-subtitle {
+    font-size: 1.8rem;
+    color: #d4a574;
+    margin: 15px 0 0 0;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    letter-spacing: 3px;
+    font-weight: normal;
+}
+
+.explore-btn {
+    background: linear-gradient(135deg, #8B4513, #A0522D);
+    border: 2px solid #e2b76d;
+    color: #e2b76d;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Georgia', serif;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.explore-btn:hover {
+    background: linear-gradient(135deg, #A0522D, #CD853F);
+    color: #FFD700;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+}
+
+/* Map and Temple Section */
+.map-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 40px 0;
+    gap: 60px;
+    padding: 0 20px;
+}
+
+.map-container {
+    flex: 0 0 auto;
+    width: 450px;
+    max-width: 450px;
+}
+
+/* Explore below the map */
+.map-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+/* Right-side vertical action buttons */
+.action-buttons {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 280px;
+    padding-top: 40px;
+}
+
+.action-btn {
+    display: block;
+    text-align: center;
+    padding: 20px 32px;
+    color: #e2b76d;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border: 2px solid #7a5c2e;
+    border-radius: 8px;
+    background: rgba(42, 26, 14, 0.7);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(226,183,109,0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.action-btn:hover {
+    color: #FFD700;
+    border-color: #e2b76d;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.6), 0 0 12px rgba(226,183,109,0.15);
+}
+
+/* Responsive: stack map and actions vertically on small screens */
+@media (max-width: 1000px) {
+    .map-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+    .map-container {
+        width: 100%;
+        max-width: 500px;
+    }
+    .action-buttons {
+        width: 100%;
+        max-width: 400px;
+        padding-top: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+    .action-btn {
+        flex: 1;
+        min-width: 120px;
+        padding: 16px 20px;
+        font-size: 1rem;
+    }
+}
+
+.map-frame {
+    border: 3px solid #7a5c2e;
+    border-radius: 15px;
+    padding: 25px;
+    background: rgba(42, 26, 14, 0.98);
+    box-shadow: 
+        0 8px 32px rgba(0,0,0,0.7), 
+        inset 0 0 0 1px rgba(226,183,109,0.1),
+        0 0 30px rgba(205, 133, 63, 0.4),
+        0 0 60px rgba(205, 133, 63, 0.2),
+        inset 0 0 20px rgba(205, 133, 63, 0.1);
+    position: relative;
+}
+
+.interactive-map-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 
+        0 0 20px rgba(205, 133, 63, 0.3),
+        0 0 40px rgba(205, 133, 63, 0.15);
+}
+
+.tamil-nadu-map {
+    width: 100%;
+    height: auto;
+    filter: sepia(1) hue-rotate(25deg) saturate(1.3) brightness(1.1) contrast(1.1);
+    transition: all 0.3s ease;
+}
+
+.tamil-nadu-map:hover {
+    filter: sepia(1) hue-rotate(20deg) saturate(1.4) brightness(1.2) contrast(1.2);
+    transform: scale(1.02);
+}
+
+/* Uniform color overlay for Tamil Nadu map using CSS mask */
+:root,
+.tamil-nadu-body {
+    --tn-map-color: #cd853f; /* Golden brown color to match the theme */
+}
+
+/* Keep the <img> for intrinsic sizing but hide its pixels */
+.interactive-map-container .tamil-nadu-map {
+    opacity: 0; /* hide original colors */
+    filter: none; /* disable previous filter since we use a solid color now */
+}
+
+/* Colored mask overlay that follows the container size */
+.tamil-nadu-map-colored {
+    position: absolute;
+    inset: 0;
+    z-index: 1; /* below markers which are z-index:10+ */
+    background: radial-gradient(circle at center, #d4a574, var(--tn-map-color), #a0522d);
+    -webkit-mask: url('../Map_of_Tamil_Nadu_districts.svg') center / contain no-repeat;
+            mask: url('../Map_of_Tamil_Nadu_districts.svg') center / contain no-repeat;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: brightness(1.05) saturate(1.1);
+}
+
+.interactive-map-container:hover {
+    box-shadow: 
+        0 0 40px rgba(205, 133, 63, 0.6),
+        0 0 80px rgba(205, 133, 63, 0.3),
+        0 0 120px rgba(205, 133, 63, 0.1);
+}
+
+.interactive-map-container:hover .tamil-nadu-map-colored {
+    transform: scale(1.01) translateZ(0);
+    filter: brightness(1.05) contrast(1.02);
+}
+
+/* Heritage Site Markers */
+.heritage-markers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* Create a stacking context for all markers/tooltips */
+    z-index: 10;
+}
+
+.heritage-marker {
+    position: absolute;
+    pointer-events: auto;
+    cursor: pointer;
+    z-index: 20; /* base layer for pins, above map */
+    /* Align the pin TIP to the specified coords for accuracy */
+    transform: translate(-50%, -100%);
+}
+
+/* Raise the active marker so its tooltip sits above others */
+.heritage-marker:hover,
+.heritage-marker:focus-within {
+    z-index: 100; /* higher than neighboring pins */
+}
+
+/* Clean, emoji-free pin marker */
+.marker-icon {
+    --pin-bg: linear-gradient(135deg, #cda45e, #a47a2a);
+    --pin-border: #2b1a0d;
+    --pin-inner: #f5e4b1;
+
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 50% 50% 50% 50%;
+    background: var(--pin-bg);
+    border: 1.5px solid var(--pin-border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
+}
+
+/* Pin tip */
+.marker-icon::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -7px;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid var(--pin-border);
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.35));
+}
+
+/* Inner dot */
+.marker-icon::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, var(--pin-inner), transparent 60%);
+}
+
+.historical-site .marker-icon {
+    --pin-bg: linear-gradient(135deg, #bfe7da, #5aa892);
+    --pin-border: #2e5b4e;
+    --pin-inner: #e9f7f2;
+}
+
+.historical-site .marker-tooltip {
+    border-color: #5aa892;
+}
+.historical-site .marker-tooltip::after {
+    border-top-color: #5aa892;
+}
+
+.unesco-site .marker-icon {
+    --pin-bg: linear-gradient(135deg, #ffdf72, #d1a42e);
+    --pin-border: #6d531c;
+    --pin-inner: #fff4cc;
+}
+
+.major-temple .marker-icon {
+    --pin-bg: linear-gradient(135deg, #e2b76d, #c79547);
+    --pin-border: #573413;
+    --pin-inner: #fae7bd;
+}
+
+.heritage-marker:hover .marker-icon {
+    transform: translateY(-1px) scale(1.05) translateZ(0);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+/* Previously pulsing markers toned down for a cleaner, professional look */
+
+/* Heritage Site Tooltips */
+.marker-tooltip {
+    position: absolute;
+    bottom: 45px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0);
+    background: rgba(42, 26, 14, 0.98);
+    border: 2px solid #7a5c2e;
+    border-radius: 8px;
+    padding: 14px 18px;
+    min-width: 220px;
+    max-width: 300px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease, bottom 0.2s ease;
+    z-index: 2000;
+    text-align: center;
+    pointer-events: none;
+    will-change: opacity, visibility;
+}
+
+.marker-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: #7a5c2e;
+}
+
+.heritage-marker:hover .marker-tooltip,
+.heritage-marker:focus .marker-tooltip {
+    opacity: 1;
+    visibility: visible;
+    bottom: 48px;
+    pointer-events: auto;
+}
+
+.marker-tooltip h4 {
+    color: #e2b76d;
+    font-size: 1.1rem;
+    margin: 0 0 8px 0;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.marker-tooltip p {
+    color: #d4a574;
+    font-size: 0.9rem;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.marker-tooltip .location {
+    color: #bfa76a;
+    font-size: 0.85rem;
+    font-style: italic;
+    display: block;
+    margin-top: 4px;
+}
+
+.tooltip-action {
+    color: #cd853f;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: 8px;
+    padding: 4px 8px;
+    background: rgba(205, 133, 63, 0.1);
+    border-radius: 4px;
+    border: 1px solid rgba(205, 133, 63, 0.3);
+    text-align: center;
+    opacity: 0.9;
+}
+
+@keyframes pulseAction {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* UNESCO Site Special Styling */
+.unesco-site .marker-tooltip {
+    border-color: #FFD700;
+}
+
+.unesco-site .marker-tooltip::after {
+    border-top-color: #FFD700;
+}
+
+.unesco-site .marker-tooltip h4 {
+    color: #FFD700;
+}
+
+/* Top 3 highlight variant */
+.top-spot .marker-icon {
+    /* Warmer, premium gold to stand out within the same theme */
+    --pin-bg: linear-gradient(135deg, #ffdA5e, #e0b247);
+    --pin-border: #7a5c2e;
+    --pin-inner: #fff3c9;
+    transform: translateY(-1px) scale(1.05);
+    box-shadow: 0 6px 18px rgba(226, 183, 109, 0.45), 0 0 0 2px rgba(122, 92, 46, 0.35);
+}
+
+/* Subtle outer ring accent */
+.top-spot .marker-icon::before {
+    box-shadow: inset 0 0 0 1px rgba(122, 92, 46, 0.4);
+}
+
+.top-spot .marker-tooltip {
+    border-color: #e2b76d;
+}
+.top-spot .marker-tooltip::after {
+    border-top-color: #e2b76d;
+}
+
+/* Heritage Site Positioning Classes */
+.pos-thanjavur {
+    left: 45%;
+    top: 55%;
+}
+
+.pos-mahabalipuram {
+    left: 75%;
+    top: 45%;
+}
+
+.pos-kumbakonam {
+    left: 50%;
+    top: 50%;
+}
+
+.pos-madurai {
+    left: 35%;
+    top: 75%;
+}
+
+.pos-rameswaram {
+    left: 65%;
+    top: 78%;
+}
+
+.pos-srirangam {
+    left: 48%;
+    top: 58%;
+}
+
+.pos-chennai {
+    left: 70%;
+    top: 35%;
+}
+
+.pos-chidambaram {
+    left: 60%;
+    top: 48%;
+}
+
+.pos-tiruvannamalai {
+    left: 65%;
+    top: 40%;
+}
+
+.pos-palani {
+    left: 30%;
+    top: 65%;
+}
+
+/* New positions */
+.pos-keeladi {
+    left: 37%;
+    top: 78%;
+}
+
+.pos-kanyakumari {
+    left: 42%;
+    top: 90%;
+}
+
+.pos-gangaikondacholapuram {
+    left: 52%;
+    top: 46%;
+}
+
+.pos-srivilliputhur {
+    left: 32%;
+    top: 80%;
+}
+
+/* Newly Added Heritage Sites Positioning */
+.pos-kanchipuram {
+    left: 68%;
+    top: 42%;
+}
+
+.pos-fort-st-george {
+    left: 72%;
+    top: 38%;
+}
+
+.pos-vellore-fort {
+    left: 58%;
+    top: 45%;
+}
+
+.pos-gingee-fort {
+    left: 62%;
+    top: 52%;
+}
+
+.pos-chettinad {
+    left: 40%;
+    top: 68%;
+}
+
+/* Additional Heritage Sites */
+.pos-ooty {
+    left: 24%;
+    top: 55%;
+}
+
+.pos-rockfort-tiruchirappalli {
+    left: 47%;
+    top: 60%;
+}
+
+.pos-thiruchendur {
+    left: 44%;
+    top: 87%;
+}
+
+.temple-illustration {
+    flex: 2;
+    max-width: 420px; /* balanced next to map (map max-width:400px) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Gold frame to match theme */
+    border: 3px solid #e2b76d;
+    border-radius: 16px;
+    padding: 16px;
+    background: rgba(42, 26, 14, 0.98);
+    box-shadow: 0 0 36px #000a;
+}
+
+.temple-svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.7));
+}
+
+/* External temple artwork image styles */
+.temple-art {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Theme-matching color adjustment with subtle warmth */
+    filter: 
+        sepia(0.3) 
+        hue-rotate(15deg) 
+        saturate(1.15) 
+        brightness(1.02) 
+        contrast(1.05)
+        drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.7));
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.temple-illustration:hover .temple-art {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .temple-illustration {
+        max-width: 360px;
+        margin: 0 auto;
+    }
+}
+
+/* Enhanced responsive layout for smaller devices */
+@media (max-width: 992px) {
+    .map-section {
+        gap: 24px;
+    }
+    .map-frame {
+        padding: 16px;
+    }
+    .heritage-title { font-size: 3rem; }
+    .heritage-subtitle { font-size: 1.6rem; }
+}
+
+@media (max-width: 768px) {
+    .map-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .map-container, .temple-illustration {
+        max-width: 100%;
+        width: 100%;
+    }
+    .map-frame {
+        padding: 12px;
+        border-radius: 14px;
+    }
+    .explore-btn { padding: 10px 28px; font-size: 1rem; }
+    .heritage-title { font-size: 2.4rem; }
+    .heritage-subtitle { font-size: 1.4rem; }
+    .nav-link { font-size: 1rem; }
+    .marker-icon { width: 22px; height: 22px; font-size: 14px; }
+    .marker-tooltip { min-width: 180px; padding: 10px 12px; }
+}
+
+@media (max-width: 480px) {
+    .ornate-frame { margin: 10px; padding: 12px; }
+    .heritage-nav { gap: 24px; padding: 12px 0; }
+    .main-header { margin: 24px 0; }
+    .heritage-title { font-size: 2rem; letter-spacing: 2px; }
+    .heritage-subtitle { font-size: 1.2rem; }
+    .explore-btn { padding: 8px 22px; font-size: 0.95rem; }
+    .map-section { gap: 16px; margin: 28px 0; }
+    .map-frame { padding: 10px; }
+    .marker-icon { width: 20px; height: 20px; font-size: 13px; }
+    .marker-tooltip { min-width: 160px; font-size: 0.85rem; }
+    .selection-section { margin-top: 32px; }
+    .section-title { font-size: 1.8rem; }
+    .option-cards { gap: 16px; }
+    .heritage-card { width: 160px; padding: 20px 14px; }
+}
+
+/* Selection Section */
+.selection-section {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #e2b76d;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.section-title::before,
+.section-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #8B4513, transparent);
+}
+
+.section-title::before {
+    left: -120px;
+}
+
+.section-title::after {
+    right: -120px;
+}
+
+/* Option Cards */
+.option-cards {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.heritage-card {
+    background: linear-gradient(135deg, #CD853F, #DEB887);
+    border: 3px solid #8B4513;
+    border-radius: 15px;
+    padding: 30px 20px;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.heritage-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+.heritage-card:hover::before {
+    opacity: 1;
+    display: none;
+}
+
+.heritage-card:hover {
+    transform: translateY(-4px) translateZ(0);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    border-color: #FFD700;
+}
+
+.card-icon {
+    margin-bottom: 20px;
+}
+
+.icon-svg {
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.card-title {
+    font-size: 1.3rem;
+    color: #2F1B14;
+    margin: 15px 0 10px 0;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.card-description {
+    font-size: 0.95rem;
+    color: #5D4E37;
+    margin: 0;
+    line-height: 1.4;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+/* Flower Corner Borders (inherited from main CSS but with adjustments) */
+.flower-corner {
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    z-index: 10;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.flower-corner-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: sepia(1) hue-rotate(25deg) saturate(1.2) brightness(0.9);
+    opacity: 0.6;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .map-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .heritage-title {
+        font-size: 2.8rem;
+    }
+    
+    .heritage-subtitle {
+        font-size: 1.6rem;
+    }
+    
+    .option-cards {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ornate-frame {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .heritage-nav {
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+    
+    .nav-link {
+        font-size: 1rem;
+    }
+    
+    .heritage-title {
+        font-size: 2.2rem;
+    }
+    
+    .heritage-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .section-title::before,
+    .section-title::after {
+        width: 60px;
+    }
+    
+    .section-title::before {
+        left: -80px;
+    }
+    
+    .section-title::after {
+        right: -80px;
+    }
+    
+    .option-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
+    
+    .heritage-card {
+        width: 250px;
+    }
+    
+    .flower-corner {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heritage-title {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+    }
+    
+    .heritage-subtitle {
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .section-title::before,
+    .section-title::after {
+        display: none;
+    }
+    
+    .heritage-card {
+        width: 220px;
+        padding: 25px 15px;
+    }
+    
+    .card-title {
+        font-size: 1.1rem;
+    }
+    
+    .card-description {
+        font-size: 0.9rem;
+    }
+    
+    .flower-corner {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Personalized Recommendations Panel */
+.recommendations-panel {
+    position: relative;
+    width: calc(100% - 80px);
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(44, 24, 16, 0.95) 0%, rgba(28, 16, 10, 0.95) 100%);
+    border: 3px solid var(--heritage-secondary);
+    border-radius: 20px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.6), 
+        0 0 60px rgba(218, 165, 32, 0.3),
+        inset 0 1px 0 rgba(218, 165, 32, 0.3);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.recommendations-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.recommendations-panel::-webkit-scrollbar-track {
+    background: rgba(139, 105, 20, 0.2);
+    border-radius: 10px;
+}
+
+.recommendations-panel::-webkit-scrollbar-thumb {
+    background: var(--heritage-secondary);
+    border-radius: 10px;
+}
+
+.recommendations-panel::-webkit-scrollbar-thumb:hover {
+    background: var(--heritage-accent);
+}
+
+.recommendations-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--heritage-secondary);
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid rgba(218, 165, 32, 0.5);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    text-shadow: 0 3px 15px rgba(218, 165, 32, 0.6);
+}
+
+.recommendations-icon {
+    font-size: 2.2rem;
+    color: var(--heritage-secondary);
+    filter: drop-shadow(0 0 8px rgba(218, 165, 32, 0.7));
+}
+
+@keyframes sparkle {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg); 
+        opacity: 1; 
+    }
+    50% { 
+        transform: scale(1.3) rotate(180deg); 
+        opacity: 0.9; 
+    }
+}
+
+.preferences-display {
+    text-align: center;
+    margin-bottom: 35px;
+    padding: 20px 25px;
+    background: rgba(218, 165, 32, 0.15);
+    border-radius: 15px;
+    border: 2px solid rgba(218, 165, 32, 0.4);
+}
+
+.preferences-label {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--heritage-secondary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0.95;
+    font-weight: 600;
+}
+
+.preferences-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.preference-tag {
+    display: inline-block;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, rgba(218, 165, 32, 0.4), rgba(139, 105, 20, 0.4));
+    border: 2px solid var(--heritage-secondary);
+    border-radius: 25px;
+    color: var(--heritage-secondary);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: capitalize;
+    box-shadow: 0 3px 12px rgba(218, 165, 32, 0.3);
+    transition: all 0.3s ease;
+}
+
+.preference-tag:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 20px rgba(218, 165, 32, 0.5);
+}
+
+.recommendations-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.recommendation-item {
+    display: flex;
+    gap: 15px;
+    padding: 18px;
+    background: linear-gradient(135deg, rgba(62, 45, 26, 0.7) 0%, rgba(44, 32, 18, 0.7) 100%);
+    border: 2px solid rgba(218, 165, 32, 0.5);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.recommendation-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(218, 165, 32, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.recommendation-item:hover::before {
+    left: 100%;
+}
+
+.recommendation-item::after {
+    content: '→';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%) translateX(10px);
+    font-size: 1.5rem;
+    color: var(--heritage-secondary);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.recommendation-item:hover {
+    transform: translateX(8px) scale(1.02);
+    box-shadow: 
+        -5px 10px 30px rgba(218, 165, 32, 0.4),
+        0 0 40px rgba(218, 165, 32, 0.2);
+    border-color: var(--heritage-secondary);
+    background: linear-gradient(135deg, rgba(62, 45, 26, 0.85) 0%, rgba(44, 32, 18, 0.85) 100%);
+}
+
+.recommendation-item:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+.recommendation-item:active {
+    transform: translateX(4px) scale(0.98);
+}
+
+.rec-number {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--heritage-secondary), var(--heritage-accent));
+    color: #1a0f0a;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 12px;
+    box-shadow: 
+        0 4px 15px rgba(218, 165, 32, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(218, 165, 32, 0.8);
+    transition: all 0.3s ease;
+}
+
+.recommendation-item:hover .rec-number {
+    transform: rotate(360deg) scale(1.1);
+    box-shadow: 
+        0 6px 20px rgba(218, 165, 32, 0.7),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.rec-content {
+    flex: 1;
+    padding-right: 30px;
+}
+
+.rec-site-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--heritage-secondary);
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+    text-shadow: 0 2px 8px rgba(218, 165, 32, 0.3);
+}
+
+.rec-location {
+    font-size: 0.88rem;
+    color: rgba(218, 165, 32, 0.8);
+    margin: 0 0 10px 0;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.rec-description {
+    font-size: 0.92rem;
+    color: rgba(248, 244, 235, 0.9);
+    margin: 0 0 12px 0;
+    line-height: 1.6;
+    font-style: italic;
+    font-family: 'Georgia', serif;
+}
+
+.rec-match {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.match-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(218, 165, 32, 0.9), rgba(205, 133, 63, 0.9));
+    color: #1a0f0a;
+    font-size: 0.85rem;
+    font-weight: 800;
+    border-radius: 20px;
+    letter-spacing: 0.08em;
+    box-shadow: 0 3px 10px rgba(218, 165, 32, 0.4);
+    border: 1px solid rgba(218, 165, 32, 0.6);
+}
+
+.match-badge::before {
+    content: '⚡';
+    font-size: 1rem;
+}
+
+.rec-period {
+    font-size: 0.82rem;
+    color: rgba(218, 165, 32, 0.7);
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: 0.03em;
+}
+
+.loading-message, .no-recommendations {
+    text-align: center;
+    padding: 40px 25px;
+    font-size: 1.05rem;
+    color: rgba(218, 165, 32, 0.8);
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.no-recommendations a {
+    color: var(--heritage-secondary);
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 2px solid var(--heritage-secondary);
+    transition: all 0.3s ease;
+}
+
+.no-recommendations a:hover {
+    color: var(--heritage-accent);
+    border-bottom-color: var(--heritage-accent);
+}
+
+/* Recommended Sites - Subtle Highlighted Markers */
+.heritage-marker.recommended-site .marker-icon {
+    background: linear-gradient(135deg, #ff6b35 0%, #ffd700 100%) !important;
+    border: 2px solid #ff6b35 !important;
+    box-shadow: 
+        0 0 10px rgba(255, 107, 53, 0.5), 
+        0 0 20px rgba(255, 215, 0, 0.3) !important;
+    transform: scale(1.15) translateZ(0);
+    z-index: 50 !important;
+}
+
+.heritage-marker.recommended-site .marker-icon::before {
+    content: '★';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.7rem;
+    color: #fff;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.heritage-marker.recommended-site .marker-icon::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.3), transparent 70%);
+    border-radius: 50%;
+}
+
+@keyframes recommended-glow-pulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 10px rgba(255, 107, 53, 0.5), 
+            0 0 20px rgba(255, 215, 0, 0.3);
+        transform: scale(1.15);
+    }
+    50% {
+        box-shadow: 
+            0 0 15px rgba(255, 107, 53, 0.6), 
+            0 0 25px rgba(255, 215, 0, 0.4);
+        transform: scale(1.2);
+    }
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* Recommended Site Tooltip Styling */
+.heritage-marker.recommended-site .marker-tooltip {
+    background: linear-gradient(135deg, rgba(255, 23, 68, 0.95) 0%, rgba(255, 107, 53, 0.95) 100%);
+    border: 2px solid #ffd700;
+    box-shadow: 
+        0 8px 32px rgba(255, 23, 68, 0.6),
+        0 0 50px rgba(255, 215, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.heritage-marker.recommended-site .marker-tooltip::before {
+    content: '⭐ RECOMMENDED FOR YOU';
+    display: block;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #ffd700;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.5);
+}
+
+.heritage-marker.recommended-site .marker-tooltip h4 {
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.heritage-marker.recommended-site .marker-tooltip p {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.heritage-marker.recommended-site .marker-tooltip .location {
+    color: #ffd700;
+    font-weight: 700;
+}
+
+.heritage-marker.recommended-site .marker-tooltip .tooltip-action {
+    background: rgba(255, 215, 0, 0.3);
+    color: #ffd700;
+    border-color: #ffd700;
+}
+
+/* Pulse highlight animation when clicking from recommendations */
+.heritage-marker.pulse-highlight {
+    animation: pulse-expand 2s ease-out;
+}
+
+@keyframes pulse-expand {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Responsive adjustments for recommendations panel */
+@media (max-width: 1400px) {
+    .recommendations-panel {
+        width: calc(100% - 60px);
+        padding: 35px 30px;
+    }
+    
+    .recommendations-list {
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 18px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .recommendations-panel {
+        width: calc(100% - 40px);
+        padding: 30px 25px;
+        margin: 30px 20px;
+    }
+    
+    .recommendations-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .recommendations-title {
+        font-size: 1.7rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .recommendations-panel {
+        width: calc(100% - 30px);
+        padding: 25px 20px;
+        margin: 20px 15px;
+    }
+    
+    .recommendations-list {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .recommendations-title {
+        font-size: 1.5rem;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .preferences-display {
+        padding: 15px 20px;
+        margin-bottom: 25px;
+    }
+    
+    .preferences-label {
+        font-size: 0.9rem;
+    }
+    
+    .preferences-tags {
+        gap: 8px;
+    }
+    
+    .preference-tag {
+        font-size: 0.85rem;
+        padding: 6px 14px;
+    }
+    
+    .recommendation-item {
+        padding: 15px;
+        gap: 12px;
+    }
+    
+    .rec-number {
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
+    }
+    
+    .rec-site-name {
+        font-size: 1.05rem;
+    }
+    
+    .rec-description {
+        font-size: 0.88rem;
+    }
+    
+    .recommendation-item::after {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .recommendations-panel {
+        width: calc(100% - 20px);
+        padding: 20px 15px;
+        margin: 15px 10px;
+    }
+    
+    .recommendations-title {
+        font-size: 1.3rem;
+    }
+    
+    .recommendations-icon {
+        font-size: 1.8rem;
+    }
+    
+    .preferences-display {
+        padding: 12px 15px;
+    }
+    
+    .preference-tag {
+        font-size: 0.8rem;
+        padding: 5px 12px;
+    }
+    
+    .recommendation-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 15px 12px;
+    }
+    
+    .rec-content {
+        padding-right: 0;
+    }
+    
+    .rec-match {
+        justify-content: center;
+    }
+    
+    .recommendations-list {
+        gap: 12px;
+    }
+}

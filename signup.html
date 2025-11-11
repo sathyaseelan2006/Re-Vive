@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re:Vive - Sign Up</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="root">
+        <div class="app-container">
+            <div class="heritage-header-section">
+                <h1 class="heritage-main-title">Re:Vive</h1>
+                <p class="heritage-subtitle">An Intelligent Cultural Platform</p>
+            </div>
+            
+            <div class="heritage-form-container">
+                <form class="heritage-form" id="signupForm">
+                    <input
+                        type="text"
+                        placeholder="Full Name"
+                        id="fullName"
+                        class="heritage-input"
+                        required
+                    />
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        id="email"
+                        class="heritage-input"
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        id="password"
+                        class="heritage-input"
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="Confirm Password"
+                        id="confirmPassword"
+                        class="heritage-input"
+                        required
+                    />
+                    <div id="errorMessage" class="heritage-error"></div>
+                    <button type="submit" class="heritage-btn">Sign Up</button>
+                </form>
+                <div class="heritage-switch">
+                    <span>Already have an account?</span>
+                    <a href="login.html" class="heritage-link">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            
+            // Clear previous errors
+            errorMessage.textContent = '';
+            
+            // Validation
+            if (!fullName || !email || !password || !confirmPassword) {
+                errorMessage.textContent = 'Please fill all fields.';
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                errorMessage.textContent = 'Passwords do not match.';
+                return;
+            }
+            
+            if (password.length < 6) {
+                errorMessage.textContent = 'Password must be at least 6 characters.';
+                return;
+            }
+
+            // Disable button during request
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Creating Account...';
+            
+            try {
+                // Send signup request to backend
+                const response = await fetch(`${API_URL}/auth/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ fullName, email, password, confirmPassword })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Store token and user info
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    
+                    // First time signup - always redirect to preferences
+                    alert(`Welcome to Re:Vive, ${data.user.fullName}! Let's personalize your journey.`);
+                    window.location.href = 'preferences.html';
+                } else {
+                    // Show error message
+                    errorMessage.textContent = data.message || 'Sign up failed. Please try again.';
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                errorMessage.textContent = 'Connection error. Please make sure the server is running.';
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Sign Up';
+            }
+        });
+    </script>
+</body>
+</html>

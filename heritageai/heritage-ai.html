@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏛️ Heritage AI - The Sage</title>
+    <link rel="stylesheet" href="heritage-ai.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Decorative Corners -->
+    <div class="decorative-corner top-left">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,10 Q50,5 90,10 Q95,50 90,90 Q50,95 10,90 Q5,50 10,10 Z" fill="none" stroke="#daa520" stroke-width="2"/>
+            <circle cx="50" cy="50" r="3" fill="#cd853f"/>
+        </svg>
+    </div>
+    <div class="decorative-corner top-right">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,10 Q50,5 90,10 Q95,50 90,90 Q50,95 10,90 Q5,50 10,10 Z" fill="none" stroke="#daa520" stroke-width="2"/>
+            <circle cx="50" cy="50" r="3" fill="#cd853f"/>
+        </svg>
+    </div>
+    <div class="decorative-corner bottom-left">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,10 Q50,5 90,10 Q95,50 90,90 Q50,95 10,90 Q5,50 10,10 Z" fill="none" stroke="#daa520" stroke-width="2"/>
+            <circle cx="50" cy="50" r="3" fill="#cd853f"/>
+        </svg>
+    </div>
+    <div class="decorative-corner bottom-right">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,10 Q50,5 90,10 Q95,50 90,90 Q50,95 10,90 Q5,50 10,10 Z" fill="none" stroke="#daa520" stroke-width="2"/>
+            <circle cx="50" cy="50" r="3" fill="#cd853f"/>
+        </svg>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="heritage-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../index.html">
+                    <i class="fas fa-home"></i>
+                    <span>Heritage Explorer</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="../tamil-nadu/index.html">Tamil Nadu</a>
+                <a href="#" class="active">Heritage AI</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-ornament">
+                    <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20,25 Q100,5 180,25 Q100,45 20,25" fill="none" stroke="#daa520" stroke-width="2"/>
+                        <circle cx="100" cy="25" r="8" fill="#cd853f"/>
+                        <text x="100" y="30" text-anchor="middle" fill="#8b4513" font-size="10" font-family="Cinzel">AI</text>
+                    </svg>
+                </div>
+                <h1 class="hero-title">🏛️ Heritage AI</h1>
+                <h2 class="hero-subtitle">The Heritage Expert - Your Archaeological & Historical Guide</h2>
+                <p class="hero-description">
+                    Welcome! I am your Heritage Expert, a specialist in Indian archaeology, history, and cultural studies. 
+                    From Chola architectural engineering to Harappan urban planning, I provide scholarly insights into 
+                    India's remarkable cultural heritage through archaeological evidence and historical analysis.
+                </p>
+            </section>
+
+            <!-- API Configuration -->
+            <section class="api-config" id="apiConfig">
+                <div class="config-card">
+                    <div class="config-header">
+                        <i class="fas fa-key"></i>
+                        <h3>Activate The Heritage Expert</h3>
+                    </div>
+                    <p>To begin your journey, please provide your Gemini API key:</p>
+                    <div class="api-input-group">
+                        <input type="password" id="apiKeyInput" placeholder="Enter your Gemini API key" />
+                        <button id="activateAI" class="heritage-btn">
+                            <i class="fas fa-magic"></i>
+                            Activate
+                        </button>
+                    </div>
+                    <div class="api-help">
+                        <div class="help-item">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>Get your free API key from <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></span>
+                        </div>
+                        <div class="help-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Your API key is stored securely in your browser</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interaction Modes -->
+            <section class="interaction-modes" id="interactionModes" style="display: none;">
+                <h3 class="section-title">
+                    <span class="title-ornament">✦</span>
+                    Choose Your Journey
+                    <span class="title-ornament">✦</span>
+                </h3>
+                <div class="modes-grid">
+                    <div class="mode-card" data-mode="ask">
+                        <div class="mode-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h4>Ask the Expert</h4>
+                        <p>Inquire about archaeological sites, historical facts, or architectural analysis</p>
+                    </div>
+                    <div class="mode-card" data-mode="story">
+                        <div class="mode-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h4>Historical Analysis</h4>
+                        <p>Detailed examination of historical periods, dynasties, and cultural developments</p>
+                    </div>
+                    <div class="mode-card" data-mode="legends">
+                        <div class="mode-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h4>Archaeological Insights</h4>
+                        <p>Explore excavation findings, artifacts, and archaeological evidence</p>
+                    </div>
+                    <div class="mode-card" data-mode="daily">
+                        <div class="mode-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <h4>Daily Discovery</h4>
+                        <p>Today's historical fact or archaeological significance</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Interface -->
+            <section class="chat-section" id="chatSection" style="display: none;">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="sage-info">
+                            <div class="sage-avatar">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="sage-details">
+                                <h4>Heritage Expert</h4>
+                                <span class="sage-status" id="sageStatus">Ready to analyze</span>
+                            </div>
+                        </div>
+                        <div class="chat-controls">
+                            <button class="control-btn" id="clearChat" title="Clear Conversation">
+                                <i class="fas fa-broom"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message sage-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="message-content">
+                                <p>Welcome! I am your Heritage Expert, specializing in Indian archaeology, history, and cultural analysis. I provide scholarly insights based on archaeological evidence, historical documentation, and academic research. How may I assist your exploration of India's cultural heritage today?</p>
+                            </div>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <div class="quick-suggestions" id="quickSuggestions">
+                            <button class="suggestion-btn" data-query="Analyze the architectural engineering of Brihadeeswara Temple">Brihadeeswara Analysis</button>
+                            <button class="suggestion-btn" data-query="Explain the construction techniques used in Konark Sun Temple">Konark Engineering</button>
+                            <button class="suggestion-btn" data-query="Describe the evolution of Chola architectural style">Chola Architecture</button>
+                            <button class="suggestion-btn" data-query="Examine the archaeological significance of Ajanta cave paintings">Ajanta Archaeology</button>
+                        </div>
+                        <div class="input-container">
+                            <input type="text" id="userInput" placeholder="Ask about archaeological sites, historical analysis, or architectural details..." maxlength="500" />
+                            <button id="sendMessage" class="send-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="sage-thinking">
+                <i class="fas fa-user-graduate"></i>
+                <div class="thinking-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <p>The Sage is contemplating your query...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="heritage-knowledge.js"></script>
+    <script src="gemini-api.js"></script>
+    <script src="heritage-ai.js"></script>
+    <script>
+        // Handle URL parameters for direct queries
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('query');
+            const site = urlParams.get('site');
+            
+            if (query && window.heritageAI) {
+                // Wait for AI to initialize, then send the query
+                setTimeout(() => {
+                    if (window.heritageAI.isInitialized) {
+                        document.getElementById('userInput').value = query;
+                        window.heritageAI.sendMessage();
+                    } else {
+                        // Store query to send after initialization
+                        window.pendingQuery = query;
+                    }
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

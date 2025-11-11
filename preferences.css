@@ -1,0 +1,138 @@
+/* Preferences Page Styling */
+
+.preference-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.preference-instruction {
+    font-size: 1.1rem;
+    color: var(--heritage-light-gold);
+    margin-top: 1rem;
+    font-weight: 300;
+}
+
+.preference-form-container {
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.preference-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.preference-card {
+    background: rgba(45, 24, 16, 0.7);
+    border: 2px solid rgba(212, 168, 85, 0.3);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.preference-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(212, 168, 85, 0.6);
+    box-shadow: 0 8px 24px rgba(212, 168, 85, 0.2);
+}
+
+.preference-card.selected {
+    background: rgba(193, 122, 40, 0.3);
+    border-color: var(--heritage-gold);
+    border-width: 3px;
+    box-shadow: 0 0 20px rgba(212, 168, 85, 0.4);
+}
+
+.preference-card.selected::before {
+    content: '✓';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--heritage-gold);
+    color: var(--heritage-dark);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.preference-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.preference-title {
+    font-size: 1.3rem;
+    color: var(--heritage-gold);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.preference-desc {
+    font-size: 0.9rem;
+    color: var(--heritage-light-gold);
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+.preference-actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.selection-count {
+    font-size: 1.1rem;
+    color: var(--heritage-light-gold);
+    margin-bottom: 1.5rem;
+}
+
+.selection-count span {
+    color: var(--heritage-gold);
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.heritage-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.heritage-btn:disabled:hover {
+    transform: none;
+    box-shadow: 0 4px 16px rgba(193, 122, 40, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .preference-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1rem;
+    }
+    
+    .preference-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .preference-icon {
+        font-size: 2.5rem;
+    }
+    
+    .preference-title {
+        font-size: 1.1rem;
+    }
+    
+    .preference-desc {
+        font-size: 0.85rem;
+    }
+}

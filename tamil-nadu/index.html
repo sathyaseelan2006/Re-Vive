@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Nadu - Cultural Heritage Awareness</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="tamil-nadu-style.css">
+    <link rel="preload" as="image" href="../Map_of_Tamil_Nadu_districts.svg">
+    <link rel="preload" as="image" href="../file (3).svg">
+</head>
+<body class="tamil-nadu-body">
+    <!-- Ornate Border Frame -->
+    <div class="ornate-frame">
+        <!-- Navigation Header -->
+        <nav class="heritage-nav">
+            <a href="../index.html" class="nav-link">HOME</a>
+            <a href="#blog" class="nav-link">BLOG</a>
+        </nav>
+
+        <!-- Main Title Section -->
+        <div class="main-header">
+            <h1 class="heritage-title">Tamil Nadu Heritage</h1>
+            <h2 class="heritage-subtitle">Explore Ancient Culture</h2>
+        </div>
+
+        <!-- Tamil Nadu Map Section -->
+        <div class="map-section">
+            <div class="map-container">
+                <div class="map-frame">
+                    <div class="interactive-map-container">
+                        <img src="../Map_of_Tamil_Nadu_districts.svg" alt="Map of Tamil Nadu Districts" class="tamil-nadu-map" id="tamilNaduMapSVG">
+                        <!-- Solid color overlay masked by the SVG -->
+                        <div class="tamil-nadu-map-colored" aria-hidden="true"></div>
+                        
+                        <!-- Heritage Site Markers -->
+                        <div class="heritage-markers">
+                            <!-- UNESCO World Heritage Sites -->
+                            <div class="heritage-marker unesco-site top-spot pos-thanjavur" data-site="thanjavur" onclick="window.location.href='thanjavur/index.html'">
+                                <div class="marker-icon unesco" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Brihadeeswarar Temple</h4>
+                                    <p>UNESCO World Heritage Site - Great Living Chola Temple</p>
+                                    <span class="location">Thanjavur</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker unesco-site top-spot pos-mahabalipuram" data-site="mahabalipuram" onclick="window.location.href='mahabalipuram/index.html'">
+                                <div class="marker-icon unesco" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Shore Temple & Monuments</h4>
+                                    <p>UNESCO World Heritage Site - Group of Monuments</p>
+                                    <span class="location">Mahabalipuram</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker unesco-site pos-kumbakonam" data-site="darasuram" onclick="window.location.href='darasuram/index.html'">
+                                <div class="marker-icon unesco" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Airavatesvara Temple</h4>
+                                    <p>UNESCO World Heritage Site - Great Living Chola Temple</p>
+                                    <span class="location">Darasuram, Kumbakonam</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Major Heritage Temples -->
+                            <div class="heritage-marker major-temple pos-madurai" data-site="madurai" onclick="window.location.href='madurai/index.html'">
+                                <div class="marker-icon temple" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Meenakshi Amman Temple</h4>
+                                    <p>Famous for 14 towers and Dravidian architecture</p>
+                                    <span class="location">Madurai</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Replaced Rameswaram with Keeladi and Kanyakumari -->
+                            <div class="heritage-marker historical-site pos-keeladi" data-site="keeladi" onclick="window.location.href='keeladi/index.html'">
+                                <div class="marker-icon" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Keeladi Excavations</h4>
+                                    <p>Sangam-era archaeological site revealing ancient urban settlement</p>
+                                    <span class="location">Near Madurai (Sivagangai)</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+
+                            <div class="heritage-marker historical-site pos-kanyakumari" data-site="kanyakumari" onclick="window.location.href='kanyakumari/index.html'">
+                                <div class="marker-icon" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Kanyakumari</h4>
+                                    <p>Southern tip of India; Vivekananda Rock Memorial and confluence of three seas</p>
+                                    <span class="location">Kanyakumari</span>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker major-temple pos-srirangam" data-site="srirangam" onclick="window.location.href='srirangam/index.html'">
+                                <div class="marker-icon temple" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Sri Ranganathaswamy Temple</h4>
+                                    <p>Largest working Hindu temple complex</p>
+                                    <span class="location">Srirangam</span>
+                                </div>
+                            </div>
+
+                            <!-- Added UNESCO: Gangaikonda Cholapuram (Great Living Chola Temples) -->
+                            <div class="heritage-marker unesco-site top-spot pos-gangaikondacholapuram" data-site="gangaikondacholapuram" onclick="window.location.href='gangaikonda-cholapuram/index.html'">
+                                <div class="marker-icon unesco" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Gangaikonda Cholapuram Temple</h4>
+                                    <p>UNESCO World Heritage Site - Great Living Chola Temples</p>
+                                    <span class="location">Ariyalur District</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Added Major Temple: Andal Temple (Srivilliputhur) -->
+                            <div class="heritage-marker major-temple pos-srivilliputhur" data-site="srivilliputhur" onclick="window.location.href='srivilliputhur/index.html'">
+                                <div class="marker-icon temple" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Andal Temple</h4>
+                                    <p>Famous gopuram; emblem of Tamil Nadu</p>
+                                    <span class="location">Srivilliputhur</span>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker major-temple pos-chidambaram" data-site="chidambaram" onclick="window.location.href='chidambaram/index.html'">
+                                <div class="marker-icon temple" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Nataraja Temple</h4>
+                                    <p>Lord Shiva as cosmic dancer</p>
+                                    <span class="location">Chidambaram</span>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker major-temple pos-tiruvannamalai" data-site="tiruvannamalai" onclick="window.location.href='tiruvannamalai/index.html'">
+                                <div class="marker-icon temple" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Annamalaiyar Temple</h4>
+                                    <p>Panch Bhoota Sthalam - Fire element</p>
+                                    <span class="location">Tiruvannamalai</span>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker major-temple pos-palani" data-site="palani" onclick="window.location.href='palani/index.html'">
+                                <div class="marker-icon temple" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Palani Murugan Temple</h4>
+                                    <p>One of six abodes of Lord Murugan</p>
+                                    <span class="location">Palani</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Newly Added Heritage Sites -->
+                            <div class="heritage-marker major-temple pos-kanchipuram" data-site="kanchipuram" onclick="window.location.href='kanchipuram/index.html'">
+                                <div class="marker-icon temple" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Kanchipuram</h4>
+                                    <p>City of Thousand Temples & Kanjeevaram Silk</p>
+                                    <span class="location">Kanchipuram</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker historical-site pos-fort-st-george" data-site="fort-st-george" onclick="window.location.href='fort-st-george/index.html'">
+                                <div class="marker-icon" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Fort St. George</h4>
+                                    <p>First English Fortress in India (1644)</p>
+                                    <span class="location">Chennai</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker historical-site pos-vellore-fort" data-site="vellore-fort" onclick="window.location.href='vellore-fort/index.html'">
+                                <div class="marker-icon" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Vellore Fort</h4>
+                                    <p>16th-century Vijayanagara Fortress - Three Faiths</p>
+                                    <span class="location">Vellore</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker historical-site pos-gingee-fort" data-site="gingee-fort" onclick="window.location.href='gingee-fort/index.html'">
+                                <div class="marker-icon" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Gingee Fort</h4>
+                                    <p>Troy of the East - Impregnable Fortress</p>
+                                    <span class="location">Villupuram District</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker major-temple pos-chettinad" data-site="chettinad" onclick="window.location.href='chettinad/index.html'">
+                                <div class="marker-icon temple" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Chettinad Heritage</h4>
+                                    <p>Palatial mansions of Nattukottai Chettiars & Athangudi tiles</p>
+                                    <span class="location">Karaikudi, Sivaganga</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker major-temple pos-rameswaram" data-site="rameswaram" onclick="window.location.href='rameswaram/index.html'">
+                                <div class="marker-icon temple" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Ramanathaswamy Temple</h4>
+                                    <p>One of the 12 Jyotirlinga shrines; sacred pilgrimage site</p>
+                                    <span class="location">Rameswaram</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker major-temple pos-rockfort-tiruchirappalli" data-site="rockfort-tiruchirappalli" onclick="window.location.href='rockfort-tiruchirappalli/index.html'">
+                                <div class="marker-icon temple" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Rockfort Temple</h4>
+                                    <p>Ancient rock fortress with Ucchi Pillayar Temple</p>
+                                    <span class="location">Tiruchirappalli (Trichy)</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker major-temple pos-thiruchendur" data-site="thiruchendur" onclick="window.location.href='thiruchendur/index.html'">
+                                <div class="marker-icon temple" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Thiruchendur Murugan Temple</h4>
+                                    <p>One of Six Abodes of Murugan; seashore temple</p>
+                                    <span class="location">Thiruchendur</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                            
+                            <div class="heritage-marker historical-site pos-ooty" data-site="nilgiris-ooty" onclick="window.location.href='nilgiris-ooty/index.html'">
+                                <div class="marker-icon" aria-hidden="true"></div>
+                                <div class="marker-tooltip">
+                                    <h4>Nilgiris - Ooty</h4>
+                                    <p>Queen of Hill Stations; colonial heritage and tea gardens</p>
+                                    <span class="location">Nilgiris District</span>
+                                    <div class="tooltip-action">Click to explore →</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Personalized Recommendations Section -->
+        <div class="recommendations-panel" id="recommendationsPanel" style="display: none;">
+            <h3 class="recommendations-title">
+                <span class="recommendations-icon">⭐</span>
+                Recommended Heritage Sites For You
+            </h3>
+            
+            <!-- User Preferences Display -->
+            <div class="preferences-display" id="preferencesDisplay">
+                <div class="preferences-label">Based On Your Interests</div>
+                <div class="preferences-tags" id="preferencesTags"></div>
+            </div>
+            
+            <div class="recommendations-list" id="recommendationsList">
+                <!-- Recommendations will be loaded here -->
+                <div class="loading-message">Loading your personalized recommendations...</div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script>
+        // Load personalized recommendations
+        const API_URL = 'http://localhost:5000/api';
+        
+        window.addEventListener('DOMContentLoaded', async () => {
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const recommendationsPanel = document.getElementById('recommendationsPanel');
+            const recommendationsList = document.getElementById('recommendationsList');
+            const preferencesTags = document.getElementById('preferencesTags');
+            
+            if (user && user.id) {
+                try {
+                    const response = await fetch(`${API_URL}/user/recommendations/${user.id}`);
+                    const data = await response.json();
+                    
+                    if (data.success && data.recommendations && data.recommendations.length > 0) {
+                        // Show the panel
+                        recommendationsPanel.style.display = 'block';
+                        
+                        // Display user preferences
+                        if (data.preferences && data.preferences.length > 0) {
+                            preferencesTags.innerHTML = '';
+                            data.preferences.forEach(pref => {
+                                const tag = document.createElement('span');
+                                tag.className = 'preference-tag';
+                                tag.textContent = pref;
+                                preferencesTags.appendChild(tag);
+                            });
+                        } else {
+                            document.getElementById('preferencesDisplay').style.display = 'none';
+                        }
+                        
+                        // Display recommendations
+                        recommendationsList.innerHTML = '';
+                        
+                        data.recommendations.forEach((site, index) => {
+                            const recCard = document.createElement('div');
+                            recCard.className = 'recommendation-item';
+                            recCard.innerHTML = `
+                                <div class="rec-number">${index + 1}</div>
+                                <div class="rec-content">
+                                    <h4 class="rec-site-name">${site.siteName}</h4>
+                                    <p class="rec-location">📍 ${site.district || site.location}</p>
+                                    <p class="rec-description">${site.reason}</p>
+                                    <div class="rec-match">
+                                        <span class="match-badge">${site.matchScore}% Match</span>
+                                        ${site.period ? `<span class="rec-period">${site.period}</span>` : ''}
+                                    </div>
+                                </div>
+                            `;
+                            
+                            // Add click handler to navigate to site using urlPath or fallback
+                            recCard.addEventListener('click', () => {
+                                if (site.urlPath) {
+                                    window.location.href = site.urlPath;
+                                } else {
+                                    // Fallback: try to find and click the marker
+                                    navigateToSite(site.siteName);
+                                }
+                            });
+                            
+                            recommendationsList.appendChild(recCard);
+                        });
+                        
+                        // Highlight recommended sites on map with unique color
+                        highlightRecommendedSites(data.recommendations);
+                    } else {
+                        recommendationsPanel.style.display = 'block';
+                        recommendationsList.innerHTML = '<div class="no-recommendations">No personalized recommendations yet.<br>Set your preferences in your profile to get started!</div>';
+                    }
+                } catch (error) {
+                    console.error('Error loading recommendations:', error);
+                    recommendationsPanel.style.display = 'block';
+                    recommendationsList.innerHTML = '<div class="no-recommendations">Unable to load recommendations.<br>Please try again later.</div>';
+                }
+            } else {
+                recommendationsPanel.style.display = 'block';
+                recommendationsList.innerHTML = '<div class="no-recommendations">Please <a href="../login.html">login</a> to see personalized recommendations based on your interests.</div>';
+            }
+        });
+        
+        // Highlight recommended sites on the map with unique color
+        function highlightRecommendedSites(recommendations) {
+            const markers = document.querySelectorAll('.heritage-marker');
+            
+            recommendations.forEach(rec => {
+                const siteName = rec.siteName.toLowerCase();
+                
+                markers.forEach(marker => {
+                    const tooltip = marker.querySelector('.marker-tooltip h4');
+                    if (tooltip) {
+                        const markerTitle = tooltip.textContent.toLowerCase();
+                        
+                        // Better matching logic
+                        const isMatch = 
+                            markerTitle.includes(siteName) || 
+                            siteName.includes(markerTitle) ||
+                            matchSiteNames(siteName, markerTitle);
+                        
+                        if (isMatch) {
+                            marker.classList.add('recommended-site');
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Helper function to match site names with variations
+        function matchSiteNames(name1, name2) {
+            // Remove common words for better matching
+            const cleanName1 = name1.replace(/temple|fort|heritage|monuments?|archaeological/gi, '').trim();
+            const cleanName2 = name2.replace(/temple|fort|heritage|monuments?|archaeological/gi, '').trim();
+            
+            return cleanName1.includes(cleanName2) || cleanName2.includes(cleanName1);
+        }
+        
+        // Navigate to site page when clicked from recommendations
+        function navigateToSite(siteName) {
+            const markers = document.querySelectorAll('.heritage-marker');
+            const cleanSiteName = siteName.toLowerCase();
+            
+            let foundMarker = null;
+            
+            // Try to find the marker by matching site name
+            markers.forEach(marker => {
+                const tooltip = marker.querySelector('.marker-tooltip h4');
+                const datasite = marker.getAttribute('data-site');
+                
+                if (tooltip) {
+                    const markerTitle = tooltip.textContent.toLowerCase();
+                    
+                    // Try multiple matching strategies
+                    if (markerTitle.includes(cleanSiteName) || 
+                        cleanSiteName.includes(markerTitle) ||
+                        matchSiteNames(cleanSiteName, markerTitle) ||
+                        (datasite && (cleanSiteName.includes(datasite.toLowerCase()) || datasite.toLowerCase().includes(cleanSiteName)))) {
+                        foundMarker = marker;
+                    }
+                }
+            });
+            
+            if (foundMarker) {
+                // Scroll to the marker first
+                foundMarker.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Add pulse effect
+                foundMarker.classList.add('pulse-highlight');
+                
+                // Click the marker to navigate after a brief delay
+                setTimeout(() => {
+                    if (foundMarker.onclick) {
+                        foundMarker.click();
+                    } else {
+                        // Fallback: try to navigate using data-site attribute
+                        const datasite = foundMarker.getAttribute('data-site');
+                        if (datasite) {
+                            window.location.href = `${datasite}/index.html`;
+                        }
+                    }
+                }, 800);
+            } else {
+                console.log(`Site "${siteName}" not found on map, searching for match...`);
+                // Try fallback navigation using site name slug
+                const siteSlug = siteName.toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+                window.location.href = `${siteSlug}/index.html`;
+            }
+        }
+    </script>
+</body>
+</html>

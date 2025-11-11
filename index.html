@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re:Vive - Indian Heritage Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preload" as="image" href="node_modules/@svg-maps/india/india.svg">
+    <!-- Optional: Link to custom font in /assets/fonts/ if you add one -->
+</head>
+<body>
+    
+    <!-- Header Section with User Profile -->
+    <header class="heritage-header">
+        <!-- User Profile Section -->
+        <div class="user-profile-section" id="userProfileSection" style="display: none;">
+            <span class="user-name-text" id="userNameText">Guest</span>
+            <button class="logout-button" id="logoutBtn" title="Logout">
+                <span class="logout-icon">⎋</span>
+                <span class="logout-text">Logout</span>
+            </button>
+        </div>
+        
+        <h1 class="main-title">RE:VIVE</h1>
+        <p class="subtitle">Bringing India's Hidden Heritage Back to Life</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="heritage-container">
+
+        <!-- Welcome Section -->
+        <section class="welcome-section reveal">
+            <h2 class="section-title">Welcome to Re:Vive</h2>
+            <p class="welcome-text">
+                Embark on a journey through India's magnificent cultural landscape. From ancient temples to vibrant festivals, 
+                explore the diverse heritage that spans thousands of years across our incredible nation.
+            </p>
+        </section>
+
+
+        <!-- Interactive Map Section -->
+        <section class="map-section reveal">
+            <div class="map-container">
+                <img src="node_modules/@svg-maps/india/india.svg" alt="Map of India" id="indiaMapSVG" class="india-map">
+            </div>
+            <div class="select-region">SELECT YOUR REGION</div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section reveal">
+            <h2 class="section-title">Explore Heritage</h2>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <h3 class="feature-title">Ancient Monuments</h3>
+                    <p class="feature-description">Discover architectural marvels from the Mughal era to ancient temple complexes.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <h3 class="feature-title">Cultural Traditions</h3>
+                    <p class="feature-description">Experience the rich tapestry of festivals, arts, and customs across regions.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <h3 class="feature-title">Historical Sites</h3>
+                    <p class="feature-description">Visit UNESCO World Heritage sites and learn about India's glorious past.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="heritage-footer">
+
+
+        <p class="footer-text">Preserving India's Heritage for Future Generations</p>
+        <div class="footer-links">
+            <a href="#" class="footer-link">About</a>
+            <span class="footer-separator">•</span>
+            <a href="heritageai/heritage-ai.html" class="footer-link">🏛️ Heritage AI</a>
+            <span class="footer-separator">•</span>
+            <a href="#" class="footer-link">Contact</a>
+            <span class="footer-separator">•</span>
+            <a href="#" class="footer-link">Resources</a>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+    <script>
+        // User Profile Logic
+        window.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const userProfileSection = document.getElementById('userProfileSection');
+            const userNameText = document.getElementById('userNameText');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            if (user && user.id && user.fullName) {
+                // Show user profile in header
+                userNameText.textContent = user.fullName;
+                userProfileSection.style.display = 'flex';
+            }
+            
+            // Logout handler
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    if (confirm('Are you sure you want to logout?')) {
+                        localStorage.clear();
+                        window.location.href = 'login.html';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,3015 @@
+/* Chennai Heritage Site Styles *//* Chennai Heritage Site Styles *//* Chennai Heritage Site Styles - Consistent Tamil Nadu Theme */
+
+/* Consistent with Tamil Nadu heritage theme - Matches Thanjavur Structure */
+
+/* Consistent with Tamil Nadu heritage theme - Matches Thanjavur Structure */
+
+/* Google Fonts Import */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');/* Google Fonts Import */
+
+
+
+:root {:root {@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+    --primary-color: #4a1e0a;
+
+    --secondary-color: #8b4513;    --primary-color: #4a1e0a;
+
+    --accent-color: #654321;
+
+    --background-color: transparent;    --secondary-color: #8b4513;/* Standardized Tamil Nadu Heritage Color Palette */
+
+    --text-dark: #2c1810;
+
+    --text-light: #f8f4eb;    --accent-color: #654321;:root {
+
+    --border-color: #8b4513;
+
+    --shadow-color: rgba(139, 69, 19, 0.3);    --background-color: transparent;  --heritage-primary: #8b4513;
+
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+
+    --gradient-secondary: linear-gradient(135deg, var(--secondary-color), var(--accent-color));    --text-dark: #2c1810;  --heritage-secondary: #daa520;
+
+    --manuscript-height: 100vh;
+
+    --middle-repeat-height: 60vh;    --text-light: #f8f4eb;  --heritage-accent: #cd853f;
+
+}
+
+    --border-color: #8b4513;  --heritage-background: #f5f1e6;
+
+* {
+
+    margin: 0;    --shadow-color: rgba(139, 69, 19, 0.3);  --heritage-text-dark: #3e2d1a;
+
+    padding: 0;
+
+    box-sizing: border-box;    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--accent-color));  --heritage-text-light: #f8f4eb;
+
+}
+
+    --gradient-secondary: linear-gradient(135deg, var(--secondary-color), var(--accent-color));  --heritage-card-bg: rgba(139, 69, 19, 0.1);
+
+/* Complete Manuscript Body - Matches Thanjavur */
+
+body.heritage-site-body {    --manuscript-height: 100vh;  --heritage-border: rgba(218, 165, 32, 0.3);
+
+    font-family: 'Cinzel', 'Cormorant Garamond', serif;
+
+    background: #f4e4bc;    --middle-repeat-height: 60vh;  --heritage-ornament: #cd853f;
+
+    color: var(--text-dark);
+
+    line-height: 1.6;}}
+
+    overflow-x: hidden;
+
+    position: relative;
+
+    min-height: 100vh;
+
+    padding-bottom: 200px;* {/* Site body styling */
+
+}
+
+    margin: 0;.heritage-site-body {
+
+/* Complete Manuscript - Top rolled section */
+
+body.heritage-site-body::before {    padding: 0;  background: linear-gradient(135deg, var(--heritage-background) 0%, #f0ead6 100%);
+
+    content: '';
+
+    position: absolute;    box-sizing: border-box;  background-image: url('../../manuscriptsvg.svg');
+
+    top: 0;
+
+    left: 0;}  background-size: cover;
+
+    right: 0;
+
+    height: 200px;  background-attachment: fixed;
+
+    background: url('top (1) (1).svg') top center / 100% 100% no-repeat;
+
+    opacity: 1;/* Complete Manuscript Body - Matches Thanjavur */  background-position: center;
+
+    z-index: -1;
+
+    pointer-events: none;body.heritage-site-body {  background-repeat: no-repeat;
+
+}
+
+    font-family: 'Cinzel', 'Cormorant Garamond', serif;  font-family: 'Cinzel', 'Cormorant Garamond', 'Playfair Display', serif;
+
+/* Complete Manuscript - Middle and Bottom sections */
+
+body.heritage-site-body::after {    background: #f4e4bc;  color: var(--heritage-text-dark);
+
+    content: '';
+
+    position: absolute;    color: var(--text-dark);  margin: 0;
+
+    top: 160px;
+
+    left: 0;    line-height: 1.6;  padding: 0;
+
+    right: 0;
+
+    bottom: 0;    overflow-x: hidden;  min-height: 100vh;
+
+    background-image: 
+
+        url('middle.svg'),    position: relative;  position: relative;
+
+        url('bottom (1).svg');
+
+    background-position:     min-height: 100vh;}
+
+        center top,
+
+        bottom center;    padding-bottom: 200px;
+
+    background-repeat: 
+
+        no-repeat,}/* Decorative corners */
+
+        no-repeat;
+
+    background-size: .decorative-corner {
+
+        100% calc(100% - 200px),
+
+        100% 200px;/* Complete Manuscript - Top rolled section */  position: fixed;
+
+    opacity: 1;
+
+    z-index: -3;body.heritage-site-body::before {  width: 100px;
+
+    pointer-events: none;
+
+}    content: '';  height: 100px;
+
+
+
+/* Decorative Corners - Hidden when using manuscript background */    position: absolute;  z-index: 1000;
+
+.decorative-corner {
+
+    display: none;    top: 0;  background-image: url('../../assets/decorative_corner.svg');
+
+}
+
+    left: 0;  background-size: contain;
+
+/* Main Ornate Frame Container - Matches Thanjavur */
+
+.ornate-frame {    right: 0;  background-repeat: no-repeat;
+
+    position: relative;
+
+    z-index: 1;    height: 200px;}
+
+    max-width: 1400px;
+
+    margin: 0 auto;    background: url('top (1) (1).svg') top center / 100% 100% no-repeat;
+
+    padding: 220px 60px 60px;
+
+    min-height: 100vh;    opacity: 1;.top-left { top: 0; left: 0; transform: rotate(0deg); }
+
+    background: transparent;
+
+}    z-index: -1;.top-right { top: 0; right: 0; transform: rotate(90deg); }
+
+
+
+/* Heritage Navigation - Matches Thanjavur */    pointer-events: none;.bottom-right { bottom: 0; right: 0; transform: rotate(180deg); }
+
+.heritage-nav {
+
+    display: flex;}.bottom-left { bottom: 0; left: 0; transform: rotate(270deg); }
+
+    justify-content: center;
+
+    gap: 2rem;
+
+    margin-bottom: 4rem;
+
+    padding: 1rem 0;/* Complete Manuscript - Middle and Bottom sections *//* Ornate frame */
+
+    border-bottom: 2px solid var(--border-color);
+
+    background: rgba(248, 244, 235, 0.8);body.heritage-site-body::after {.ornate-frame {
+
+    border-radius: 10px;
+
+    backdrop-filter: blur(5px);    content: '';  border: 8px solid var(--heritage-ornament);
+
+}
+
+    position: absolute;  border-radius: 15px;
+
+.nav-link {
+
+    text-decoration: none;    top: 160px;  margin: 20px;
+
+    color: var(--text-dark);
+
+    font-weight: 600;    left: 0;  min-height: calc(100vh - 40px);
+
+    font-size: 1rem;
+
+    padding: 0.8rem 1.5rem;    right: 0;  position: relative;
+
+    border-radius: 8px;
+
+    transition: all 0.3s ease;    bottom: 0;  background-color: rgba(245, 241, 230, 0.95);
+
+    position: relative;
+
+    letter-spacing: 0.5px;    background-image:   box-shadow: inset 0 0 20px rgba(139, 69, 19, 0.1);
+
+}
+
+        url('middle.svg'),}
+
+.nav-link:hover {
+
+    background: var(--gradient-secondary);        url('bottom (1).svg');
+
+    color: var(--text-light);
+
+    transform: translateY(-2px);    background-position: /* Navigation */
+
+    box-shadow: 0 4px 15px var(--shadow-color);
+
+}        center top,.heritage-nav {
+
+
+
+/* Hero Section - Matches Thanjavur */        bottom center;  display: flex;
+
+.site-hero-section {
+
+    display: grid;    background-repeat:   justify-content: center;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 4rem;        no-repeat,  padding: 20px 0;
+
+    align-items: center;
+
+    margin-bottom: 6rem;        no-repeat;  background: linear-gradient(90deg, var(--heritage-primary), var(--heritage-secondary));
+
+    padding: 3rem 0;
+
+}    background-size:   border-bottom: 3px solid var(--heritage-ornament);
+
+
+
+.site-hero-content {        100% calc(100% - 200px),  margin-bottom: 30px;
+
+    padding: 2rem;
+
+}        100% 200px;  border-radius: 10px 10px 0 0;
+
+
+
+.site-title {    opacity: 1;}
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 3.5rem;    z-index: -3;
+
+    font-weight: 700;
+
+    color: var(--primary-color);    pointer-events: none;.nav-link {
+
+    margin-bottom: 1rem;
+
+    text-shadow: 2px 2px 4px var(--shadow-color);}  color: var(--heritage-text-light);
+
+    line-height: 1.2;
+
+}  text-decoration: none;
+
+
+
+.site-subtitle {/* Decorative Corners - Hidden when using manuscript background */  padding: 12px 24px;
+
+    font-family: 'Playfair Display', serif;
+
+    font-size: 1.8rem;.decorative-corner {  margin: 0 8px;
+
+    font-weight: 600;
+
+    color: var(--secondary-color);    display: none;  border: 2px solid transparent;
+
+    margin-bottom: 1.5rem;
+
+    font-style: italic;}  border-radius: 8px;
+
+}
+
+  transition: all 0.3s ease;
+
+.site-description {
+
+    font-size: 1.2rem;/* Main Ornate Frame Container - Matches Thanjavur */  font-weight: bold;
+
+    color: var(--text-dark);
+
+    line-height: 1.8;.ornate-frame {  font-family: 'Cinzel', serif;
+
+    margin-bottom: 2rem;
+
+}    position: relative;  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+
+
+
+.site-hero-visual {    z-index: 1;}
+
+    display: flex;
+
+    justify-content: center;    max-width: 1400px;
+
+    align-items: center;
+
+}    margin: 0 auto;.nav-link:hover {
+
+
+
+.site-image-container {    padding: 220px 60px 60px;  background-color: rgba(255,255,255,0.2);
+
+    position: relative;
+
+    border-radius: 15px;    min-height: 100vh;  border-color: var(--heritage-text-light);
+
+    overflow: hidden;
+
+    box-shadow: 0 15px 35px var(--shadow-color);    background: transparent;  transform: translateY(-2px);
+
+    transition: transform 0.3s ease;
+
+}}}
+
+
+
+.site-image-container:hover {
+
+    transform: scale(1.02);
+
+}/* Heritage Navigation - Matches Thanjavur *//* Hero Section */
+
+
+
+.site-main-image {.heritage-nav {.site-hero-section {
+
+    width: 100%;
+
+    height: 400px;    display: flex;  display: flex;
+
+    object-fit: cover;
+
+    border-radius: 15px;    justify-content: center;  justify-content: space-between;
+
+}
+
+    gap: 2rem;  align-items: center;
+
+.image-overlay {
+
+    position: absolute;    margin-bottom: 4rem;  padding: 60px 40px;
+
+    bottom: 0;
+
+    left: 0;    padding: 1rem 0;  margin: 30px 0 50px 0;
+
+    right: 0;
+
+    background: var(--gradient-primary);    border-bottom: 2px solid var(--border-color);  background: linear-gradient(135deg, rgba(218, 165, 32, 0.15), rgba(139, 69, 19, 0.08));
+
+    color: var(--text-light);
+
+    padding: 1.5rem;    background: rgba(248, 244, 235, 0.8);  border-radius: 15px;
+
+    transform: translateY(100%);
+
+    transition: transform 0.3s ease;    border-radius: 10px;  border: 2px solid var(--heritage-border);
+
+}
+
+    backdrop-filter: blur(5px);  box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+
+.site-image-container:hover .image-overlay {
+
+    transform: translateY(0);}}
+
+}
+
+
+
+.image-caption h3 {
+
+    font-size: 1.4rem;.nav-link {.site-hero-content {
+
+    margin-bottom: 0.5rem;
+
+}    text-decoration: none;  flex: 1;
+
+
+
+.image-caption p {    color: var(--text-dark);  padding-right: 40px;
+
+    font-size: 1rem;
+
+    opacity: 0.9;    font-weight: 600;}
+
+}
+
+    font-size: 1rem;
+
+/* Site Sections - Matches Thanjavur */
+
+.site-section {    padding: 0.8rem 1.5rem;.site-title {
+
+    margin-bottom: 5rem;
+
+    background: rgba(248, 244, 235, 0.8);    border-radius: 8px;  font-family: 'Cinzel', serif;
+
+    padding: 3rem;
+
+    border-radius: 20px;    transition: all 0.3s ease;  font-size: 3.5rem;
+
+    box-shadow: 0 10px 30px var(--shadow-color);
+
+    backdrop-filter: blur(5px);    position: relative;  font-weight: 700;
+
+}
+
+    letter-spacing: 0.5px;  color: var(--heritage-primary);
+
+.section-header {
+
+    text-align: center;}  margin: 0 0 20px 0;
+
+    margin-bottom: 3rem;
+
+}  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+
+
+
+.section-title {.nav-link:hover {  line-height: 1.2;
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 2.5rem;    background: var(--gradient-secondary);}
+
+    font-weight: 600;
+
+    color: var(--primary-color);    color: var(--text-light);
+
+    margin-bottom: 1rem;
+
+    position: relative;    transform: translateY(-2px);.site-subtitle {
+
+}
+
+    box-shadow: 0 4px 15px var(--shadow-color);  font-family: 'Playfair Display', serif;
+
+.section-title::after {
+
+    content: '';}  font-size: 1.8rem;
+
+    position: absolute;
+
+    bottom: -10px;  color: var(--heritage-secondary);
+
+    left: 50%;
+
+    transform: translateX(-50%);/* Hero Section - Matches Thanjavur */  margin: 0 0 25px 0;
+
+    width: 80px;
+
+    height: 3px;.site-hero-section {  font-style: italic;
+
+    background: var(--gradient-secondary);
+
+    border-radius: 2px;    display: grid;  font-weight: 400;
+
+}
+
+    grid-template-columns: 1fr 1fr;}
+
+.site-content {
+
+    text-align: center;    gap: 4rem;
+
+    margin-bottom: 2rem;
+
+}    align-items: center;.site-description {
+
+
+
+.site-content p {    margin-bottom: 6rem;  font-family: 'Cormorant Garamond', serif;
+
+    font-size: 1.2rem;
+
+    color: var(--text-dark);    padding: 3rem 0;  font-size: 1.3rem;
+
+    line-height: 1.8;
+
+    max-width: 900px;}  color: var(--heritage-text-dark);
+
+    margin: 0 auto;
+
+}  line-height: 1.6;
+
+
+
+/* Site Details Grid - Matches Thanjavur */.site-hero-content {  margin: 0;
+
+.site-details-grid {
+
+    display: grid;    padding: 2rem;}
+
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 2rem;}
+
+    margin-top: 3rem;
+
+}.site-hero-visual {
+
+
+
+.detail-card {.site-title {  flex: 1;
+
+    background: rgba(255, 255, 255, 0.9);
+
+    padding: 2rem;    font-family: 'Cinzel', serif;  display: flex;
+
+    border-radius: 15px;
+
+    text-align: center;    font-size: 3.5rem;  justify-content: center;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+
+    transition: transform 0.3s ease;    font-weight: 700;  align-items: center;
+
+    border: 2px solid var(--accent-color);
+
+}    color: var(--primary-color);}
+
+
+
+.detail-card:hover {    margin-bottom: 1rem;
+
+    transform: translateY(-5px);
+
+    box-shadow: 0 15px 35px var(--shadow-color);    text-shadow: 2px 2px 4px var(--shadow-color);.site-image-container {
+
+}
+
+    line-height: 1.2;  position: relative;
+
+.detail-card h4 {
+
+    font-family: 'Cinzel', serif;}  border-radius: 15px;
+
+    font-size: 1.3rem;
+
+    color: var(--primary-color);  overflow: hidden;
+
+    margin-bottom: 1rem;
+
+}.site-subtitle {  box-shadow: 0 10px 30px rgba(139, 69, 19, 0.3);
+
+
+
+.detail-card p {    font-family: 'Playfair Display', serif;  border: 4px solid var(--heritage-ornament);
+
+    font-size: 1.1rem;
+
+    color: var(--text-dark);    font-size: 1.8rem;}
+
+    font-weight: 500;
+
+}    font-weight: 600;
+
+
+
+/* Facts Container - Matches Thanjavur */    color: var(--secondary-color);.site-main-image {
+
+.facts-container {
+
+    display: grid;    margin-bottom: 1.5rem;  width: 100%;
+
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 2rem;    font-style: italic;  height: 350px;
+
+    margin-top: 2rem;
+
+}}  object-fit: cover;
+
+
+
+.fact-card {  transition: transform 0.3s ease;
+
+    display: flex;
+
+    align-items: flex-start;.site-description {}
+
+    gap: 1.5rem;
+
+    background: rgba(255, 255, 255, 0.9);    font-size: 1.2rem;
+
+    padding: 2rem;
+
+    border-radius: 15px;    color: var(--text-dark);.site-main-image:hover {
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+
+    transition: all 0.3s ease;    line-height: 1.8;  transform: scale(1.05);
+
+    border-left: 4px solid var(--secondary-color);
+
+}    margin-bottom: 2rem;}
+
+
+
+.fact-card:hover {}
+
+    transform: translateX(10px);
+
+    box-shadow: 0 15px 35px var(--shadow-color);/* Site sections */
+
+}
+
+.site-hero-visual {.site-section {
+
+.fact-icon {
+
+    font-size: 2rem;    display: flex;  margin: 40px 0;
+
+    color: var(--secondary-color);
+
+    flex-shrink: 0;    justify-content: center;  padding: 50px 40px;
+
+}
+
+    align-items: center;  background: linear-gradient(135deg, rgba(245, 241, 230, 0.9), rgba(248, 244, 235, 0.8));
+
+.fact-content p {
+
+    font-size: 1.1rem;}  border-radius: 15px;
+
+    line-height: 1.7;
+
+    color: var(--text-dark);  box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
+
+}
+
+.site-image-container {  border: 1px solid var(--heritage-border);
+
+/* Timeline Styles */
+
+.timeline-container {    position: relative;  position: relative;
+
+    position: relative;
+
+    max-width: 800px;    border-radius: 15px;}
+
+    margin: 0 auto;
+
+}    overflow: hidden;
+
+
+
+.timeline-item {    box-shadow: 0 15px 35px var(--shadow-color);.section-header {
+
+    display: flex;
+
+    align-items: flex-start;    transition: transform 0.3s ease;  text-align: center;
+
+    gap: 2rem;
+
+    margin-bottom: 3rem;}  margin-bottom: 40px;
+
+    position: relative;
+
+}  position: relative;
+
+
+
+.timeline-year {.site-image-container:hover {}
+
+    background: var(--gradient-primary);
+
+    color: var(--text-light);    transform: scale(1.02);
+
+    padding: 1rem 1.5rem;
+
+    border-radius: 10px;}.section-title {
+
+    font-weight: 600;
+
+    font-size: 1.1rem;  font-family: 'Cinzel', serif;
+
+    min-width: 140px;
+
+    text-align: center;.site-main-image {  font-size: 2.8rem;
+
+    box-shadow: 0 4px 15px var(--shadow-color);
+
+}    width: 100%;  color: var(--heritage-primary);
+
+
+
+.timeline-content {    height: 400px;  margin: 0 0 20px 0;
+
+    flex: 1;
+
+    background: rgba(255, 255, 255, 0.9);    object-fit: cover;  font-weight: 600;
+
+    padding: 2rem;
+
+    border-radius: 15px;    border-radius: 15px;  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+
+    border-left: 4px solid var(--accent-color);}}
+
+}
+
+
+
+.timeline-content h5 {
+
+    font-family: 'Cinzel', serif;.image-overlay {.title-ornament {
+
+    font-size: 1.4rem;
+
+    color: var(--primary-color);    position: absolute;  width: 120px;
+
+    margin-bottom: 1rem;
+
+}    bottom: 0;  height: 4px;
+
+
+
+.timeline-content p {    left: 0;  background: linear-gradient(90deg, var(--heritage-secondary), var(--heritage-ornament));
+
+    font-size: 1.1rem;
+
+    line-height: 1.7;    right: 0;  margin: 0 auto;
+
+    color: var(--text-dark);
+
+}    background: var(--gradient-primary);  border-radius: 2px;
+
+
+
+/* Legends Container - Matches Thanjavur */    color: var(--text-light);  position: relative;
+
+.legends-container {
+
+    display: grid;    padding: 1.5rem;}
+
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+
+    gap: 2.5rem;    transform: translateY(100%);
+
+    margin-top: 3rem;
+
+}    transition: transform 0.3s ease;.title-ornament::before,
+
+
+
+.legend-card {}.title-ornament::after {
+
+    background: rgba(255, 255, 255, 0.95);
+
+    padding: 2.5rem;  content: '';
+
+    border-radius: 20px;
+
+    box-shadow: 0 10px 30px var(--shadow-color);.site-image-container:hover .image-overlay {  position: absolute;
+
+    transition: all 0.3s ease;
+
+    border: 2px solid var(--accent-color);    transform: translateY(0);  top: -6px;
+
+    position: relative;
+
+}}  width: 16px;
+
+
+
+.legend-card::before {  height: 16px;
+
+    content: '✦';
+
+    position: absolute;.image-caption h3 {  background: var(--heritage-ornament);
+
+    top: 15px;
+
+    right: 20px;    font-size: 1.4rem;  border-radius: 50%;
+
+    font-size: 1.5rem;
+
+    color: var(--secondary-color);    margin-bottom: 0.5rem;}
+
+}
+
+}
+
+.legend-card:hover {
+
+    transform: translateY(-8px);.title-ornament::before {
+
+    box-shadow: 0 20px 50px var(--shadow-color);
+
+}.image-caption p {  left: -8px;
+
+
+
+.legend-card h4 {    font-size: 1rem;}
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 1.5rem;    opacity: 0.9;
+
+    color: var(--primary-color);
+
+    margin-bottom: 1.5rem;}.title-ornament::after {
+
+    border-bottom: 2px solid var(--accent-color);
+
+    padding-bottom: 0.5rem;  right: -8px;
+
+}
+
+/* Site Sections - Matches Thanjavur */}
+
+.legend-card p {
+
+    font-size: 1.1rem;.site-section {
+
+    line-height: 1.8;
+
+    color: var(--text-dark);    margin-bottom: 5rem;/* Content Cards */
+
+}
+
+    background: rgba(248, 244, 235, 0.8);.site-details-grid {
+
+/* Culture Grid - Matches Thanjavur */
+
+.culture-grid {    padding: 3rem;  display: grid;
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));    border-radius: 20px;  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 2.5rem;
+
+    margin-top: 3rem;    box-shadow: 0 10px 30px var(--shadow-color);  gap: 30px;
+
+}
+
+    backdrop-filter: blur(5px);  margin-top: 30px;
+
+.culture-item {
+
+    background: rgba(255, 255, 255, 0.95);}}
+
+    padding: 2.5rem;
+
+    border-radius: 20px;
+
+    box-shadow: 0 10px 30px var(--shadow-color);
+
+    transition: all 0.3s ease;.section-header {.detail-card {
+
+    text-align: center;
+
+    border: 2px solid var(--accent-color);    text-align: center;  background: linear-gradient(135deg, rgba(218, 165, 32, 0.1), rgba(139, 69, 19, 0.05));
+
+}
+
+    margin-bottom: 3rem;  padding: 30px;
+
+.culture-item:hover {
+
+    transform: translateY(-10px);}  border-radius: 12px;
+
+    box-shadow: 0 20px 50px var(--shadow-color);
+
+}  border: 2px solid var(--heritage-border);
+
+
+
+.culture-item h4 {.section-title {  transition: all 0.3s ease;
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 1.4rem;    font-family: 'Cinzel', serif;  box-shadow: 0 4px 15px rgba(139, 69, 19, 0.1);
+
+    color: var(--primary-color);
+
+    margin-bottom: 1.5rem;    font-size: 2.5rem;}
+
+}
+
+    font-weight: 600;
+
+.culture-item p {
+
+    font-size: 1.1rem;    color: var(--primary-color);.detail-card:hover {
+
+    line-height: 1.7;
+
+    color: var(--text-dark);    margin-bottom: 1rem;  transform: translateY(-5px);
+
+    text-align: left;
+
+}    position: relative;  box-shadow: 0 8px 25px rgba(139, 69, 19, 0.2);
+
+
+
+/* Gallery Styles - Matches Thanjavur */}  border-color: var(--heritage-ornament);
+
+.gallery-container {
+
+    margin-top: 3rem;}
+
+}
+
+.section-title::after {
+
+.gallery-tabs {
+
+    display: flex;    content: '';.detail-card h4 {
+
+    justify-content: center;
+
+    gap: 1rem;    position: absolute;  font-family: 'Cinzel', serif;
+
+    margin-bottom: 3rem;
+
+}    bottom: -10px;  color: var(--heritage-primary);
+
+
+
+.tab-btn {    left: 50%;  font-size: 1.4rem;
+
+    padding: 1rem 2rem;
+
+    border: 2px solid var(--border-color);    transform: translateX(-50%);  margin-bottom: 15px;
+
+    background: rgba(248, 244, 235, 0.9);
+
+    color: var(--text-dark);    width: 80px;  font-weight: 600;
+
+    font-size: 1.1rem;
+
+    font-weight: 600;    height: 3px;}
+
+    border-radius: 10px;
+
+    cursor: pointer;    background: var(--gradient-secondary);
+
+    transition: all 0.3s ease;
+
+}    border-radius: 2px;.detail-card p {
+
+
+
+.tab-btn.active,}  font-family: 'Cormorant Garamond', serif;
+
+.tab-btn:hover {
+
+    background: var(--gradient-secondary);  color: var(--heritage-text-dark);
+
+    color: var(--text-light);
+
+    transform: translateY(-2px);/* Site Details Grid - Matches Thanjavur */  line-height: 1.6;
+
+}
+
+.site-details-grid {  font-size: 1.1rem;
+
+.tab-content {
+
+    display: none;    display: grid;}
+
+}
+
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+.tab-content.active {
+
+    display: block;    gap: 2rem;/* Facts, Legends, Culture sections */
+
+}
+
+    margin-top: 3rem;.facts-grid, .legends-grid, .culture-grid {
+
+.heritage-gallery {
+
+    background: rgba(255, 255, 255, 0.95);}  display: grid;
+
+    padding: 2rem;
+
+    border-radius: 15px;  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+    box-shadow: 0 10px 30px var(--shadow-color);
+
+}.detail-card {  gap: 25px;
+
+
+
+.gallery-header {    background: rgba(255, 255, 255, 0.9);  margin-top: 30px;
+
+    display: flex;
+
+    justify-content: space-between;    padding: 2rem;}
+
+    align-items: center;
+
+    margin-bottom: 2rem;    border-radius: 15px;
+
+}
+
+    text-align: center;.fact-item, .legend-item, .culture-item {
+
+.gallery-header h4 {
+
+    font-family: 'Cinzel', serif;    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);  background: var(--heritage-card-bg);
+
+    font-size: 1.5rem;
+
+    color: var(--primary-color);    transition: transform 0.3s ease;  padding: 25px;
+
+}
+
+    border: 2px solid var(--accent-color);  border-radius: 10px;
+
+.gallery-controls {
+
+    display: flex;}  border-left: 4px solid var(--heritage-secondary);
+
+    gap: 1rem;
+
+}  transition: all 0.3s ease;
+
+
+
+.gallery-nav-btn {.detail-card:hover {}
+
+    background: var(--gradient-secondary);
+
+    color: var(--text-light);    transform: translateY(-5px);
+
+    border: none;
+
+    padding: 0.8rem 1.2rem;    box-shadow: 0 15px 35px var(--shadow-color);.fact-item:hover, .legend-item:hover, .culture-item:hover {
+
+    border-radius: 8px;
+
+    cursor: pointer;}  transform: translateX(5px);
+
+    font-size: 1.2rem;
+
+    transition: all 0.3s ease;  box-shadow: 0 5px 15px rgba(139, 69, 19, 0.15);
+
+}
+
+.detail-card h4 {}
+
+.gallery-nav-btn:hover {
+
+    transform: scale(1.1);    font-family: 'Cinzel', serif;
+
+    box-shadow: 0 4px 15px var(--shadow-color);
+
+}    font-size: 1.3rem;.fact-item h4, .legend-item h4, .culture-item h4 {
+
+
+
+.gallery-scroll-container {    color: var(--primary-color);  font-family: 'Playfair Display', serif;
+
+    overflow: hidden;
+
+    border-radius: 15px;    margin-bottom: 1rem;  color: var(--heritage-primary);
+
+}
+
+}  margin-bottom: 12px;
+
+.gallery-track {
+
+    display: flex;  font-size: 1.3rem;
+
+    gap: 2rem;
+
+    transition: transform 0.3s ease;.detail-card p {}
+
+}
+
+    font-size: 1.1rem;
+
+.heritage-card {
+
+    flex: 0 0 300px;    color: var(--text-dark);/* Interactive Options */
+
+    background: white;
+
+    border-radius: 15px;    font-weight: 500;.explore-options {
+
+    overflow: hidden;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);}  display: grid;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+}
+
+/* Facts Container - Matches Thanjavur */  gap: 30px;
+
+.heritage-card:hover {
+
+    transform: translateY(-10px);.facts-container {  margin-top: 40px;
+
+    box-shadow: 0 15px 35px var(--shadow-color);
+
+}    display: grid;}
+
+
+
+.card-image-container {    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    position: relative;
+
+    overflow: hidden;    gap: 2rem;.option-card {
+
+}
+
+    margin-top: 2rem;  background: linear-gradient(135deg, var(--heritage-primary), var(--heritage-secondary));
+
+.card-image {
+
+    width: 100%;}  color: var(--heritage-text-light);
+
+    height: 200px;
+
+    object-fit: cover;  padding: 40px 30px;
+
+    transition: transform 0.3s ease;
+
+}.fact-card {  border-radius: 15px;
+
+
+
+.heritage-card:hover .card-image {    display: flex;  text-align: center;
+
+    transform: scale(1.1);
+
+}    align-items: flex-start;  cursor: pointer;
+
+
+
+.card-info {    gap: 1.5rem;  transition: all 0.3s ease;
+
+    padding: 1.5rem;
+
+}    background: rgba(255, 255, 255, 0.9);  box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3);
+
+
+
+.card-info h5 {    padding: 2rem;  position: relative;
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 1.2rem;    border-radius: 15px;  overflow: hidden;
+
+    color: var(--primary-color);
+
+    margin-bottom: 0.5rem;    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);}
+
+}
+
+    transition: all 0.3s ease;
+
+.card-info p {
+
+    font-size: 1rem;    border-left: 4px solid var(--secondary-color);.option-card::before {
+
+    color: var(--text-dark);
+
+    line-height: 1.5;}  content: '';
+
+}
+
+  position: absolute;
+
+/* Media Placeholders */
+
+.media-grid {.fact-card:hover {  top: -50%;
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));    transform: translateX(10px);  left: -50%;
+
+    gap: 2rem;
+
+}    box-shadow: 0 15px 35px var(--shadow-color);  width: 200%;
+
+
+
+.media-item {}  height: 200%;
+
+    background: white;
+
+    border-radius: 15px;  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+
+    overflow: hidden;
+
+    box-shadow: 0 10px 30px var(--shadow-color);.fact-icon {  transform: rotate(45deg);
+
+}
+
+    font-size: 2rem;  transition: all 0.6s ease;
+
+.video-placeholder {
+
+    background: var(--gradient-secondary);    color: var(--secondary-color);  opacity: 0;
+
+    color: var(--text-light);
+
+    padding: 4rem 2rem;    flex-shrink: 0;}
+
+    text-align: center;
+
+}}
+
+
+
+.video-icon {.option-card:hover::before {
+
+    font-size: 3rem;
+
+    margin-bottom: 1rem;.fact-content p {  opacity: 1;
+
+}
+
+    font-size: 1.1rem;  animation: shimmer 1.5s ease-in-out;
+
+.media-caption {
+
+    padding: 1.5rem 1.5rem 0.5rem;    line-height: 1.7;}
+
+    font-weight: 600;
+
+    color: var(--primary-color);    color: var(--text-dark);
+
+}
+
+}.option-card:hover {
+
+.media-description {
+
+    padding: 0 1.5rem 1.5rem;  transform: translateY(-8px) scale(1.02);
+
+    color: var(--text-dark);
+
+    font-size: 0.95rem;/* Legends Container - Matches Thanjavur */  box-shadow: 0 12px 35px rgba(139, 69, 19, 0.4);
+
+}
+
+.legends-container {}
+
+/* Tour Preview */
+
+.tour-preview {    display: grid;
+
+    background: white;
+
+    padding: 3rem;    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));.option-icon {
+
+    border-radius: 20px;
+
+    text-align: center;    gap: 2.5rem;  font-size: 3rem;
+
+    box-shadow: 0 15px 35px var(--shadow-color);
+
+    cursor: pointer;    margin-top: 3rem;  margin-bottom: 20px;
+
+    transition: all 0.3s ease;
+
+}}  display: block;
+
+
+
+.tour-preview:hover {}
+
+    transform: translateY(-8px);
+
+}.legend-card {
+
+
+
+.tour-placeholder {    background: rgba(255, 255, 255, 0.95);.option-card h4 {
+
+    padding: 2rem;
+
+}    padding: 2.5rem;  font-family: 'Cinzel', serif;
+
+
+
+.tour-icon {    border-radius: 20px;  font-size: 1.4rem;
+
+    font-size: 4rem;
+
+    color: var(--secondary-color);    box-shadow: 0 10px 30px var(--shadow-color);  margin-bottom: 15px;
+
+    margin-bottom: 1.5rem;
+
+}    transition: all 0.3s ease;  font-weight: 600;
+
+
+
+.tour-placeholder h4 {    border: 2px solid var(--accent-color);}
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 1.8rem;    position: relative;
+
+    color: var(--primary-color);
+
+    margin-bottom: 1rem;}.option-card p {
+
+}
+
+  font-family: 'Cormorant Garamond', serif;
+
+.tour-placeholder p {
+
+    font-size: 1.1rem;.legend-card::before {  font-size: 1.1rem;
+
+    color: var(--text-dark);
+
+    margin-bottom: 2rem;    content: '✦';  opacity: 0.9;
+
+}
+
+    position: absolute;  line-height: 1.5;
+
+/* Explore Options */
+
+.explore-options {    top: 15px;}
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));    right: 20px;
+
+    gap: 3rem;
+
+    margin-top: 3rem;    font-size: 1.5rem;@keyframes shimmer {
+
+}
+
+    color: var(--secondary-color);  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+
+.option-card {
+
+    background: rgba(255, 255, 255, 0.95);}  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+
+    padding: 2.5rem;
+
+    border-radius: 20px;}
+
+    box-shadow: 0 10px 30px var(--shadow-color);
+
+    transition: all 0.3s ease;.legend-card:hover {
+
+    border: 2px solid var(--accent-color);
+
+}    transform: translateY(-8px);/* Heritage Buttons */
+
+
+
+.option-card:hover {    box-shadow: 0 20px 50px var(--shadow-color);.heritage-btn {
+
+    transform: translateY(-10px);
+
+    box-shadow: 0 20px 50px var(--shadow-color);}  background: linear-gradient(135deg, var(--heritage-primary), var(--heritage-secondary));
+
+}
+
+  color: var(--heritage-text-light);
+
+.card-header {
+
+    display: flex;.legend-card h4 {  border: none;
+
+    align-items: center;
+
+    gap: 1rem;    font-family: 'Cinzel', serif;  padding: 12px 25px;
+
+    margin-bottom: 1.5rem;
+
+}    font-size: 1.5rem;  border-radius: 8px;
+
+
+
+.card-icon {    color: var(--primary-color);  font-family: 'Cinzel', serif;
+
+    font-size: 2rem;
+
+}    margin-bottom: 1.5rem;  font-weight: 600;
+
+
+
+.card-header h4 {    border-bottom: 2px solid var(--accent-color);  cursor: pointer;
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 1.4rem;    padding-bottom: 0.5rem;  transition: all 0.3s ease;
+
+    color: var(--primary-color);
+
+}}  text-decoration: none;
+
+
+
+.card-content p {  display: inline-block;
+
+    font-size: 1.1rem;
+
+    line-height: 1.7;.legend-card p {  box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+
+    color: var(--text-dark);
+
+    margin-bottom: 1.5rem;    font-size: 1.1rem;}
+
+}
+
+    line-height: 1.8;
+
+.feature-list {
+
+    list-style: none;    color: var(--text-dark);.heritage-btn:hover {
+
+    margin-bottom: 2rem;
+
+}}  transform: translateY(-2px);
+
+
+
+.feature-list li {  box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3);
+
+    padding: 0.5rem 0;
+
+    padding-left: 1.5rem;/* Culture Grid - Matches Thanjavur */}
+
+    position: relative;
+
+    color: var(--text-dark);.culture-grid {
+
+}
+
+    display: grid;/* Responsive design */
+
+.feature-list li::before {
+
+    content: '✓';    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));@media (max-width: 768px) {
+
+    position: absolute;
+
+    left: 0;    gap: 2.5rem;  .site-hero-section {
+
+    color: var(--secondary-color);
+
+    font-weight: bold;    margin-top: 3rem;    flex-direction: column;
+
+}
+
+}    padding: 40px 20px;
+
+/* Button Styles */
+
+.action-btn {  }
+
+    padding: 1rem 2rem;
+
+    border: none;.culture-item {  
+
+    border-radius: 8px;
+
+    font-size: 1.1rem;    background: rgba(255, 255, 255, 0.95);  .site-hero-content {
+
+    font-weight: 600;
+
+    cursor: pointer;    padding: 2.5rem;    padding-right: 0;
+
+    transition: all 0.3s ease;
+
+    text-decoration: none;    border-radius: 20px;    margin-bottom: 30px;
+
+    display: inline-block;
+
+    text-align: center;    box-shadow: 0 10px 30px var(--shadow-color);  }
+
+}
+
+    transition: all 0.3s ease;  
+
+.primary-btn {
+
+    background: var(--gradient-primary);    text-align: center;  .site-details-grid, .culture-grid, .explore-options {
+
+    color: var(--text-light);
+
+}    border: 2px solid var(--accent-color);    grid-template-columns: 1fr;
+
+
+
+.secondary-btn {}  }
+
+    background: var(--gradient-secondary);
+
+    color: var(--text-light);  
+
+}
+
+.culture-item:hover {  .ornate-frame {
+
+.accent-btn {
+
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));    transform: translateY(-10px);    margin: 10px;
+
+    color: var(--text-light);
+
+}    box-shadow: 0 20px 50px var(--shadow-color);    padding: 15px;
+
+
+
+.primary-btn:hover,}  }
+
+.secondary-btn:hover,
+
+.accent-btn:hover {}
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px var(--shadow-color);.culture-item h4 {
+
+}
+
+    font-family: 'Cinzel', serif;@media (max-width: 480px) {
+
+/* Modal Styles - Matches Thanjavur */
+
+.modal {    font-size: 1.4rem;  .site-title {
+
+    display: none;
+
+    position: fixed;    color: var(--primary-color);    font-size: 2.5rem;
+
+    z-index: 10000;
+
+    left: 0;    margin-bottom: 1.5rem;  }
+
+    top: 0;
+
+    width: 100%;}  
+
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.8);  .site-subtitle {
+
+    backdrop-filter: blur(5px);
+
+}.culture-item p {    font-size: 1.4rem;
+
+
+
+.modal-content {    font-size: 1.1rem;  }
+
+    background-color: #fefefe;
+
+    margin: 5% auto;    line-height: 1.7;  
+
+    padding: 0;
+
+    border: none;    color: var(--text-dark);  .section-title {
+
+    width: 90%;
+
+    max-width: 800px;    text-align: left;    font-size: 2rem;
+
+    border-radius: 20px;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);}  }
+
+    overflow: hidden;
+
+}  
+
+
+
+.modal-header {/* Gallery Styles - Matches Thanjavur */  .heritage-nav {
+
+    background: var(--gradient-primary);
+
+    color: var(--text-light);.gallery-container {    flex-direction: column;
+
+    padding: 2rem;
+
+    position: relative;    margin-top: 3rem;    padding: 10px;
+
+}
+
+}  }
+
+.modal-header h3 {
+
+    font-family: 'Cinzel', serif;  
+
+    font-size: 1.8rem;
+
+    margin: 0;.gallery-tabs {  .nav-link {
+
+}
+
+    display: flex;    margin: 5px 0;
+
+.close {
+
+    position: absolute;    justify-content: center;    padding: 10px 15px;
+
+    top: 15px;
+
+    right: 25px;    gap: 1rem;  }
+
+    color: var(--text-light);
+
+    font-size: 2rem;    margin-bottom: 3rem;  
+
+    font-weight: bold;
+
+    cursor: pointer;}  .site-section {
+
+    transition: all 0.3s ease;
+
+}    padding: 25px 15px;
+
+
+
+.close:hover {.tab-btn {    margin: 20px 0;
+
+    transform: scale(1.2);
+
+}    padding: 1rem 2rem;  }
+
+
+
+.modal-body {    border: 2px solid var(--border-color);}
+
+    padding: 2.5rem;
+
+}    background: rgba(248, 244, 235, 0.9);
+
+
+
+/* Story Options */    color: var(--text-dark);/* Animations */
+
+.story-options {
+
+    display: grid;    font-size: 1.1rem;@keyframes fadeIn {
+
+    gap: 2rem;
+
+}    font-weight: 600;  from { 
+
+
+
+.story-card {    border-radius: 10px;    opacity: 0; 
+
+    background: rgba(248, 244, 235, 0.8);
+
+    padding: 2rem;    cursor: pointer;    transform: translateY(30px); 
+
+    border-radius: 15px;
+
+    cursor: pointer;    transition: all 0.3s ease;  }
+
+    transition: all 0.3s ease;
+
+    border: 2px solid var(--accent-color);}  to { 
+
+}
+
+    opacity: 1; 
+
+.story-card:hover {
+
+    transform: translateY(-5px);.tab-btn.active,    transform: translateY(0); 
+
+    box-shadow: 0 10px 25px var(--shadow-color);
+
+}.tab-btn:hover {  }
+
+
+
+.story-card h4 {    background: var(--gradient-secondary);}
+
+    font-family: 'Cinzel', serif;
+
+    color: var(--primary-color);    color: var(--text-light);
+
+    margin-bottom: 1rem;
+
+}    transform: translateY(-2px);.site-section.in-view {
+
+
+
+.story-card p {}  animation: fadeIn 0.8s ease-out forwards;
+
+    color: var(--text-dark);
+
+    line-height: 1.6;}
+
+}
+
+.tab-content {
+
+/* Blog Posts */
+
+.blog-posts {    display: none;.site-section {
+
+    display: grid;
+
+    gap: 2rem;}  opacity: 0;
+
+}
+
+}
+
+.blog-post {
+
+    background: rgba(248, 244, 235, 0.8);.tab-content.active {
+
+    padding: 2rem;
+
+    border-radius: 15px;    display: block;/* Footer styling */
+
+    border-left: 4px solid var(--secondary-color);
+
+}}.site-footer {
+
+
+
+.blog-post h4 {  background: linear-gradient(90deg, var(--heritage-primary), var(--heritage-secondary));
+
+    font-family: 'Cinzel', serif;
+
+    color: var(--primary-color);.heritage-gallery {  color: var(--heritage-text-light);
+
+    margin-bottom: 1rem;
+
+}    background: rgba(255, 255, 255, 0.95);  text-align: center;
+
+
+
+.post-meta {    padding: 2rem;  padding: 30px;
+
+    color: var(--secondary-color);
+
+    font-size: 0.9rem;    border-radius: 15px;  margin-top: 50px;
+
+    margin-bottom: 1rem;
+
+    font-style: italic;    box-shadow: 0 10px 30px var(--shadow-color);  border-radius: 0 0 15px 15px;
+
+}
+
+}}
+
+.blog-post p {
+
+    color: var(--text-dark);
+
+    line-height: 1.6;
+
+    margin-bottom: 1rem;.gallery-header {.site-footer p {
+
+}
+
+    display: flex;  margin: 0;
+
+.read-more-btn {
+
+    background: var(--gradient-secondary);    justify-content: space-between;  font-family: 'Cinzel', serif;
+
+    color: var(--text-light);
+
+    border: none;    align-items: center;  font-size: 1.1rem;
+
+    padding: 0.5rem 1rem;
+
+    border-radius: 5px;    margin-bottom: 2rem;}
+
+    cursor: pointer;
+
+    font-size: 0.9rem;}.heritage-nav {
+
+    transition: all 0.3s ease;
+
+}  display: flex;
+
+
+
+.read-more-btn:hover {.gallery-header h4 {  justify-content: center;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 4px 10px var(--shadow-color);    font-family: 'Cinzel', serif;  padding: 20px 0;
+
+}
+
+    font-size: 1.5rem;  background-color: rgba(139, 69, 19, 0.1);
+
+/* Quiz Styles */
+
+.quiz-intro {    color: var(--primary-color);  border-bottom: 2px solid var(--chennai-secondary);
+
+    text-align: center;
+
+    padding: 2rem;}  margin-bottom: 30px;
+
+}
+
+}
+
+.quiz-intro h4 {
+
+    font-family: 'Cinzel', serif;.gallery-controls {
+
+    color: var(--primary-color);
+
+    margin-bottom: 1rem;    display: flex;.nav-link {
+
+}
+
+    gap: 1rem;  color: var(--chennai-primary);
+
+.start-quiz-btn {
+
+    background: var(--gradient-primary);}  text-decoration: none;
+
+    color: var(--text-light);
+
+    border: none;  padding: 10px 20px;
+
+    padding: 1rem 2rem;
+
+    border-radius: 10px;.gallery-nav-btn {  margin: 0 10px;
+
+    font-size: 1.1rem;
+
+    cursor: pointer;    background: var(--gradient-secondary);  border: 1px solid var(--chennai-primary);
+
+    transition: all 0.3s ease;
+
+}    color: var(--text-light);  border-radius: 5px;
+
+
+
+.start-quiz-btn:hover {    border: none;  transition: all 0.3s ease;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px var(--shadow-color);    padding: 0.8rem 1.2rem;  font-weight: bold;
+
+}
+
+    border-radius: 8px;}
+
+.quiz-question {
+
+    margin-bottom: 2rem;    cursor: pointer;
+
+}
+
+    font-size: 1.2rem;.nav-link:hover {
+
+.quiz-question h4 {
+
+    font-family: 'Cinzel', serif;    transition: all 0.3s ease;  background-color: var(--chennai-secondary);
+
+    color: var(--primary-color);
+
+    margin-bottom: 1.5rem;}  color: var(--heritage-background);
+
+}
+
+}
+
+.quiz-options {
+
+    display: grid;.gallery-nav-btn:hover {
+
+    gap: 1rem;
+
+}    transform: scale(1.1);/* Hero section styling */
+
+
+
+.quiz-option {    box-shadow: 0 4px 15px var(--shadow-color);.site-hero-section {
+
+    background: rgba(248, 244, 235, 0.8);
+
+    border: 2px solid var(--accent-color);}  display: flex;
+
+    padding: 1rem;
+
+    border-radius: 8px;  justify-content: space-between;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;.gallery-scroll-container {  padding: 20px;
+
+    text-align: left;
+
+}    overflow: hidden;  margin-bottom: 40px;
+
+
+
+.quiz-option:hover {    border-radius: 15px;  background: linear-gradient(135deg, rgba(218, 165, 32, 0.2), rgba(139, 69, 19, 0.1));
+
+    background: var(--gradient-secondary);
+
+    color: var(--text-light);}  border-radius: 15px;
+
+}
+
+  box-shadow: 0 5px 15px rgba(92, 68, 35, 0.1);
+
+/* Chatbot Styles */
+
+.ai-chatbot-container {.gallery-track {}
+
+    position: fixed;
+
+    bottom: 20px;    display: flex;
+
+    right: 20px;
+
+    z-index: 9999;    gap: 2rem;.site-title {
+
+}
+
+    transition: transform 0.3s ease;  color: var(--site-text);
+
+.chatbot-toggle {
+
+    width: 60px;}  text-shadow: 0 0 10px rgba(214, 158, 46, 0.7);
+
+    height: 60px;
+
+    border-radius: 50%;}
+
+    background: var(--gradient-primary);
+
+    color: white;.heritage-card {
+
+    border: none;
+
+    cursor: pointer;    flex: 0 0 300px;.site-subtitle {
+
+    box-shadow: 0 4px 20px var(--shadow-color);
+
+    display: flex;    background: white;  color: var(--site-accent-light);
+
+    align-items: center;
+
+    justify-content: center;    border-radius: 15px;}
+
+    transition: all 0.3s ease;
+
+}    overflow: hidden;
+
+
+
+.chatbot-toggle:hover {    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);.site-description {
+
+    transform: scale(1.1);
+
+    box-shadow: 0 8px 30px var(--shadow-color);    cursor: pointer;  color: var(--site-text);
+
+}
+
+    transition: all 0.3s ease;  border-top: 1px solid var(--site-border);
+
+.chatbot-window {
+
+    display: none;}  border-bottom: 1px solid var(--site-border);
+
+    position: absolute;
+
+    bottom: 80px;}
+
+    right: 0;
+
+    width: 400px;.heritage-card:hover {
+
+    height: 500px;
+
+    background: white;    transform: translateY(-10px);/* Section styling */
+
+    border-radius: 15px;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);    box-shadow: 0 15px 35px var(--shadow-color);.site-section {
+
+    overflow: hidden;
+
+    border: 2px solid var(--accent-color);}  background: rgba(10, 25, 47, 0.7);
+
+}
+
+  border: 1px solid var(--site-border);
+
+.chatbot-header {
+
+    background: var(--gradient-primary);.card-image-container {}
+
+    color: var(--text-light);
+
+    padding: 1rem;    position: relative;
+
+    display: flex;
+
+    justify-content: space-between;    overflow: hidden;.section-title {
+
+    align-items: center;
+
+}}  color: var(--site-accent-light);
+
+
+
+.chatbot-header-info {  text-shadow: 0 0 8px rgba(214, 158, 46, 0.5);
+
+    display: flex;
+
+    align-items: center;.card-image {}
+
+    gap: 0.5rem;
+
+}    width: 100%;
+
+
+
+.chatbot-avatar {    height: 200px;.title-ornament {
+
+    font-size: 1.5rem;
+
+}    object-fit: cover;  border-top: 2px solid var(--site-ornament);
+
+
+
+.chatbot-title h4 {    transition: transform 0.3s ease;}
+
+    margin: 0;
+
+    font-size: 1rem;}
+
+}
+
+/* Content styling */
+
+.chatbot-title p {
+
+    margin: 0;.heritage-card:hover .card-image {.site-text-content p {
+
+    font-size: 0.8rem;
+
+    opacity: 0.8;    transform: scale(1.1);  color: var(--site-text);
+
+}
+
+}}
+
+.chatbot-controls {
+
+    display: flex;
+
+    gap: 0.5rem;
+
+}.card-info {.detail-card {
+
+
+
+.chatbot-control-btn {    padding: 1.5rem;  background: var(--site-card-bg);
+
+    background: none;
+
+    border: none;}  border: 1px solid var(--site-border);
+
+    color: var(--text-light);
+
+    font-size: 1.2rem;}
+
+    cursor: pointer;
+
+    padding: 0.25rem;.card-info h5 {
+
+    border-radius: 3px;
+
+    transition: background 0.3s ease;    font-family: 'Cinzel', serif;.detail-card h4 {
+
+}
+
+    font-size: 1.2rem;  color: var(--site-accent-light);
+
+.chatbot-control-btn:hover {
+
+    background: rgba(255, 255, 255, 0.2);    color: var(--primary-color);}
+
+}
+
+    margin-bottom: 0.5rem;
+
+.api-key-setup {
+
+    padding: 2rem;}/* Facts styling */
+
+    text-align: center;
+
+}.fact-card {
+
+
+
+.api-key-setup.hidden {.card-info p {  background: var(--site-card-bg);
+
+    display: none;
+
+}    font-size: 1rem;  border-left: 4px solid var(--site-accent);
+
+
+
+.setup-content h4 {    color: var(--text-dark);}
+
+    color: var(--primary-color);
+
+    margin-bottom: 1rem;    line-height: 1.5;
+
+}
+
+}.fact-icon {
+
+.api-input-section {
+
+    margin: 1.5rem 0;  color: var(--site-accent);
+
+}
+
+/* Media Placeholders */  background: rgba(214, 158, 46, 0.1);
+
+.api-key-input {
+
+    width: 100%;.media-grid {}
+
+    padding: 0.8rem;
+
+    border: 2px solid var(--accent-color);    display: grid;
+
+    border-radius: 8px;
+
+    margin-bottom: 1rem;    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));/* Legends styling */
+
+    font-size: 0.9rem;
+
+}    gap: 2rem;.legend-card {
+
+
+
+.save-api-btn {}  background: var(--site-card-bg);
+
+    width: 100%;
+
+}  border: 1px solid var(--site-border);
+
+
+
+.api-help-section {.media-item {}
+
+    font-size: 0.85rem;
+
+    color: var(--text-dark);    background: white;
+
+    text-align: left;
+
+}    border-radius: 15px;.legend-card h4 {
+
+
+
+.api-help-section a {    overflow: hidden;  color: var(--site-accent-light);
+
+    color: var(--secondary-color);
+
+}    box-shadow: 0 10px 30px var(--shadow-color);}
+
+
+
+.chat-messages {}
+
+    height: 300px;
+
+    overflow-y: auto;/* Culture styling */
+
+    padding: 1rem;
+
+}.video-placeholder {.culture-item {
+
+
+
+.chat-messages.hidden {    background: var(--gradient-secondary);  background: var(--site-card-bg);
+
+    display: none;
+
+}    color: var(--text-light);  border: 1px solid var(--site-border);
+
+
+
+.message {    padding: 4rem 2rem;}
+
+    margin-bottom: 1rem;
+
+}    text-align: center;
+
+
+
+.welcome-message {}.culture-item h4 {
+
+    background: rgba(248, 244, 235, 0.8);
+
+    padding: 1.5rem;  color: var(--site-accent-light);
+
+    border-radius: 10px;
+
+    border-left: 4px solid var(--secondary-color);.video-icon {}
+
+}
+
+    font-size: 3rem;
+
+.welcome-message h4 {
+
+    color: var(--primary-color);    margin-bottom: 1rem;/* Explore options styling */
+
+    margin-bottom: 0.5rem;
+
+}}.explore-options {
+
+
+
+.user-message {  background: rgba(10, 25, 47, 0.5);
+
+    text-align: right;
+
+}.media-caption {  border: 1px solid var(--site-border);
+
+
+
+.user-message .message-content {    padding: 1.5rem 1.5rem 0.5rem;}
+
+    background: var(--gradient-secondary);
+
+    color: var(--text-light);    font-weight: 600;
+
+    padding: 0.8rem 1rem;
+
+    border-radius: 15px 15px 5px 15px;    color: var(--primary-color);.option-card {
+
+    display: inline-block;
+
+    max-width: 80%;}  background: var(--site-card-bg);
+
+}
+
+  border: 1px solid var(--site-border);
+
+.bot-message {
+
+    display: flex;.media-description {}
+
+    gap: 0.5rem;
+
+}    padding: 0 1.5rem 1.5rem;
+
+
+
+.message-avatar {    color: var(--text-dark);.option-card h4 {
+
+    font-size: 1.2rem;
+
+    flex-shrink: 0;    font-size: 0.95rem;  color: var(--site-accent-light);
+
+}
+
+}}
+
+.bot-message .message-content {
+
+    background: rgba(248, 244, 235, 0.8);
+
+    padding: 0.8rem 1rem;
+
+    border-radius: 15px 15px 15px 5px;/* Tour Preview */.storytelling-icon {
+
+    max-width: 80%;
+
+}.tour-preview {  color: var(--site-accent);
+
+
+
+.message-time {    background: white;}
+
+    font-size: 0.7rem;
+
+    opacity: 0.7;    padding: 3rem;
+
+    margin-top: 0.25rem;
+
+}    border-radius: 20px;.blog-icon {
+
+
+
+.system-message .message-content {    text-align: center;  color: #63b3ed; /* Light blue for blog */
+
+    background: #e8f5e8;
+
+    padding: 0.8rem 1rem;    box-shadow: 0 15px 35px var(--shadow-color);}
+
+    border-radius: 10px;
+
+    text-align: center;    cursor: pointer;
+
+    font-size: 0.9rem;
+
+}    transition: all 0.3s ease;.quiz-icon {
+
+
+
+.typing-indicator {}  color: #48bb78; /* Green for quiz */
+
+    padding: 1rem;
+
+    text-align: center;}
+
+}
+
+.tour-preview:hover {
+
+.typing-indicator.hidden {
+
+    display: none;    transform: translateY(-8px);.action-btn {
+
+}
+
+}  background: var(--site-primary);
+
+.typing-content {
+
+    display: flex;  color: var(--site-text);
+
+    align-items: center;
+
+    gap: 0.5rem;.tour-placeholder {  border: 1px solid var(--site-border);
+
+    justify-content: center;
+
+}    padding: 2rem;}
+
+
+
+.typing-dots {}
+
+    display: flex;
+
+    gap: 0.2rem;.action-btn:hover {
+
+}
+
+.tour-icon {  background: var(--site-secondary);
+
+.dot {
+
+    width: 6px;    font-size: 4rem;  color: var(--site-accent-light);
+
+    height: 6px;
+
+    background: var(--secondary-color);    color: var(--secondary-color);  box-shadow: 0 0 15px rgba(214, 158, 46, 0.5);
+
+    border-radius: 50%;
+
+    animation: typing 1.4s infinite ease-in-out;    margin-bottom: 1.5rem;}
+
+}
+
+}
+
+.dot:nth-child(2) {
+
+    animation-delay: 0.2s;.primary-btn {
+
+}
+
+.tour-placeholder h4 {  border-color: var(--site-accent);
+
+.dot:nth-child(3) {
+
+    animation-delay: 0.4s;    font-family: 'Cinzel', serif;}
+
+}
+
+    font-size: 1.8rem;
+
+@keyframes typing {
+
+    0%, 80%, 100% {    color: var(--primary-color);.primary-btn:hover {
+
+        transform: scale(1);
+
+        opacity: 0.5;    margin-bottom: 1rem;  background: rgba(214, 158, 46, 0.2);
+
+    }
+
+    40% {}}
+
+        transform: scale(1.2);
+
+        opacity: 1;
+
+    }
+
+}.tour-placeholder p {.secondary-btn {
+
+
+
+.chat-input-container {    font-size: 1.1rem;  border-color: #63b3ed;
+
+    border-top: 1px solid #eee;
+
+    padding: 1rem;    color: var(--text-dark);}
+
+}
+
+    margin-bottom: 2rem;
+
+.chat-input-container.hidden {
+
+    display: none;}.secondary-btn:hover {
+
+}
+
+  background: rgba(99, 179, 237, 0.2);
+
+.input-row {
+
+    display: flex;/* Button Styles */}
+
+    gap: 0.5rem;
+
+    margin-bottom: 0.5rem;.action-btn {
+
+}
+
+    padding: 1rem 2rem;.accent-btn {
+
+.chat-input {
+
+    flex: 1;    border: none;  border-color: #48bb78;
+
+    padding: 0.8rem;
+
+    border: 2px solid var(--accent-color);    border-radius: 8px;}
+
+    border-radius: 8px;
+
+    font-size: 0.9rem;    font-size: 1.1rem;
+
+}
+
+    font-weight: 600;.accent-btn:hover {
+
+.send-btn {
+
+    background: var(--gradient-primary);    cursor: pointer;  background: rgba(72, 187, 120, 0.2);
+
+    color: var(--text-light);
+
+    border: none;    transition: all 0.3s ease;}
+
+    padding: 0.8rem 1rem;
+
+    border-radius: 8px;    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;    display: inline-block;/* Gallery styling */
+
+}
+
+}.gallery-tabs {
+
+.send-btn:hover {
+
+    transform: scale(1.05);  border-bottom: 2px solid var(--site-border);
+
+}
+
+.primary-btn {}
+
+.quick-buttons {
+
+    display: flex;    background: var(--gradient-primary);
+
+    gap: 0.5rem;
+
+    flex-wrap: wrap;    color: var(--text-light);.tab-btn {
+
+}
+
+}  background: var(--site-primary);
+
+.quick-btn {
+
+    background: rgba(248, 244, 235, 0.8);  color: var(--site-text);
+
+    border: 1px solid var(--accent-color);
+
+    padding: 0.4rem 0.8rem;.primary-btn:hover {  border: 1px solid var(--site-border);
+
+    border-radius: 15px;
+
+    font-size: 0.8rem;    transform: translateY(-2px);}
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;    box-shadow: 0 8px 20px var(--shadow-color);
+
+}
+
+}.tab-btn.active {
+
+.quick-btn:hover {
+
+    background: var(--gradient-secondary);  background: var(--site-accent);
+
+    color: var(--text-light);
+
+}/* Modal Styles - Matches Thanjavur */  color: var(--site-background);
+
+
+
+/* Responsive Design - Matches Thanjavur */.modal {}
+
+@media (max-width: 768px) {
+
+    .ornate-frame {    display: none;
+
+        padding: 180px 20px 40px;
+
+    }    position: fixed;.tab-btn:hover {
+
+    
+
+    .site-hero-section {    z-index: 10000;  background: var(--site-secondary);
+
+        grid-template-columns: 1fr;
+
+        gap: 2rem;    left: 0;  color: var(--site-accent-light);
+
+        text-align: center;
+
+    }    top: 0;}
+
+    
+
+    .site-title {    width: 100%;
+
+        font-size: 2.5rem;
+
+    }    height: 100%;.media-item {
+
+    
+
+    .heritage-nav {    background-color: rgba(0, 0, 0, 0.8);  background: var(--site-card-bg);
+
+        flex-wrap: wrap;
+
+        gap: 1rem;    backdrop-filter: blur(5px);  border: 1px solid var(--site-border);
+
+    }
+
+    }}
+
+    .nav-link {
+
+        padding: 0.6rem 1rem;
+
+        font-size: 0.9rem;
+
+    }.modal-content {.media-caption {
+
+    
+
+    .facts-container,    background-color: #fefefe;  color: var(--site-accent-light);
+
+    .legends-container,
+
+    .culture-grid,    margin: 5% auto;}
+
+    .explore-options {
+
+        grid-template-columns: 1fr;    padding: 0;
+
+    }
+
+        border: none;.media-description {
+
+    .gallery-track {
+
+        gap: 1rem;    width: 90%;  color: var(--site-text);
+
+    }
+
+        max-width: 800px;}
+
+    .heritage-card {
+
+        flex: 0 0 280px;    border-radius: 20px;
+
+    }
+
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);.ar-btn {
+
+    .timeline-item {
+
+        flex-direction: column;    overflow: hidden;  background: linear-gradient(45deg, var(--site-primary), var(--site-secondary));
+
+        gap: 1rem;
+
+    }}  color: var(--site-text);
+
+    
+
+    .timeline-year {  border: 2px solid var(--site-accent);
+
+        min-width: auto;
+
+        align-self: flex-start;.modal-header {}
+
+    }
+
+        background: var(--gradient-primary);
+
+    .chatbot-window {
+
+        width: 90vw;    color: var(--text-light);.ar-btn:hover {
+
+        right: 5vw;
+
+    }    padding: 2rem;  background: linear-gradient(45deg, var(--site-secondary), var(--site-primary));
+
+}
+
+    position: relative;  color: var(--site-accent-light);
+
+@media (max-width: 480px) {
+
+    .ornate-frame {}  box-shadow: 0 0 20px rgba(214, 158, 46, 0.7);
+
+        padding: 160px 15px 30px;
+
+    }}
+
+    
+
+    .site-title {.modal-header h3 {
+
+        font-size: 2rem;
+
+    }    font-family: 'Cinzel', serif;/* Timeline styling */
+
+    
+
+    .site-subtitle {    font-size: 1.8rem;.timeline-section {
+
+        font-size: 1.4rem;
+
+    }    margin: 0;  background: rgba(10, 25, 47, 0.7);
+
+    
+
+    .site-description {}  border: 1px solid var(--site-border);
+
+        font-size: 1rem;
+
+    }}
+
+    
+
+    .section-title {.close {
+
+        font-size: 2rem;
+
+    }    position: absolute;.timeline-item {
+
+    
+
+    .heritage-nav {    top: 15px;  border-left: 3px solid var(--site-accent);
+
+        gap: 0.5rem;
+
+    }    right: 25px;}
+
+    
+
+    .nav-link {    color: var(--text-light);
+
+        padding: 0.5rem 0.8rem;
+
+        font-size: 0.8rem;    font-size: 2rem;.timeline-year {
+
+    }
+
+        font-weight: bold;  background: var(--site-accent);
+
+    .site-section {
+
+        padding: 2rem 1.5rem;    cursor: pointer;  color: var(--site-background);
+
+    }
+
+        transition: all 0.3s ease;}
+
+    .modal-content {
+
+        width: 95%;}
+
+        margin: 10% auto;
+
+    }.timeline-content h5 {
+
+    
+
+    .chatbot-window {.close:hover {  color: var(--site-accent-light);
+
+        width: 95vw;
+
+        right: 2.5vw;    transform: scale(1.2);}
+
+        height: 80vh;
+
+    }}
+
+}
+/* Modal styling */
+
+.modal-body {.modal-content {
+
+    padding: 2.5rem;  background: var(--site-background);
+
+}  border: 2px solid var(--site-border);
+
+}
+
+/* Responsive Design - Matches Thanjavur */
+
+@media (max-width: 768px) {.modal-header h3 {
+
+    .ornate-frame {  color: var(--site-accent-light);
+
+        padding: 180px 20px 40px;}
+
+    }
+
+    .close {
+
+    .site-hero-section {  color: var(--site-text);
+
+        grid-template-columns: 1fr;}
+
+        gap: 2rem;
+
+        text-align: center;.close:hover {
+
+    }  color: var(--site-accent-light);
+
+    }
+
+    .site-title {
+
+        font-size: 2.5rem;.story-card, .blog-post, .quiz-intro {
+
+    }  background: var(--site-card-bg);
+
+      border: 1px solid var(--site-border);
+
+    .heritage-nav {}
+
+        flex-wrap: wrap;
+
+        gap: 1rem;.story-card:hover, .blog-post:hover {
+
+    }  border-color: var(--site-accent-light);
+
+      box-shadow: 0 0 15px rgba(214, 158, 46, 0.5);
+
+    .nav-link {}
+
+        padding: 0.6rem 1rem;
+
+        font-size: 0.9rem;.story-card h4, .blog-post h4 {
+
+    }  color: var(--site-accent-light);
+
+    }
+
+    .facts-container,
+
+    .legends-container,.post-meta {
+
+    .culture-grid {  color: #a0aec0; /* Muted text color */
+
+        grid-template-columns: 1fr;}
+
+    }
+
+    .read-more-btn, .start-quiz-btn {
+
+    .gallery-track {  background: var(--site-primary);
+
+        gap: 1rem;  color: var(--site-text);
+
+    }  border: 1px solid var(--site-border);
+
+    }
+
+    .heritage-card {
+
+        flex: 0 0 280px;.read-more-btn:hover, .start-quiz-btn:hover {
+
+    }  background: var(--site-secondary);
+
+}  color: var(--site-accent-light);
+
+}
+
+@media (max-width: 480px) {
+
+    .ornate-frame {/* Responsive design */
+
+        padding: 160px 15px 30px;@media (max-width: 768px) {
+
+    }  .site-hero-section {
+
+        flex-direction: column;
+
+    .site-title {  }
+
+        font-size: 2rem;  
+
+    }  .site-details-grid, .culture-grid, .explore-options {
+
+        grid-template-columns: 1fr;
+
+    .site-subtitle {  }
+
+        font-size: 1.4rem;  
+
+    }  .media-grid {
+
+        grid-template-columns: 1fr;
+
+    .site-description {  }
+
+        font-size: 1rem;  
+
+    }  .ornate-frame {
+
+        margin: 10px;
+
+    .section-title {    padding: 15px;
+
+        font-size: 2rem;  }
+
+    }}
+
+    
+
+    .heritage-nav {@media (max-width: 480px) {
+
+        gap: 0.5rem;  .site-title {
+
+    }    font-size: 2rem;
+
+      }
+
+    .nav-link {  
+
+        padding: 0.5rem 0.8rem;  .site-subtitle {
+
+        font-size: 0.8rem;    font-size: 1.2rem;
+
+    }  }
+
+      
+
+    .site-section {  .section-title {
+
+        padding: 2rem 1.5rem;    font-size: 1.5rem;
+
+    }  }
+
+      
+
+    .modal-content {  .heritage-nav {
+
+        width: 95%;    flex-direction: column;
+
+        margin: 10% auto;    padding: 10px;
+
+    }  }
+
+}  
+  .nav-link {
+    margin: 5px 0;
+    padding: 8px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.site-section.in-view {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.site-section {
+  opacity: 0;
+}
+
+/* Floating decorative elements */
+.decorative-corner {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  z-index: 10;
+  opacity: 0.7;
+}
+
+.top-left {
+  top: 20px;
+  left: 20px;
+  background: url('../../assets/decorative_corner.svg') no-repeat;
+  background-size: contain;
+}
+
+.top-right {
+  top: 20px;
+  right: 20px;
+  background: url('../../assets/decorative_corner.svg') no-repeat;
+  background-size: contain;
+  transform: rotate(90deg);
+}
+
+.bottom-left {
+  bottom: 20px;
+  left: 20px;
+  background: url('../../assets/decorative_corner.svg') no-repeat;
+  background-size: contain;
+  transform: rotate(-90deg);
+}
+
+.bottom-right {
+  bottom: 20px;
+  right: 20px;
+  background: url('../../assets/decorative_corner.svg') no-repeat;
+  background-size: contain;
+  transform: rotate(180deg);
+}
