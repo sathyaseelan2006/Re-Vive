@@ -5,6 +5,94 @@
             "destination": "/backend/server.js"
         },
         {
+            "source": "/tamil-nadu/chennai/(.*)",
+            "destination": "/tamil-nadu/chennai/$1"
+        },
+        {
+            "source": "/tamil-nadu/chettinad/(.*)",
+            "destination": "/tamil-nadu/chettinad/$1"
+        },
+        {
+            "source": "/tamil-nadu/chidambaram/(.*)",
+            "destination": "/tamil-nadu/chidambaram/$1"
+        },
+        {
+            "source": "/tamil-nadu/darasuram/(.*)",
+            "destination": "/tamil-nadu/darasuram/$1"
+        },
+        {
+            "source": "/tamil-nadu/fort-st-george/(.*)",
+            "destination": "/tamil-nadu/fort-st-george/$1"
+        },
+        {
+            "source": "/tamil-nadu/gangaikonda-cholapuram/(.*)",
+            "destination": "/tamil-nadu/gangaikonda-cholapuram/$1"
+        },
+        {
+            "source": "/tamil-nadu/gingee-fort/(.*)",
+            "destination": "/tamil-nadu/gingee-fort/$1"
+        },
+        {
+            "source": "/tamil-nadu/kanchipuram/(.*)",
+            "destination": "/tamil-nadu/kanchipuram/$1"
+        },
+        {
+            "source": "/tamil-nadu/kanyakumari/(.*)",
+            "destination": "/tamil-nadu/kanyakumari/$1"
+        },
+        {
+            "source": "/tamil-nadu/keeladi/(.*)",
+            "destination": "/tamil-nadu/keeladi/$1"
+        },
+        {
+            "source": "/tamil-nadu/madurai/(.*)",
+            "destination": "/tamil-nadu/madurai/$1"
+        },
+        {
+            "source": "/tamil-nadu/mahabalipuram/(.*)",
+            "destination": "/tamil-nadu/mahabalipuram/$1"
+        },
+        {
+            "source": "/tamil-nadu/nilgiris-ooty/(.*)",
+            "destination": "/tamil-nadu/nilgiris-ooty/$1"
+        },
+        {
+            "source": "/tamil-nadu/palani/(.*)",
+            "destination": "/tamil-nadu/palani/$1"
+        },
+        {
+            "source": "/tamil-nadu/rameswaram/(.*)",
+            "destination": "/tamil-nadu/rameswaram/$1"
+        },
+        {
+            "source": "/tamil-nadu/rockfort-tiruchirappalli/(.*)",
+            "destination": "/tamil-nadu/rockfort-tiruchirappalli/$1"
+        },
+        {
+            "source": "/tamil-nadu/srirangam/(.*)",
+            "destination": "/tamil-nadu/srirangam/$1"
+        },
+        {
+            "source": "/tamil-nadu/srivilliputhur/(.*)",
+            "destination": "/tamil-nadu/srivilliputhur/$1"
+        },
+        {
+            "source": "/tamil-nadu/thanjavur/(.*)",
+            "destination": "/tamil-nadu/thanjavur/$1"
+        },
+        {
+            "source": "/tamil-nadu/thiruchendur/(.*)",
+            "destination": "/tamil-nadu/thiruchendur/$1"
+        },
+        {
+            "source": "/tamil-nadu/tiruvannamalai/(.*)",
+            "destination": "/tamil-nadu/tiruvannamalai/$1"
+        },
+        {
+            "source": "/tamil-nadu/vellore-fort/(.*)",
+            "destination": "/tamil-nadu/vellore-fort/$1"
+        },
+        {
             "source": "/tamil-nadu/(.*)",
             "destination": "/tamil-nadu/$1"
         },
