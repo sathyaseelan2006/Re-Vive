@@ -3,6 +3,14 @@
         {
             "source": "/api/(.*)",
             "destination": "/backend/server.js"
+        },
+        {
+            "source": "/tamil-nadu/(.*)",
+            "destination": "/tamil-nadu/$1"
+        },
+        {
+            "source": "/heritageai/(.*)",
+            "destination": "/heritageai/$1"
         }
     ],
     "headers": [
