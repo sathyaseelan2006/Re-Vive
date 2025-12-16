@@ -1,62 +1,237 @@
 import express from 'express';
-import User from '../models/User.js';
-import HeritageSite from '../models/HeritageSite.js';
-import { tamilNaduSites } from '../data/tamilNaduSites.js';
+import { supabase, getUserProfile, updateUserProfile, saveRecommendedSites, getRecommendedSites, getHeritageSites } from '../lib/supabase.js';
 
 const router = express.Router();
 
-// Update user preferences (first login or preference change)
-router.post('/preferences', async (req, res) => {
+// Middleware to verify authentication
+const authenticate = async (req, res, next) => {
+    try {
+        const token = req.headers.authorization?.replace('Bearer ', '');
+
+        if (!token) {
+            return res.status(401).json({
+                success: false,
+                message: 'No token provided'
+            });
+        }
+
+        const { data: { user }, error } = await supabase.auth.getUser(token);
+
+        if (error || !user) {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid or expired token'
+            });
+        }
+
+        req.user = user;
+        next();
+    } catch (error) {
+        res.status(401).json({
+            success: false,
+            message: 'Authentication failed'
+        });
+    }
+};
+
+// Get user profile
+router.get('/profile/:userId', authenticate, async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // Ensure user can only access their own profile
+        if (req.user.id !== userId) {
+            return res.status(403).json({
+                success: false,
+                message: 'Access denied'
+            });
+        }
+
+        const profile = await getUserProfile(userId);
+
+        res.json({
+            success: true,
+            data: profile
+        });
+
+    } catch (error) {
+        console.error('Get profile error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching profile'
+        });
+    }
+});
+
+// Check if first login
+router.get('/first-login/:userId', authenticate, async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        const profile = await getUserProfile(userId);
+
+        res.json({
+            success: true,
+            isFirstLogin: profile?.is_first_login || false,
+            fullName: profile?.full_name || 'User'
+        });
+
+    } catch (error) {
+        console.error('First login check error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error checking first login status'
+        });
+    }
+});
+
+// Update user preferences
+router.post('/preferences', authenticate, async (req, res) => {
     try {
         const { userId, preferences } = req.body;
 
-        if (!userId || !preferences || !Array.isArray(preferences)) {
+        console.log('Preferences request:', { userId, preferences });
+
+        if (!userId || !Array.isArray(preferences)) {
             return res.status(400).json({
                 success: false,
-                message: 'User ID and preferences array are required'
+                message: 'Invalid request data'
             });
         }
 
-        // Validate preferences
-        const validPreferences = ['romantic', 'spiritual', 'war', 'heroic', 'history', 'architecture', 'nature', 'cultural'];
-        const invalidPrefs = preferences.filter(p => !validPreferences.includes(p));
-        
-        if (invalidPrefs.length > 0) {
-            return res.status(400).json({
+        // Ensure user can only update their own preferences
+        if (req.user.id !== userId) {
+            return res.status(403).json({
                 success: false,
-                message: `Invalid preferences: ${invalidPrefs.join(', ')}`
+                message: 'Access denied'
             });
         }
 
-        // Find user
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: 'User not found'
+        // Handle clearing preferences
+        if (preferences.length === 0) {
+            console.log('Clearing preferences for user:', userId);
+
+            // Get the user's token from the request
+            const token = req.headers.authorization?.replace('Bearer ', '');
+
+            // Create a Supabase client with the user's token for RLS
+            const { createClient } = await import('@supabase/supabase-js');
+            const userSupabase = createClient(
+                process.env.SUPABASE_URL,
+                process.env.SUPABASE_ANON_KEY,
+                {
+                    global: {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                }
+            );
+
+            // Update preferences using user's authenticated session
+            const { data: updatedProfile, error: updateError } = await userSupabase
+                .from('user_profiles')
+                .update({
+                    preferences: [],
+                    emotional_profile: null,
+                    last_preference_update: new Date().toISOString()
+                })
+                .eq('id', userId)
+                .select();
+
+            if (updateError) {
+                console.error('Error updating profile:', updateError);
+                throw updateError;
+            }
+
+            // Delete all recommendations for this user
+            const { error: deleteError } = await userSupabase
+                .from('recommended_sites')
+                .delete()
+                .eq('user_id', userId);
+
+            if (deleteError) {
+                console.error('Error deleting recommendations:', deleteError);
+            }
+
+            console.log('Preferences cleared successfully');
+
+            return res.json({
+                success: true,
+                message: 'Preferences cleared successfully',
+                data: {
+                    profile: updatedProfile && updatedProfile.length > 0 ? updatedProfile[0] : null,
+                    recommendations: []
+                }
             });
         }
 
-        // Generate recommendations based on preferences
-        const recommendations = await generateRecommendations(preferences);
+        // Determine emotional profile based on preferences
         const emotionalProfile = determineEmotionalProfile(preferences);
 
-        // Update user
-        user.preferences = preferences;
-        user.emotionalProfile = emotionalProfile;
-        user.recommendedSites = recommendations;
-        user.lastPreferenceUpdate = new Date();
-        user.isFirstLogin = false;
-        
-        await user.save();
+        // Generate recommendations based on preferences
+        const allSites = await getHeritageSites({ state: 'Tamil Nadu' });
+        const recommendations = generateRecommendations(preferences, emotionalProfile, allSites);
+
+        // Get the user's token for authenticated operations
+        const token = req.headers.authorization?.replace('Bearer ', '');
+
+        // Create a Supabase client with the user's token for RLS
+        const { createClient } = await import('@supabase/supabase-js');
+        const userSupabase = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_ANON_KEY,
+            {
+                global: {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            }
+        );
+
+        // Update user profile using authenticated client
+        const { data: updatedProfileData, error: profileError } = await userSupabase
+            .from('user_profiles')
+            .update({
+                preferences,
+                emotional_profile: emotionalProfile,
+                is_first_login: false,
+                last_preference_update: new Date().toISOString()
+            })
+            .eq('id', userId)
+            .select();
+
+        if (profileError) throw profileError;
+
+        // Delete existing recommendations
+        await userSupabase
+            .from('recommended_sites')
+            .delete()
+            .eq('user_id', userId);
+
+        // Insert new recommendations using authenticated client
+        const { data: savedRecs, error: recsError } = await userSupabase
+            .from('recommended_sites')
+            .insert(
+                recommendations.map(rec => ({
+                    user_id: userId,
+                    site_name: rec.siteName,
+                    location: rec.location,
+                    match_score: rec.matchScore,
+                    reason: rec.reason
+                }))
+            )
+            .select();
+
+        if (recsError) throw recsError;
 
         res.json({
             success: true,
             message: 'Preferences updated successfully',
             data: {
-                preferences: user.preferences,
-                emotionalProfile: user.emotionalProfile,
-                recommendedSites: user.recommendedSites
+                profile: updatedProfileData && updatedProfileData.length > 0 ? updatedProfileData[0] : null,
+                recommendations: recommendations
             }
         });
 
@@ -70,215 +245,148 @@ router.post('/preferences', async (req, res) => {
     }
 });
 
-// Get user profile with recommendations
-router.get('/profile/:userId', async (req, res) => {
+// Get user recommendations
+router.get('/recommendations/:userId', authenticate, async (req, res) => {
     try {
         const { userId } = req.params;
 
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({
+        // Ensure user can only access their own recommendations
+        if (req.user.id !== userId) {
+            return res.status(403).json({
                 success: false,
-                message: 'User not found'
+                message: 'Access denied'
             });
         }
+
+        // Get recommendations from database
+        const dbRecommendations = await getRecommendedSites(userId);
+
+        // Get user profile for preferences
+        const profile = await getUserProfile(userId);
+
+        // Transform to match frontend format (camelCase)
+        const recommendations = dbRecommendations.map(rec => ({
+            siteName: rec.site_name,
+            location: rec.location,
+            district: rec.location, // Use location as district
+            matchScore: rec.match_score,
+            reason: rec.reason,
+            urlPath: null // Will be handled by frontend
+        }));
 
         res.json({
             success: true,
-            data: {
-                fullName: user.fullName,
-                email: user.email,
-                isFirstLogin: user.isFirstLogin,
-                preferences: user.preferences,
-                emotionalProfile: user.emotionalProfile,
-                recommendedSites: user.recommendedSites,
-                lastPreferenceUpdate: user.lastPreferenceUpdate
-            }
-        });
-
-    } catch (error) {
-        console.error('Get profile error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error fetching profile',
-            error: error.message
-        });
-    }
-});
-
-// Check if first login
-router.get('/first-login/:userId', async (req, res) => {
-    try {
-        const { userId } = req.params;
-
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: 'User not found'
-            });
-        }
-
-        res.json({
-            success: true,
-            isFirstLogin: user.isFirstLogin,
-            fullName: user.fullName
-        });
-
-    } catch (error) {
-        console.error('Check first login error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error checking first login status',
-            error: error.message
-        });
-    }
-});
-
-// Get recommendations for user
-router.get('/recommendations/:userId', async (req, res) => {
-    try {
-        const { userId } = req.params;
-
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: 'User not found'
-            });
-        }
-
-        // If no preferences set yet, return empty
-        if (!user.preferences || user.preferences.length === 0) {
-            return res.json({
-                success: true,
-                recommendations: [],
-                message: 'Please set your preferences first'
-            });
-        }
-
-        // If no recommendations stored or need refresh, generate new ones
-        if (!user.recommendedSites || user.recommendedSites.length === 0) {
-            const recommendations = await generateRecommendations(user.preferences);
-            user.recommendedSites = recommendations;
-            await user.save();
-        }
-
-        res.json({
-            success: true,
-            recommendations: user.recommendedSites,
-            preferences: user.preferences || []
+            recommendations: recommendations,
+            preferences: profile?.preferences || []
         });
 
     } catch (error) {
         console.error('Get recommendations error:', error);
         res.status(500).json({
             success: false,
-            message: 'Error fetching recommendations',
-            error: error.message
+            message: 'Error fetching recommendations'
         });
     }
 });
 
-// AI-based recommendation generation
-async function generateRecommendations(preferences) {
-    try {
-        // Try to get sites from database first
-        let sites = await HeritageSite.find({ isActive: true });
-
-        // If no sites in database, use static Tamil Nadu data
-        if (sites.length === 0) {
-            sites = tamilNaduSites;
-        }
-
-        const recommendations = [];
-
-        // Score each site based on user preferences
-        for (const site of sites) {
-            let matchScore = 0;
-            const matchedTags = [];
-
-            // Calculate match score
-            for (const pref of preferences) {
-                if (site.emotionalTags && site.emotionalTags.includes(pref)) {
-                    matchScore += 20; // Each matching tag adds 20 points
-                    matchedTags.push(pref);
-                }
-            }
-
-            // Only include sites with match score > 0
-            if (matchScore > 0) {
-                const reason = generateReason(matchedTags, site);
-
-                recommendations.push({
-                    siteName: site.siteName,
-                    location: site.location,
-                    district: site.district,
-                    matchScore: Math.min(matchScore, 100), // Cap at 100%
-                    reason: reason,
-                    highlights: site.highlights || [],
-                    period: site.period,
-                    urlPath: site.urlPath
-                });
-            }
-        }
-
-        // Sort by match score (highest first)
-        recommendations.sort((a, b) => b.matchScore - a.matchScore);
-
-        // Return top 6 recommendations
-        return recommendations.slice(0, 6);
-
-    } catch (error) {
-        console.error('Error generating recommendations:', error);
-        return [];
-    }
-}
-
-// Generate personalized reason based on emotional tags
-function generateReason(matchedTags, site) {
-    const reasons = {
-        romantic: `Perfect for romantic souls - ${site.siteName} offers breathtaking beauty and serene atmosphere.`,
-        spiritual: `A deeply spiritual experience awaits at ${site.siteName}, connecting you to divine energy.`,
-        war: `Witness the military prowess and battle strategies at ${site.siteName}, where history was forged in battle.`,
-        heroic: `Celebrate the valor and heroism at ${site.siteName}, a monument to courage and sacrifice.`,
-        history: `Explore the rich historical legacy of ${site.siteName}, spanning centuries of Tamil civilization.`,
-        architecture: `Marvel at the architectural brilliance of ${site.siteName}, a masterpiece of design and engineering.`,
-        nature: `Immerse yourself in the natural beauty surrounding ${site.siteName}, where heritage meets nature.`,
-        cultural: `Experience the vibrant cultural heritage of ${site.siteName}, a living tradition of Tamil Nadu.`
-    };
-
-    const primaryTag = matchedTags[0];
-    return reasons[primaryTag] || `Discover the wonders of ${site.siteName}, perfectly matching your interests.`;
-}
-
-// Determine emotional profile based on preferences
+// Helper function to determine emotional profile
 function determineEmotionalProfile(preferences) {
     const profiles = {
-        explorer: ['nature', 'cultural', 'history'],
-        scholar: ['history', 'architecture', 'cultural'],
-        romantic: ['romantic', 'spiritual', 'nature'],
+        explorer: ['nature', 'architecture', 'cultural'],
+        scholar: ['history', 'architecture'],
+        romantic: ['romantic', 'nature', 'spiritual'],
         warrior: ['war', 'heroic', 'history'],
-        seeker: ['spiritual', 'cultural', 'romantic']
+        seeker: ['spiritual', 'cultural']
     };
 
     let maxScore = 0;
-    let dominantProfile = 'explorer';
+    let selectedProfile = 'explorer';
 
     for (const [profile, tags] of Object.entries(profiles)) {
-        let score = 0;
-        for (const tag of tags) {
-            if (preferences.includes(tag)) {
-                score++;
-            }
-        }
+        const score = preferences.filter(pref => tags.includes(pref)).length;
         if (score > maxScore) {
             maxScore = score;
-            dominantProfile = profile;
+            selectedProfile = profile;
         }
     }
 
-    return dominantProfile;
+    return selectedProfile;
+}
+
+// Helper function to generate recommendations
+function generateRecommendations(preferences, emotionalProfile, allSites) {
+    const scoredSites = allSites.map(site => {
+        let score = 0;
+
+        // Match emotional tags
+        if (site.emotional_tags) {
+            const matchingTags = site.emotional_tags.filter(tag =>
+                preferences.includes(tag)
+            );
+            score += matchingTags.length * 0.4;
+        }
+
+        // Bonus for matching emotional profile
+        if (site.emotional_tags && site.emotional_tags.includes(emotionalProfile)) {
+            score += 0.3;
+        }
+
+        return {
+            ...site,
+            matchScore: Math.round(Math.min(score, 1.0) * 100), // Convert to percentage
+            reason: generateReason(preferences, site, emotionalProfile)
+        };
+    });
+
+    // Sort by score and return top 6
+    return scoredSites
+        .sort((a, b) => b.matchScore - a.matchScore)
+        .slice(0, 6)
+        .map(site => ({
+            siteName: site.site_name,
+            location: site.location,
+            matchScore: site.matchScore,
+            reason: site.reason,
+            highlights: site.highlights || []
+        }));
+}
+
+// Helper function to generate personalized reason
+function generateReason(preferences, site, emotionalProfile) {
+    // Find matching tags between user preferences and site tags
+    const matchingTags = site.emotional_tags?.filter(tag => preferences.includes(tag)) || [];
+
+    // Create reason based on matching tags
+    if (matchingTags.length > 0) {
+        const tagDescriptions = {
+            'spiritual': 'sacred temples and spiritual experiences',
+            'history': 'rich historical heritage',
+            'war': 'stories of battles and warriors',
+            'heroic': 'tales of bravery and courage',
+            'architecture': 'stunning architectural beauty',
+            'cultural': 'vibrant cultural traditions',
+            'nature': 'beautiful natural scenery',
+            'romantic': 'peaceful and scenic atmosphere'
+        };
+
+        // Build description from matching tags
+        const descriptions = matchingTags
+            .map(tag => tagDescriptions[tag] || tag)
+            .slice(0, 2); // Use top 2 matching tags
+
+        if (descriptions.length === 1) {
+            return `Perfect for those interested in ${descriptions[0]}.`;
+        } else if (descriptions.length === 2) {
+            return `Combines ${descriptions[0]} with ${descriptions[1]}.`;
+        }
+    }
+
+    // Fallback to site highlights
+    if (site.highlights && site.highlights.length > 0) {
+        return `Discover ${site.highlights[0]}.`;
+    }
+
+    return `Explore the wonders of ${site.site_name}!`;
 }
 
 export default router;

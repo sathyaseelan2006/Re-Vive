@@ -1946,6 +1946,118 @@ body.heritage-site-body::after {
     box-shadow: 0 8px 20px var(--shadow-color);
 }
 
+/* Story content styling */
+#storytellingModal .modal-body .story-content {
+    background: rgba(248, 244, 235, 0.95);
+    padding: 25px;
+    border-radius: 15px;
+    color: var(--text-dark);
+    max-height: none;
+    overflow: visible;
+}
+
+#storytellingModal .modal-body .story-content h4 {
+    color: var(--primary-color);
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+#storytellingModal .modal-body .story-content p {
+    color: var(--text-dark);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+/* Narration controls */
+.story-narration-controls {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 2px solid var(--accent-color);
+}
+
+.voice-label {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+.quick-narrate-select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid var(--accent-color);
+    background: white;
+    color: var(--text-dark);
+    font-family: 'Cinzel', serif;
+    cursor: pointer;
+}
+
+#narrationSpinner {
+    display: none;
+    margin-left: 10px;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+#narrationText {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(248, 244, 235, 0.9);
+    border-radius: 10px;
+    line-height: 1.6;
+    color: var(--text-dark);
+    white-space: pre-wrap;
+}
+
+.voice-availability,
+.voice-mismatch-warning {
+    font-size: 0.9rem;
+    padding: 8px;
+    margin-top: 8px;
+    border-radius: 6px;
+}
+
+.voice-availability {
+    color: var(--primary-color);
+    background: rgba(218, 165, 32, 0.1);
+}
+
+.voice-mismatch-warning {
+    color: #d32f2f;
+    background: rgba(211, 47, 47, 0.1);
+}
+
+/* Back button wrapper */
+.story-back-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+}
+
+.back-to-stories {
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 8px;
+    background: var(--gradient-secondary);
+    color: var(--text-dark);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-to-stories:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
 .quiz-intro {
     text-align: center;
     padding: 50px 40px;
@@ -3254,6 +3366,13 @@ body.heritage-site-body::after {
 }
 
 /* AI Chatbot Styles */
+.ai-chatbot-container,
+.chatbot-toggle,
+.chatbot-window {
+    -webkit-transform: none !important;
+    transform: none !important;
+}
+
 .ai-chatbot-container {
     position: fixed;
     bottom: 20px;
@@ -3264,7 +3383,10 @@ body.heritage-site-body::after {
 
 /* Floating Toggle Button */
 .chatbot-toggle {
-    position: relative;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, var(--gold), var(--sandy-brown));
@@ -3320,9 +3442,10 @@ body.heritage-site-body::after {
 
 /* Chatbot Window */
 .chatbot-window {
-    position: absolute;
-    bottom: 80px;
-    right: 0;
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 9998;
     width: 380px;
     height: 600px;
     background: #DEBF89;
@@ -3429,6 +3552,10 @@ body.heritage-site-body::after {
 .chatbot-settings:hover {
     background: rgba(255, 255, 255, 0.1);
     transform: rotate(90deg);
+}
+
+.chatbot-settings:active {
+    transition: all 0.3s ease;
 }
 
 /* API Key Setup */
@@ -3647,14 +3774,25 @@ body.heritage-site-body::after {
     fill: var(--parchment);
 }
 
-.typing-dots {
+.typing-text {
     background: rgba(255, 255, 255, 0.95);
-    padding: 12px 20px;
+    padding: 12px 15px;
     border-radius: 15px;
     border-bottom-left-radius: 5px;
     display: flex;
-    gap: 4px;
+    align-items: center;
+    gap: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.typing-text span {
+    font-size: 14px;
+    color: var(--brown);
+}
+
+.typing-dots {
+    display: flex;
+    gap: 4px;
 }
 
 .typing-dots span {
@@ -3685,6 +3823,7 @@ body.heritage-site-body::after {
 }
 
 /* Input Area */
+.chat-input-area,
 .chat-input-container {
     padding: 15px 20px;
     background: rgba(255, 255, 255, 0.1);
@@ -3692,6 +3831,7 @@ body.heritage-site-body::after {
     display: none;
 }
 
+.chat-input-area.show,
 .chat-input-container.show {
     display: block;
 }

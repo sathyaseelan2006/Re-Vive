@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "server": "node backend/server.js"
+    "server": "node backend/server.js",
+    "vercel-build": "vite build"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
     "@svg-maps/india": "^1.0.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

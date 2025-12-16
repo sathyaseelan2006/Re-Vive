@@ -5,6 +5,17 @@
     --primary-color: #3e2d1a;
     --secondary-color: #8b4513;
     --accent-color: #654321;
+    /* Typography tokens aligned with Thanjavur theme */
+    --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    --font-accent: 'Playfair Display', Georgia, serif;
+    /* Aliases used by chatbot styles and shared fragments */
+    --gold: #DAA520; /* legacy alias */
+    --sandy-brown: #E8B67A;
+    --parchment: #f8f4eb;
+    --brown: #3e2d1a;
+    --dark-brown: #2c1810;
     --background-color: transparent;
     --text-dark: #2c1810;
     --text-light: #f8f4eb;
@@ -24,7 +35,7 @@
 
 /* Complete Manuscript Body - Adjusted for larger borders */
 body.heritage-site-body {
-    font-family: 'Cinzel', 'Cormorant Garamond', serif;
+    font-family: var(--font-body);
     background: #f4e4bc;
     color: var(--text-dark);
     line-height: 1.6;
@@ -1766,7 +1777,7 @@ body.heritage-site-body::after {
 }
 
 .modal-content {
-    background: var(--background-color);
+    background: #f8f4eb;
     margin: 5% auto;
     padding: 0;
     border-radius: 20px;
@@ -1776,6 +1787,107 @@ body.heritage-site-body::after {
     overflow-y: auto;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     border: 3px solid var(--border-color);
+}
+
+/* Storytelling modal: dark, high-contrast panel specifically for narrative content */
+#storytellingModal .modal-content {
+    background: linear-gradient(180deg, #1a1410 0%, #24160f 100%);
+    color: var(--text-light);
+    border: 2px solid rgba(218, 165, 32, 0.18);
+}
+
+#storytellingModal .modal-body {
+    color: var(--text-light);
+    padding: 28px 30px;
+    background: transparent;
+}
+
+/* Story content displayed inside the storytelling modal */
+#storytellingModal .modal-body .story-content {
+    color: var(--text-light);
+    max-height: none;
+    overflow: visible;
+}
+
+#storytellingModal .modal-body .story-content h4 {
+    color: #DAA520;
+    font-family: var(--font-display);
+    margin-bottom: 12px;
+}
+
+#storytellingModal .modal-body .story-content p {
+    color: rgba(235, 225, 200, 0.95);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+/* Story cards inside the storytelling modal should be darker with readable text */
+#storytellingModal .story-options .story-card {
+    background: rgba(20, 14, 10, 0.7);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(218, 165, 32, 0.08);
+    color: var(--text-light);
+}
+
+#storytellingModal .story-options .story-card h4 {
+    color: #DEBF89;
+}
+
+#storytellingModal .story-options .story-card p {
+    color: rgba(235, 225, 200, 0.9);
+}
+
+/* Make sure modal header buttons contrast on dark panel */
+#storytellingModal .modal-header {
+    background: linear-gradient(135deg, rgba(34,24,18,0.95), rgba(58,38,24,0.95));
+    color: var(--text-light);
+}
+
+/* Narration controls */
+.story-narration-controls {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#narrationSpinner {
+    display: none;
+    margin-left: 8px;
+    color: #DAA520;
+    font-weight: 700;
+}
+
+#narrationText {
+    margin-top: 12px;
+    line-height: 1.6;
+    color: var(--text-light);
+    white-space: pre-wrap;
+}
+
+/* Back button wrapper & styling for story view */
+.story-back-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 14px;
+}
+
+.back-to-stories {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: rgba(218, 165, 32, 0.2);
+    color: #DAA520;
+    transition: all 0.3s ease;
+}
+
+.back-to-stories:hover {
+    background: rgba(218, 165, 32, 0.3);
+    transform: translateX(-3px);
 }
 
 .modal-header {
@@ -1808,6 +1920,7 @@ body.heritage-site-body::after {
 
 .modal-body {
     padding: 30px;
+    background: #f8f4eb;
 }
 
 .story-options,
@@ -1833,12 +1946,46 @@ body.heritage-site-body::after {
     border-color: var(--secondary-color);
 }
 
-.story-card h4,
+.story-card h4 {
+    color: var(--gold);
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Make story body text golden for better contrast against parchment background */
+.story-card p {
+    color: var(--gold);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
 .blog-post h4 {
     color: var(--primary-color);
     font-size: 1.3rem;
     margin-bottom: 15px;
     font-family: 'Playfair Display', serif;
+}
+
+/* Style story content that is injected by the script inside the storytelling modal */
+#storytellingModal .story-content h4,
+#storytellingModal .story-continuation h4 {
+    color: var(--gold);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.45);
+}
+
+#storytellingModal .story-content p,
+#storytellingModal .story-continuation p {
+    color: var(--gold);
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+/* Ensure narration text (generated/returned text) is also readable */
+#storytellingModal #narrationText {
+    color: var(--primary-color);
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 .post-meta {
@@ -3220,7 +3367,7 @@ body.heritage-site-body::after {
     right: -2px;
     width: 16px;
     height: 16px;
-    background: #00ff88;
+    background: var(--secondary-color);
     border-radius: 50%;
     border: 2px solid white;
     animation: pulse 2s infinite;
@@ -3244,15 +3391,15 @@ body.heritage-site-body::after {
     right: 0;
     width: 380px;
     height: 600px;
-    background: #DEBF89;
+    background: linear-gradient(180deg, rgba(248,244,235,0.98) 0%, rgba(222,191,137,0.95) 100%);
     border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
     transform: translateY(20px) scale(0.95);
     opacity: 0;
     visibility: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
-    border: 3px solid var(--gold);
+    border: 2px solid rgba(218,165,32,0.85);
     display: flex;
     flex-direction: column;
 }
@@ -3265,7 +3412,7 @@ body.heritage-site-body::after {
 
 /* Header */
 .chatbot-header {
-    background: linear-gradient(135deg, var(--brown), var(--dark-brown));
+    background: linear-gradient(135deg, var(--primary-color), var(--dark-brown));
     color: var(--parchment);
     padding: 15px 20px;
     display: flex;
@@ -3349,6 +3496,53 @@ body.heritage-site-body::after {
     background: rgba(255, 255, 255, 0.1);
     transform: rotate(90deg);
 }
+
+/* Chat messages - bot and user bubble styling */
+.chat-messages {
+    flex: 1;
+    padding: 14px;
+    overflow-y: auto;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    max-width: 92%;
+}
+
+.bot-message {
+    align-self: flex-start;
+}
+
+.user-message {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.message-avatar svg { width: 28px; height: 28px; fill: var(--primary-color); }
+
+.message-content { max-width: calc(100% - 48px); }
+
+.message-text {
+    background: var(--parchment);
+    color: var(--text-dark);
+    padding: 10px 12px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    font-size: 0.95rem;
+}
+
+.user-message .message-text {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: var(--text-light);
+}
+
+.message-time { font-size: 0.75rem; color: rgba(0,0,0,0.45); margin-top:6px; }
 
 /* API Key Setup */
 .api-key-setup {

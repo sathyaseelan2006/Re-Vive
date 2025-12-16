@@ -90,11 +90,61 @@ CONVERSATION STYLE:
 IMPORTANT: Respond naturally to whatever the user asks. Keep responses concise and engaging (2-3 paragraphs). Be enthusiastic about sharing this unique confluence point's spiritual, natural, and cultural heritage!`
     };
     
-    // Initialize the improved chatbot
+    // Prefer the ImprovedHeritageChatbot if available (it handles API key UI & validation), otherwise fall back to ProfessionalHeritageChatbot
     if (window.ImprovedHeritageChatbot) {
-        window.heritageChatbot = new ImprovedHeritageChatbot('Kanyakumari', kanyakumariKnowledge);
-        console.log('✅ Kanyakumari Heritage Chatbot initialized successfully!');
+        try {
+            window.kanyakumariChatbot = new ImprovedHeritageChatbot('Kanyakumari', kanyakumariKnowledge);
+            console.log('✅ Kanyakumari Heritage Chatbot (Improved) initialized successfully');
+        } catch (err) {
+            console.error('❌ Failed to initialize ImprovedHeritageChatbot:', err);
+            if (window.ProfessionalHeritageChatbot) {
+                try {
+                    window.kanyakumariChatbot = new ProfessionalHeritageChatbot('Kanyakumari', kanyakumariKnowledge.context || kanyakumariKnowledge);
+                    console.log('✅ Kanyakumari Heritage Chatbot (Professional) initialized as fallback');
+                } catch (err2) {
+                    console.error('❌ Fallback ProfessionalHeritageChatbot failed:', err2);
+                }
+            }
+        }
+    } else if (window.ProfessionalHeritageChatbot) {
+        try {
+            window.kanyakumariChatbot = new ProfessionalHeritageChatbot('Kanyakumari', kanyakumariKnowledge.context || kanyakumariKnowledge);
+            console.log('✅ Kanyakumari Heritage Chatbot (Professional) initialized successfully');
+        } catch (err) {
+            console.error('❌ Failed to initialize ProfessionalHeritageChatbot:', err);
+        }
     } else {
-        console.error('❌ ImprovedHeritageChatbot not found. Make sure improved-chatbot.js is loaded first.');
+        console.error('❌ No chatbot implementation found. Ensure improved-chatbot.js or professional-chatbot.js is loaded before this initializer.');
+    }
+
+    // Accessibility: make the floating toggle keyboard operable and keep ARIA up-to-date
+    const _toggle = document.getElementById('chatbotToggle');
+    if (_toggle) {
+        try {
+            if (!_toggle.hasAttribute('role')) _toggle.setAttribute('role', 'button');
+            if (!_toggle.hasAttribute('tabindex')) _toggle.setAttribute('tabindex', '0');
+            if (!_toggle.hasAttribute('aria-label')) _toggle.setAttribute('aria-label', 'Open Heritage Guide Chat');
+            if (!_toggle.hasAttribute('aria-expanded')) _toggle.setAttribute('aria-expanded', 'false');
+
+            _toggle.addEventListener('keydown', function (ev) {
+                const code = ev.key || ev.keyCode;
+                if (code === 'Enter' || code === ' ' || code === 13 || code === 32) {
+                    ev.preventDefault();
+                    _toggle.click();
+                }
+            });
+
+            // Keep aria-expanded in sync when user clicks the toggle
+            _toggle.addEventListener('click', function () {
+                try {
+                    const isExpanded = _toggle.getAttribute('aria-expanded') === 'true';
+                    _toggle.setAttribute('aria-expanded', String(!isExpanded));
+                } catch (e) {
+                    // ignore
+                }
+            });
+        } catch (e) {
+            console.warn('⚠️ Failed to attach keyboard handlers to chatbot toggle', e);
+        }
     }
 });

@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/performance-optimizations.css">
     <link rel="stylesheet" href="darasuram-style.css">    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body class="heritage-site-body">
@@ -32,7 +33,7 @@
             </div>
             <div class="site-hero-visual">
                 <div class="site-image-container">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Airavatesvara_Temple_Darasuram.jpg/800px-Airavatesvara_Temple_Darasuram.jpg" alt="Airavatesvara Temple, Darasuram" class="site-main-image">
+                    <img src="../site_photos/Darasuram/1.jpg" alt="Airavatesvara Temple, Darasuram" class="site-main-image">
                     <div class="image-overlay">
                         <div class="image-caption">
                             <h3>UNESCO World Heritage Site</h3>
@@ -84,25 +85,25 @@
             
             <div class="facts-container">
                 <div class="fact-card">
-                    <div class="fact-icon">★</div>
+                    <div class="fact-icon">?</div>
                     <div class="fact-content">
                         <p>The temple features musical pillars that produce different musical notes when struck, demonstrating the advanced acoustic engineering of Chola architects.</p>
                     </div>
                 </div>
                 <div class="fact-card">
-                    <div class="fact-icon">★</div>
+                    <div class="fact-icon">?</div>
                     <div class="fact-content">
                         <p>The front mandapa is designed as a chariot with stone wheels and horses, making it one of the earliest chariot-shaped temples in South India.</p>
                     </div>
                 </div>
                 <div class="fact-card">
-                    <div class="fact-icon">★</div>
+                    <div class="fact-icon">?</div>
                     <div class="fact-content">
                         <p>The temple contains over 108 dance poses (karanas) carved in stone, serving as a complete visual encyclopedia of classical Indian dance.</p>
                     </div>
                 </div>
                 <div class="fact-card">
-                    <div class="fact-icon">★</div>
+                    <div class="fact-icon">?</div>
                     <div class="fact-content">
                         <p>The Airavatesvara Temple was built without using any mortar, relying entirely on precise stone cutting and interlocking techniques.</p>
                     </div>
@@ -248,15 +249,15 @@
                     <div id="images-tab" class="tab-content active">
                         <div class="media-grid">
                             <div class="media-item">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Airavatesvara_Temple_Darasuram.jpg/800px-Airavatesvara_Temple_Darasuram.jpg" alt="Airavatesvara Temple" class="gallery-image">
+                                <img src="../site_photos/Darasuram/1\.jpg" alt="Airavatesvara Temple" class="gallery-image">
                                 <div class="media-caption">The magnificent Airavatesvara Temple</div>
                             </div>
                             <div class="media-item">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Darasuram_Musical_Pillars.jpg/800px-Darasuram_Musical_Pillars.jpg" alt="Musical Pillars" class="gallery-image">
+                                <img src="../site_photos/Darasuram/1\.jpg" alt="Musical Pillars" class="gallery-image">
                                 <div class="media-caption">The famous musical pillars</div>
                             </div>
                             <div class="media-item">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Darasuram_Stone_Chariot.jpg/800px-Darasuram_Stone_Chariot.jpg" alt="Stone Chariot" class="gallery-image">
+                                <img src="../site_photos/Darasuram/1\.jpg" alt="Stone Chariot" class="gallery-image">
                                 <div class="media-caption">The chariot-shaped mandapa</div>
                             </div>
                         </div>
@@ -307,7 +308,7 @@
                     <div id="ar-tab" class="tab-content">
                         <div class="ar-preview">
                             <button class="ar-btn" onclick="launchAR()">
-                                <span class="ar-icon">👓</span>
+                                <span class="ar-icon">??</span>
                                 View in Augmented Reality
                             </button>
                             <p>Experience 3D reconstructions of Chola temple architecture through your mobile device</p>
@@ -457,7 +458,9 @@
     </div>
 
     <!-- NEW: Improved Chatbot System -->
+    <script src="../../js/performance-utils.js" defer></script>
     <script src="improved-chatbot.js"></script>
+    <script src="../../js/performance-utils.js" defer></script>
     <script src="darasuram-chatbot-init.js"></script>
     
     <!-- AI Chatbot Interface -->
@@ -487,19 +490,19 @@
                     <h4>Heritage Guide AI</h4>
                     <span class="status">Online - Expert in Darasuram</span>
                 </div>
-                <button id="chatbotSettings" class="chatbot-settings" title="Reset API Key">⚙️</button>
-                <button id="chatbotClose" class="chatbot-close">×</button>
+                <button id="chatbotSettings" class="chatbot-settings" title="Reset API Key">??</button>
+                <button id="chatbotClose" class="chatbot-close">�</button>
             </div>
 
             <!-- API Key Setup -->
             <div id="apiKeySetup" class="api-key-setup">
                 <div class="setup-content">
-                    <div class="setup-icon">🔑</div>
+                    <div class="setup-icon">??</div>
                     <h3>Welcome to Darasuram Heritage Guide</h3>
                     <p>I'm your royal advisor specializing in the magnificent Airavatesvara Temple and its musical wonders. To begin our journey through Chola architectural brilliance, please enter your Gemini AI API key:</p>
                     <input type="password" id="apiKeyInput" placeholder="Enter your Gemini API key" class="api-key-input">
                     <button id="saveApiKey" class="save-api-key">Start Conversation</button>
-                    <p class="api-note">🔒 Your API key is stored locally and never shared.</p>
+                    <p class="api-note">?? Your API key is stored locally and never shared.</p>
                     <p class="api-note" style="font-size: 0.85em; margin-top: 10px;">
                         Get your free API key from: <a href="https://makersuite.google.com/app/apikey" target="_blank" style="color: var(--gold);">Google AI Studio</a>
                     </p>
@@ -518,12 +521,12 @@
                     </div>
                     <div class="message-content">
                         <div class="message-text">
-                            🏛️ Vanakkam! I am your royal guide to the magnificent Airavatesvara Temple at Darasuram, a jewel among the Great Living Chola Temples. As your digital heritage expert, I possess deep wisdom about:
+                            ??? Vanakkam! I am your royal guide to the magnificent Airavatesvara Temple at Darasuram, a jewel among the Great Living Chola Temples. As your digital heritage expert, I possess deep wisdom about:
                             <br><br>
-                            🎵 <strong>Musical Marvels:</strong> The legendary musical pillars, acoustic engineering, and sacred sounds
-                            <br>🏛️ <strong>Chola Architecture:</strong> Chariot-shaped mandapa, interlocking granite mastery, and Dravidian brilliance
-                            <br>💃 <strong>Dance Heritage:</strong> 108 karanas carved in stone, the visual encyclopedia of Bharatanatyam
-                            <br>🐘 <strong>Divine Legends:</strong> The sacred tale of Airavata and Lord Shiva's blessings
+                            ?? <strong>Musical Marvels:</strong> The legendary musical pillars, acoustic engineering, and sacred sounds
+                            <br>??? <strong>Chola Architecture:</strong> Chariot-shaped mandapa, interlocking granite mastery, and Dravidian brilliance
+                            <br>?? <strong>Dance Heritage:</strong> 108 karanas carved in stone, the visual encyclopedia of Bharatanatyam
+                            <br>?? <strong>Divine Legends:</strong> The sacred tale of Airavata and Lord Shiva's blessings
                             <br><br>
                             From the melodious stone pillars to Raja Raja Chola II's architectural vision, I shall unveil every mystery of this UNESCO World Heritage Site. What wonders would you like to explore?
                         </div>
@@ -559,14 +562,17 @@
                     </button>
                 </div>
                 <div class="quick-questions">
-                    <button class="quick-btn" data-question="Tell me about the musical pillars of Airavatesvara Temple">🎵 Musical Pillars</button>
-                    <button class="quick-btn" data-question="What is the legend of Airavata and this temple?">🐘 Airavata Legend</button>
-                    <button class="quick-btn" data-question="Explain the 108 dance poses carved in the temple">💃 Dance Poses</button>
+                    <button class="quick-btn" data-question="Tell me about the musical pillars of Airavatesvara Temple">?? Musical Pillars</button>
+                    <button class="quick-btn" data-question="What is the legend of Airavata and this temple?">?? Airavata Legend</button>
+                    <button class="quick-btn" data-question="Explain the 108 dance poses carved in the temple">?? Dance Poses</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="../../js/performance-utils.js" defer></script>
     <script src="darasuram-script.js"></script>
     </body>
 </html>
+
+

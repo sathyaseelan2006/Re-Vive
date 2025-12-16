@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/performance-optimizations.css">
     <link rel="stylesheet" href="mahabalipuram-style.css">    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body class="heritage-site-body">
@@ -32,7 +33,7 @@
             </div>
             <div class="site-hero-visual">
                 <div class="site-image-container">
-                    <img src="mahabalipuram_cover_image.jpg" alt="Mahabalipuram Heritage Site" class="site-main-image">
+                    <img src="Mahabalipuram/1.jpg" alt="Mahabalipuram Heritage Site" class="site-main-image">
                     <div class="image-overlay">
                         <div class="image-caption">
                             <h3>UNESCO World Heritage Site</h3>
@@ -283,7 +284,6 @@
                 <div class="gallery-tabs">
                     <button class="tab-btn active" onclick="switchTab('images')">Images</button>
                     <button class="tab-btn" onclick="switchTab('videos')">Videos</button>
-                    <button class="tab-btn" onclick="switchTab('audio')">Audio</button>
                     <button class="tab-btn" onclick="switchTab('ar')">AR Models</button>
                 </div>
                 
@@ -370,7 +370,7 @@
                                         <div class="card-image-container">
                                             <img src="mahabalipuram_images/7296307fec78824c1f4ff90b027a927f.jpg" alt="Arjuna's Ratha & Elephant Sculpture" class="card-image">
                                             <div class="pin-message">
-                                                <div class="pin-icon">�</div>
+                                                <div class="pin-icon">🪨</div>
                                                 <div class="pin-text">Famous natural wonder - a huge granite boulder precariously balanced on a slope for centuries. Locally called "Krishna's Butterball," associated with legends of Lord Krishna's fondness for butter.</div>
                                             </div>
                                             <div class="card-overlay">
@@ -501,43 +501,20 @@
                     
                     <div id="videos-tab" class="tab-content">
                         <div class="media-grid">
-                            <div class="media-item">
-                                <video controls class="gallery-video">
-                                    <source src="#" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                                <div class="media-caption">Mahabalipuram Virtual Tour</div>
-                                <p class="media-description">Explore the UNESCO World Heritage monuments</p>
-                            </div>
-                            <div class="media-item">
-                                <video controls class="gallery-video">
-                                    <source src="#" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                                <div class="media-caption">Pallava Architecture Documentary</div>
-                                <p class="media-description">Understanding the rock-cut temple techniques</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="audio-tab" class="tab-content">
-                        <div class="media-list">
-                            <div class="media-item">
-                                <audio controls class="gallery-audio">
-                                    <source src="#" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <div class="media-caption">Ocean Waves at Shore Temple</div>
-                                <p class="media-description">Natural sounds from the ancient coastal temple</p>
-                            </div>
-                            <div class="media-item">
-                                <audio controls class="gallery-audio">
-                                    <source src="#" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <div class="media-caption">Classical Dance Music</div>
-                                <p class="media-description">Traditional music from the annual dance festival</p>
-                            </div>
+                                    <div class="media-item">
+                                        <div class="video-embed">
+                                            <iframe class="gallery-video" loading="lazy" src="https://www.youtube.com/embed/cc7mdUZkerQ" title="Mahabalipuram Virtual Tour" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                        </div>
+                                        <div class="media-caption">Mahabalipuram Virtual Tour</div>
+                                        <p class="media-description">Explore the UNESCO World Heritage monuments</p>
+                                    </div>
+                                    <div class="media-item">
+                                        <div class="video-embed">
+                                            <iframe class="gallery-video" loading="lazy" src="https://www.youtube.com/embed/dNNuQ4UoC2Q" title="Pallava Architecture Documentary" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                        </div>
+                                        <div class="media-caption">Pallava Architecture Documentary</div>
+                                        <p class="media-description">Understanding the rock-cut temple techniques</p>
+                                    </div>
                         </div>
                     </div>
                     
@@ -868,22 +845,22 @@
     <div id="storytellingModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>AI-Powered Mahabalipuram Stories</h3>
+                <h3>மகாபலிபுரம் கதை பயணம் (AI மூலம்)</h3>
                 <span class="close" onclick="closeModal('storytellingModal')">&times;</span>
             </div>
             <div class="modal-body">
                 <div class="story-options">
-                    <div class="story-card" onclick="startStory('king')">
-                        <h4>The Pallava King's Vision</h4>
-                        <p>Experience the grand ambitions of Narasimhavarman I as he envisions the creation of magnificent rock-cut temples</p>
+                    <div class="story-card" onclick="startStory('seven_pagodas')">
+                        <h4>ஏழு பக்கங்கள்: மூழ்கிய கோவில்களின் மர்மம்</h4>
+                        <p>கடலால் மூழ்கி காணாமல் போன ஆறு கோவில்களின் மர்மத்தை ஆராயுங்கள்; இன்று மட்டும் கரை கோவில் நிலவுகிறது</p>
                     </div>
-                    <div class="story-card" onclick="startStory('sculptor')">
-                        <h4>The Master Sculptor's Tale</h4>
-                        <p>Follow the journey of the artisans who carved the monolithic rathas and created intricate reliefs</p>
+                    <div class="story-card" onclick="startStory('butter_ball')">
+                        <h4>கிருஷ்ணாவின் வெண்ணெய் கல்</h4>
+                        <p>பெரிய பாறை பகுதி எப்படித் தாங்கி நின்றிருக்கிறது என்று கூறும் அதிசயக் கதை — கிருஷ்ணனின் விளையாட்டு நினைவாக</p>
                     </div>
-                    <div class="story-card" onclick="startStory('merchant')">
-                        <h4>A Merchant's Journey</h4>
-                        <p>Discover Mahabalipuram's role as a thriving port city and center of international trade</p>
+                    <div class="story-card" onclick="startStory('arjuna_penance')">
+                        <h4>அர்ஜுனப் பிரயாசம் / கங்கையின் இறக்கம்</h4>
+                        <p>உலகின் மிகப்பெரிய வெளிப்புற சிற்பத்தின் இருபக்கம் கூறும் இரு கதைகளையும் ஆராயுங்கள்</p>
                     </div>
                 </div>
             </div>
@@ -940,6 +917,7 @@
     </div>
 
     <!-- Main JavaScript -->
+    <script src="../../js/performance-utils.js" defer></script>
     <script src="mahabalipuram-script.js"></script>
     
     <!-- NEW: Improved Chatbot System -->
@@ -1008,7 +986,7 @@
                             <br><br>
                             🏺 <strong>Heritage Topics:</strong> Temples, architecture, history, and culture
                             <br>🗺️ <strong>Travel Planning:</strong> Best times to visit, itineraries, tips
-                            <br>� <strong>General Questions:</strong> Feel free to ask me anything!
+                            <br>❓ <strong>General Questions:</strong> Feel free to ask me anything!
                             <br><br>
                             Whether you want to know about the Shore Temple's ancient secrets or just chat about travel plans, I'm here to help! What would you like to know?
                         </div>

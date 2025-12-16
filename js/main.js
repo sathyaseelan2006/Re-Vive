@@ -186,6 +186,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // Click event - highlight with golden glow and navigate
                         path.addEventListener('click', function(e) {
+                            console.log('Path clicked:', pathId, 'StateKey:', stateKey, 'StateInfo:', stateInfo);
+                            
                             // Reset all paths
                             allPaths.forEach(p => {
                                 p.style.fill = '';
@@ -210,13 +212,17 @@ document.addEventListener('DOMContentLoaded', function() {
                                 
                                 // Navigate to Tamil Nadu page when Tamil Nadu is clicked
                                 if (stateKey === 'IN-TN') {
+                                    console.log('Navigating to Tamil Nadu...');
                                     setTimeout(() => {
                                         window.location.href = 'tamil-nadu/index.html';
                                     }, 500);
                                 } else {
                                     // For other states, you can add more navigation logic here
                                     console.log(`Navigation to ${stateInfo.name} page not yet implemented`);
+                                    alert(`${stateInfo.name} heritage page coming soon!`);
                                 }
+                            } else {
+                                console.log('No state info found for this path');
                             }
                         });
                     });

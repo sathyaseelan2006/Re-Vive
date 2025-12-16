@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,8 @@
     <title>Thanjavur - Incredible Indian Heritage</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/performance-optimizations.css">
     <link rel="stylesheet" href="thanjavur-style.css">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
@@ -33,7 +34,7 @@
             </div>
             <div class="site-hero-visual">
                 <div class="site-image-container">
-                    <img src="thanjavur/1-brihadeeswarar-temple-thanjavur-tamil-nadu-attr-nearby.jpeg" alt="Thanjavur Brihadeeswarar Temple" class="site-main-image">
+                    <img src="thanjavur/5.jpg" alt="Thanjavur Brihadeeswarar Temple" class="site-main-image">
                     <div class="image-overlay">
                         <div class="image-caption">
                             <h3>UNESCO World Heritage Site</h3>
@@ -164,6 +165,7 @@
         <section id="explore" class="site-section">
             <div class="section-header">
                 <h3 class="section-title">Explore Thanjavur</h3>
+
             </div>
             
             <div class="explore-options">
@@ -180,17 +182,9 @@
                             <li>Voice-guided temple tours</li>
                             <li>Personalized learning paths</li>
                         </ul>
-                        <div class="quick-narrate-wrapper">
-                            <button class="action-btn primary-btn" onclick="openStorytellingModal()">Begin Story Journey</button>
-                            <label for="quickStorySelect" class="quick-narrate-label">Quick Narrate:</label>
-                            <select id="quickStorySelect" class="quick-narrate-select">
-                                <option value="tanjan">Anjan / Tanjan Asura Legend</option>
-                                <option value="brihadi">Brihadisvara: Architecture & Festivals</option>
-                                <option value="saraswathi">Saraswathi Mahal Library</option>
-                                <option value="artsdance">Tanjore Paintings & Bharatanatyam</option>
-                            </select>
-                            <button class="action-btn" onclick="(function(){const s=document.getElementById('quickStorySelect').value; startAndNarrate(s);})()">🔊 Narrate Now</button>
-                        </div>
+                        <button class="action-btn primary-btn" onclick="openStorytellingModal()">
+                            Begin Story Journey
+                        </button>
                     </div>
                 </div>
                 
@@ -238,6 +232,7 @@
         <section id="location" class="site-section">
             <div class="section-header">
                 <h3 class="section-title">Visit Thanjavur</h3>
+
             </div>
             
             <div class="location-content">
@@ -330,6 +325,7 @@
         <section id="multimedia" class="site-section">
             <div class="section-header">
                 <h3 class="section-title">Multimedia Gallery</h3>
+
             </div>
             
             <div class="gallery-container">
@@ -365,6 +361,7 @@
                                         <div class="card-image-container">
                                             <img src="thanjavur/1.jpg" alt="Magnificent Temple Sculpture" class="card-image">
                                             <div class="pin-message">
+                                                <button class="pin-close-btn" onclick="closePinMessage(this.parentElement)" title="Close">×</button>
                                                 <div class="pin-icon">🗿</div>
                                                 <div class="pin-text-container">
                                                     <div class="pin-text" id="pinText1">A magnificent sculpture from the Brihadeeswarar Temple showcasing the extraordinary craftsmanship of Chola artisans. These intricate stone carvings depict divine figures with exceptional detail, demonstrating the mastery of ancient sculptors who transformed granite into expressions of devotion and artistic excellence.</div>
@@ -386,6 +383,7 @@
                                         <div class="card-image-container">
                                             <img src="thanjavur/2.jpg" alt="Well-Carved Temple Steps" class="card-image">
                                             <div class="pin-message">
+                                                <button class="pin-close-btn" onclick="closePinMessage(this.parentElement)" title="Close">×</button>
                                                 <div class="pin-icon">🪜</div>
                                                 <div class="pin-text-container">
                                                     <div class="pin-text" id="pinText2">The beautifully carved steps of the Brihadeeswarar Temple showcase the meticulous attention to detail in Chola architecture. Each step is precisely hewn from granite, featuring intricate designs and patterns that have withstood a millennium, representing the sacred ascent to the divine sanctum.</div>
@@ -407,6 +405,7 @@
                                         <div class="card-image-container">
                                             <img src="thanjavur/3.jpg" alt="Beautiful Side View of Big Temple" class="card-image">
                                             <div class="pin-message">
+                                                <button class="pin-close-btn" onclick="closePinMessage(this.parentElement)" title="Close">×</button>
                                                 <div class="pin-icon">🏛️</div>
                                                 <div class="pin-text-container">
                                                     <div class="pin-text" id="pinText3">A stunning side view of the Brihadeeswarar Temple revealing the magnificent proportions and architectural genius of Chola design. This perspective showcases the temple's towering vimana, intricate wall carvings, and the harmonious integration of multiple architectural elements that create a divine sanctuary.</div>
@@ -428,6 +427,7 @@
                                         <div class="card-image-container">
                                             <img src="thanjavur/4.jpg" alt="Temple with Ancient Inscriptions" class="card-image">
                                             <div class="pin-message">
+                                                <button class="pin-close-btn" onclick="closePinMessage(this.parentElement)" title="Close">×</button>
                                                 <div class="pin-icon">📜</div>
                                                 <div class="pin-text-container">
                                                     <div class="pin-text" id="pinText4">A unique angle capturing the Brihadeeswarar Temple alongside its ancient inscriptions. These Tamil and Sanskrit engravings document the temple's history, royal patronage, and administrative details from the Chola period, serving as invaluable historical records carved into stone for eternity.</div>
@@ -449,6 +449,7 @@
                                         <div class="card-image-container">
                                             <img src="thanjavur/5.jpg" alt="Beautiful View of Big Temple" class="card-image">
                                             <div class="pin-message">
+                                                <button class="pin-close-btn" onclick="closePinMessage(this.parentElement)" title="Close">×</button>
                                                 <div class="pin-icon">✨</div>
                                                 <div class="pin-text-container">
                                                     <div class="pin-text" id="pinText5">A breathtaking view of the Brihadeeswarar Temple capturing its majestic beauty and spiritual aura. This image showcases the temple's perfect proportions, intricate architectural details, and the timeless elegance that has made it one of India's most revered and photographed heritage monuments.</div>
@@ -476,7 +477,7 @@
                             <!-- YouTube embeds for Thanjavur / Brihadeeswarar Temple -->
                             <div class="media-item">
                                 <div class="video-embed">
-                                    <iframe class="gallery-video" loading="lazy" src="https://www.youtube.com/embed/cc7mdUZkerQ" title="Brihadeeswarar Temple | Wonders of Brihadeeswarar Temple | Tanjore Big Temple | In English" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                    <iframe class="gallery-video" loading="lazy" data-src="https://www.youtube.com/embed/cc7mdUZkerQ" src="about:blank" title="Brihadeeswarar Temple | Wonders of Brihadeeswarar Temple | Tanjore Big Temple | In English" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                 </div>
                                 <div class="media-caption">Brihadeeswarar Temple — Wonders of the Big Temple (English)</div>
                                 <p class="media-description">An English documentary showcasing the architecture and history of the Brihadeeswarar Temple.</p>
@@ -551,6 +552,7 @@
                                             <div class="card-content">
                                                 <div class="sketchfab-embed-wrapper">
                                                     <iframe title="Brihadisvara Temple" 
+                                                            class="ar-model-frame"
                                                             frameborder="0" 
                                                             allowfullscreen 
                                                             mozallowfullscreen="true" 
@@ -562,12 +564,25 @@
                                                             web-share 
                                                             width="100%"
                                                             height="480"
-                                                            src="https://sketchfab.com/models/b80c75f91dad4994a0e7000467433ac9/embed?autospin=1&autostart=1&preload=1&ui_theme=dark">
+                                                            loading="lazy"
+                                                            data-src="https://sketchfab.com/models/b80c75f91dad4994a0e7000467433ac9/embed?preload=0&ui_theme=dark"
+                                                            src="about:blank">
                                                     </iframe>
+                                                    <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                                                        <a href="https://sketchfab.com/3d-models/brihadisvara-temple-b80c75f91dad4994a0e7000467433ac9?utm_medium=embed&utm_campaign=share-popup&utm_content=b80c75f91dad4994a0e7000467433ac9" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">
+                                                            Brihadisvara Temple
+                                                        </a> by 
+                                                        <a href="https://sketchfab.com/Dinesh.Jallu?utm_medium=embed&utm_campaign=share-popup&utm_content=b80c75f91dad4994a0e7000467433ac9" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">
+                                                            Dinesh.Jallu
+                                                        </a> on 
+                                                        <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=b80c75f91dad4994a0e7000467433ac9" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">
+                                                            Sketchfab
+                                                        </a>
+                                                    </p>
                                                 </div>
                                                 
                                                 <div class="card-description">
-                                                    <p>Experience the magnificent Brihadeeswarar Temple in stunning 3D detail. Built by Raja Raja Chola I in 1010 CE, this architectural marvel stands as a testament to Chola engineering genius. Explore every intricate carving, the towering vimana, and the massive Nandi statue from all angles.</p>
+                                                    <p>Experience the magnificent Brihadeeswarar Temple in stunning 3D detail. Built by Raja Raja Chola I in 1010 CE, this architectural marvel stands as a testament to Chola engineering genius.</p>
                                                     
                                                     <div class="card-tags">
                                                         <span class="tag">Chola Architecture</span>
@@ -575,20 +590,6 @@
                                                         <span class="tag">216 feet tall</span>
                                                         <span class="tag">Granite Construction</span>
                                                     </div>
-                                                </div>
-                                                
-                                                <div class="card-attribution">
-                                                    <p class="sketchfab-attribution">
-                                                        <a href="https://sketchfab.com/3d-models/brihadisvara-temple-b80c75f91dad4994a0e7000467433ac9?utm_medium=embed&utm_campaign=share-popup&utm_content=b80c75f91dad4994a0e7000467433ac9" target="_blank" rel="nofollow noopener">
-                                                            Brihadisvara Temple
-                                                        </a> by 
-                                                        <a href="https://sketchfab.com/Dinesh.Jallu?utm_medium=embed&utm_campaign=share-popup&utm_content=b80c75f91dad4994a0e7000467433ac9" target="_blank" rel="nofollow noopener">
-                                                            Dinesh.Jallu
-                                                        </a> on 
-                                                        <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=b80c75f91dad4994a0e7000467433ac9" target="_blank" rel="nofollow noopener">
-                                                            Sketchfab
-                                                        </a>
-                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -602,6 +603,7 @@
                                             <div class="card-content">
                                                 <div class="sketchfab-embed-wrapper">
                                                     <iframe title="Shiva Dakshinamurti - V&A Museum, London" 
+                                                            class="ar-model-frame"
                                                             frameborder="0" 
                                                             allowfullscreen 
                                                             mozallowfullscreen="true" 
@@ -613,7 +615,9 @@
                                                             web-share 
                                                             width="100%"
                                                             height="480"
-                                                            src="https://sketchfab.com/models/983b7668b9aa4569a771f548d17a3b5b/embed?autospin=1&autostart=1&preload=1&ui_theme=dark">
+                                                            loading="lazy"
+                                                            data-src="https://sketchfab.com/models/983b7668b9aa4569a771f548d17a3b5b/embed?preload=0&ui_theme=dark"
+                                                            src="about:blank">
                                                     </iframe>
                                                 </div>
                                                 
@@ -656,6 +660,7 @@
                                             <div class="card-content">
                                                 <div class="sketchfab-embed-wrapper">
                                                     <iframe title="Pata (2014.33)" 
+                                                            class="ar-model-frame"
                                                             frameborder="0" 
                                                             allowfullscreen 
                                                             mozallowfullscreen="true" 
@@ -667,7 +672,9 @@
                                                             web-share 
                                                             width="100%"
                                                             height="480"
-                                                            src="https://sketchfab.com/models/53607d29af68413bb41dbd2630a087b5/embed?autospin=1&autostart=1&preload=1&ui_theme=dark">
+                                                            loading="lazy"
+                                                            data-src="https://sketchfab.com/models/53607d29af68413bb41dbd2630a087b5/embed?preload=0&ui_theme=dark"
+                                                            src="about:blank">
                                                     </iframe>
                                                 </div>
                                                 
@@ -733,6 +740,7 @@
         <section class="timeline-section">
             <div class="section-header">
                 <h3 class="section-title">Historical Timeline</h3>
+
             </div>
             
             <div class="timeline-container">
@@ -848,8 +856,11 @@
         </div>
     </div>
 
+    <!-- Performance Utils -->
+    <script src="../../js/performance-utils.js" defer></script>
+    
     <!-- Main JavaScript -->
-    <script src="thanjavur-script.js"></script>
+    <script src="thanjavur-script.js" defer></script>
     
     <!-- AI Chatbot Interface -->
     <div id="aiChatbot" class="ai-chatbot-container">
@@ -886,15 +897,13 @@
             <div id="apiKeySetup" class="api-key-setup">
                 <div class="setup-content">
                     <div class="setup-icon">🔑</div>
-                    <h3>Welcome to Thanjavur Heritage Guide</h3>
-                    <p>I'm your royal advisor specializing in the magnificent Brihadeeswarar Temple and the glorious Chola dynasty. To begin our journey through one of India's greatest UNESCO World Heritage Sites, please enter your Gemini AI API key:</p>
-                    <form id="apiKeyForm" onsubmit="event.preventDefault();">
-                        <input type="password" id="apiKeyInput" placeholder="Enter your Gemini API key" class="api-key-input" autocomplete="new-password" aria-label="Gemini API key">
-                        <button id="saveApiKey" class="save-api-key" type="submit">Start Conversation</button>
-                    </form>
+                    <h3>Welcome to Heritage Guide AI</h3>
+                    <p>I'm your personal archaeological guide specializing in Thanjavur's rich history and the glorious Chola dynasty. To get started, please enter your Gemini AI API key:</p>
+                    <input type="password" id="apiKeyInput" placeholder="Enter your Gemini API key" class="api-key-input">
+                    <button id="saveApiKey" class="save-api-key">Start Conversation</button>
                     <p class="api-note">🔒 Your API key is stored locally and never shared.</p>
-                    <p class="api-note" style="font-size: 0.85em; margin-top: 10px;">
-                        Get your free API key from: <a href="https://makersuite.google.com/app/apikey" target="_blank" style="color: #DAA520;">Google AI Studio</a>
+                    <p class="api-note">
+                        Get your free API key from: <a href="https://makersuite.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a>
                     </p>
                 </div>
             </div>
@@ -911,14 +920,13 @@
                     </div>
                     <div class="message-content">
                         <div class="message-text">
-                            🏛️ வணக்கம்! I am your royal advisor and guardian of the magnificent Brihadeeswarar Temple. As your Heritage Guide AI, I possess deep wisdom about:
+                            🏛️ Vanakkam! I'm your Heritage Guide AI, specializing in the magnificent architectural wonders of Thanjavur and the glorious Chola dynasty. I'm here to help with:
                             <br><br>
-                            🏛️ <strong>Chola Architecture:</strong> Temple design, vimana engineering, and construction secrets
-                            <br>👑 <strong>Raja Raja Chola I:</strong> The greatest Chola emperor and his empire
-                            <br>🎨 <strong>Art & Culture:</strong> Thanjavur paintings, bronze sculptures, and cultural heritage
-                            <br>🕉️ <strong>Temple Significance:</strong> Rituals, festivals, and spiritual importance
+                            🏛️ <strong>Heritage Topics:</strong> Brihadeeswarar Temple, Chola architecture, history, and culture
+                            <br>�️ <strong>Travel Planning:</strong> Best times to visit, itineraries, tips
+                            <br>� <strong>General Questions:</strong> Feel free to ask me anything!
                             <br><br>
-                            From the 216-foot towering vimana to the mysterious shadowless temple, I shall unveil the architectural genius of the Cholas. What secrets would you like to discover?
+                            Whether you want to know about Raja Raja Chola's engineering marvels or just chat about travel plans, I'm here to help! What would you like to know?
                         </div>
                         <div class="message-time">Just now</div>
                     </div>
@@ -948,7 +956,7 @@
             <div class="chat-input-container">
                 <div class="chat-input-wrapper">
                     <input type="text" id="chatInput" placeholder="Ask me about the Brihadeeswarar Temple, Chola dynasty, or Thanjavur heritage..." disabled>
-                    <button id="sendMessage" class="send-button" disabled>
+                    <button id="sendMessage" class="send-button" disabled title="Send message" aria-label="Send message">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2L2 7L10 12L2 17L12 22L22 12L12 2Z" fill="currentColor"/>
                         </svg>
@@ -963,9 +971,9 @@
         </div>
     </div>
     
-    <!-- Improved Heritage Chatbot System -->
-    <script src="../improved-chatbot.js"></script>
-    <script src="thanjavur-chatbot-init.js"></script>
+    <!-- Lazy Load Chatbot for Better Performance -->
+    <script src="../improved-chatbot.js" defer></script>
+    <script src="thanjavur-chatbot-init.js" defer></script>
 
     </body>
 </html>

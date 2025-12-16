@@ -16,7 +16,7 @@
 }
 
 body {
-  background: url('desktopbg_reviva.png') center/cover no-repeat fixed;
+  background: url('loginpageBG.png') center/cover no-repeat fixed;
   background-color: var(--heritage-dark);
   font-family: 'Merriweather', 'Georgia', serif;
   color: var(--heritage-light-gold);

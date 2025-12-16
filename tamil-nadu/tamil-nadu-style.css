@@ -703,26 +703,26 @@ img, svg, video {
     color: #FFD700;
 }
 
-/* Top 3 highlight variant */
+/* Top 5 Most Important Sites - Distinctive Ruby Red Color */
 .top-spot .marker-icon {
-    /* Warmer, premium gold to stand out within the same theme */
-    --pin-bg: linear-gradient(135deg, #ffdA5e, #e0b247);
-    --pin-border: #7a5c2e;
-    --pin-inner: #fff3c9;
-    transform: translateY(-1px) scale(1.05);
-    box-shadow: 0 6px 18px rgba(226, 183, 109, 0.45), 0 0 0 2px rgba(122, 92, 46, 0.35);
+    /* Premium ruby red gradient to stand out prominently */
+    --pin-bg: linear-gradient(135deg, #ff4757, #c92a3a);
+    --pin-border: #8b1e2e;
+    --pin-inner: #ffe0e3;
+    transform: translateY(-1px) scale(1.08);
+    box-shadow: 0 6px 20px rgba(255, 71, 87, 0.5), 0 0 0 2px rgba(139, 30, 46, 0.4);
 }
 
-/* Subtle outer ring accent */
+/* Subtle outer ring accent for ruby pins */
 .top-spot .marker-icon::before {
-    box-shadow: inset 0 0 0 1px rgba(122, 92, 46, 0.4);
+    box-shadow: inset 0 0 0 1px rgba(139, 30, 46, 0.5);
 }
 
 .top-spot .marker-tooltip {
-    border-color: #e2b76d;
+    border-color: #ff4757;
 }
 .top-spot .marker-tooltip::after {
-    border-top-color: #e2b76d;
+    border-top-color: #ff4757;
 }
 
 /* Heritage Site Positioning Classes */

@@ -277,6 +277,12 @@ function toggleReadMore(textId, button) {
     }
 }
 
+function closePinMessage(pinMessageElement) {
+    pinMessageElement.style.opacity = '0';
+    pinMessageElement.style.visibility = 'hidden';
+    pinMessageElement.style.transform = 'translateY(-20px)';
+}
+
 // Check if text needs read more button and show/hide accordingly
 function checkTextOverflow() {
     const pinTexts = document.querySelectorAll('.pin-text');
@@ -377,42 +383,74 @@ function openStorytellingModal() {
 function startStory(storyType) {
     const stories = {
         tanjan: {
-            title: "Anjan (Tanjan) Asura & The Name of Thanjavur",
-            content: `
+            title_en: "Anjan (Tanjan) Asura & The Name of Thanjavur",
+            content_en: `
                 <div class="story-content">
                     <h4>Anjan (Tanjan) Asura and the Origin of Thanjavur's Name</h4>
                     <p>The name "Thanjavur" is traditionally believed to come from the demon Tanjan (or Tanjan Asura), a figure in Hindu mythology who terrorized the region before being defeated by Lord Vishnu in his Neelamegha Perumal incarnation. According to legend, before his defeat, Tanjan requested that the place of his destruction be named after him, giving rise to the name Thanjavur. Alongside this mythological tale, there is also a historical belief that the name evolved from "Thananjay," a Mutharayar king who ruled the area around 575 CE. These dual origins highlight the rich blending of mythology and history that shapes Thanjavur's cultural identity.</p>
                     <p>This layered narrative reflects not only the divine and heroic stories of the region but also its grounding in actual royal legacies, making Thanjavur a place where legend and history intertwine.</p>
                 </div>
+            `,
+            title_ta: "அஞ்சன் (தஞ்சன்) அசுரன் & தஞ்சாவூரின் பெயர்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>அஞ்சன் (தஞ்சன்) அசுரன் மற்றும் தஞ்சாவூரின் பெயர்க்காரணம்</h4>
+                    <p>"தஞ்சாவூர்" என்ற பெயர் பாரம்பரியமாக தஞ்சன் (அல்லது தஞ்சன் அசுரன்) என்ற அரக்கனிடமிருந்து வந்ததாக நம்பப்படுகிறது. இந்து புராணங்களின்படி, நீலமேகப் பெருமாள் அவதாரத்தில் விஷ்ணுவால் தோற்கடிக்கப்படுவதற்கு முன்பு இப்பகுதியை அச்சுறுத்தியவர் இவர். புராணத்தின் படி, அவர் தோற்கடிக்கப்படுவதற்கு முன்பு, தான் அழிக்கப்பட்ட இடத்திற்கு தனது பெயரை சூட்ட வேண்டும் என்று தஞ்சன் வேண்டினார், இது தஞ்சாவூர் என்ற பெயரை உருவாக்கியது. இந்த புராணக் கதையுடன், கி.பி 575 இல் இப்பகுதியை ஆண்ட முத்தரையர் மன்னரான "தனஞ்சயன்" பெயரிலிருந்து இப்பெயர் உருவானது என்ற வரலாற்று நம்பிக்கையும் உள்ளது. இந்த இரட்டை தோற்றங்கள் தஞ்சாவூரின் கலாச்சார அடையாளத்தை வடிவமைக்கும் புராணம் மற்றும் வரலாற்றின் செழுமையான கலவையை எடுத்துக்காட்டுகின்றன.</p>
+                    <p>இந்த அடுக்கு விவரிப்பு பிராந்தியத்தின் தெய்வீக மற்றும் வீரக் கதைகளை மட்டுமல்ல, உண்மையான அரச மரபுகளிலும் அதன் அடித்தளத்தை பிரதிபலிக்கிறது, இது தஞ்சாவூரை புராணமும் வரலாறும் பின்னிப்பிணைந்த இடமாக மாற்றுகிறது.</p>
+                </div>
             `
         },
         brihadi: {
-            title: "Brihadisvara Temple: Architecture & Festivals",
-            content: `
+            title_en: "Brihadisvara Temple: Architecture & Festivals",
+            content_en: `
                 <div class="story-content">
                     <h4>Brihadisvara Temple: Architectural Marvel and Cultural Center</h4>
                     <p>Constructed circa 1010 CE by the Chola Emperor Rajaraja I, the Brihadisvara Temple is an iconic example of Chola architecture, renowned for its massive granite vimana that rises approximately 208 feet. The temple features a sanctum housing a colossal Shiva lingam and a massive Nandi bull carved from a single rock. Its design is a precise application of geometrical principles, including a rectangular courtyard, pillared verandahs, and multiple mandapams for congregational worship and cultural activities.</p>
                     <p>The temple actively continues to be a living cultural hub, hosting grand annual festivals such as Maha Shivratri and the Natyanjali dance festival, which celebrates classical dance forms in honor of Lord Shiva. Its intricate frescoes and inscriptions testify to the religious and artistic fervor of the Chola era, preserving centuries of heritage and devotion.</p>
                 </div>
+            `,
+            title_ta: "பிரகதீஸ்வரர் கோவில்: கட்டிடக்கலை & திருவிழாக்கள்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>பிரகதீஸ்வரர் கோவில்: கட்டிடக்கலை அதிசயம் மற்றும் கலாச்சார மையம்</h4>
+                    <p>கி.பி 1010 இல் சோழப் பேரரசர் ராஜராஜ சோழனால் கட்டப்பட்ட பிரகதீஸ்வரர் கோவில், சோழர் கட்டிடக்கலைக்கு ஒரு சிறந்த எடுத்துக்காட்டாகும். இது சுமார் 208 அடி உயரமுள்ள அதன் பிரம்மாண்டமான கிரானைட் விமானத்திற்கு பெயர் பெற்றது. இக்கோவிலில் ஒரு பெரிய சிவலிங்கம் மற்றும் ஒரே கல்லால் செதுக்கப்பட்ட பிரம்மாண்டமான நந்தி சிலை உள்ளது. செவ்வக முற்றம், தூண்கள் கொண்ட வராண்டாக்கள் மற்றும் வழிபாட்டிற்கான பல மண்டபங்கள் உள்ளிட்ட வடிவியல் கொள்கைகளின் துல்லியமான பயன்பாடாக இதன் வடிவமைப்பு உள்ளது.</p>
+                    <p>மகா சிவராத்திரி மற்றும் நாட்டியாஞ்சலி நடனத் திருவிழா போன்ற பிரமாண்டமான வருடாந்திர விழாக்களை நடத்தும் இக்கோவில், இன்றும் ஒரு துடிப்பான கலாச்சார மையமாகத் திகழ்கிறது. இதன் நுணுக்கமான ஓவியங்கள் மற்றும் கல்வெட்டுகள் சோழர் காலத்தின் மத மற்றும் கலை ஆர்வத்திற்கு சான்றாக உள்ளன, பல நூற்றாண்டுகளின் பாரம்பரியத்தையும் பக்தியையும் பாதுகாக்கின்றன.</p>
+                </div>
             `
         },
         saraswathi: {
-            title: "Saraswathi Mahal Library: A Scholarly Treasure",
-            content: `
+            title_en: "Saraswathi Mahal Library: A Scholarly Treasure",
+            content_en: `
                 <div class="story-content">
                     <h4>Saraswathi Mahal Library: Custodian of Ancient Wisdom</h4>
                     <p>Located within the Thanjavur Palace, the Saraswathi Mahal Library stands as one of Asia’s oldest and most treasured repositories of knowledge. Founded initially by the Nayak rulers and significantly expanded by the Maratha king Serfoji II in the 18th and 19th centuries, the library houses nearly 50,000 manuscripts and 60,000 books in languages such as Tamil, Sanskrit, Marathi, and Telugu.</p>
                     <p>The collection includes rare palm-leaf manuscripts on subjects ranging from literature and music to Ayurveda and religious texts. One unique manuscript famously recounts the Ramayana forward and Krishna’s story in reverse. The library is a testament to the scholarly spirit fostered by Thanjavur’s royal patrons, preserving invaluable cultural and intellectual heritage for future generations.</p>
                 </div>
+            `,
+            title_ta: "சரஸ்வதி மகால் நூலகம்: ஒரு அறிவார்ந்த பொக்கிஷம்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>சரஸ்வதி மகால் நூலகம்: பண்டைய ஞானத்தின் பாதுகாவலர்</h4>
+                    <p>தஞ்சாவூர் அரண்மனைக்குள் அமைந்துள்ள சரஸ்வதி மகால் நூலகம், ஆசியாவின் பழமையான மற்றும் மிகவும் போற்றப்படும் அறிவு களஞ்சியங்களில் ஒன்றாகும். ஆரம்பத்தில் நாயக்க மன்னர்களால் நிறுவப்பட்டு, 18 மற்றும் 19 ஆம் நூற்றாண்டுகளில் மராட்டிய மன்னர் இரண்டாம் சரபோஜியால் விரிவுபடுத்தப்பட்டது. இந்நூலகத்தில் தமிழ், சமஸ்கிருதம், மராத்தி மற்றும் தெலுங்கு போன்ற மொழிகளில் கிட்டத்தட்ட 50,000 கையெழுத்துப் பிரதிகள் மற்றும் 60,000 புத்தகங்கள் உள்ளன.</p>
+                    <p>இலக்கியம் மற்றும் இசை முதல் ஆயுர்வேதம் மற்றும் மத நூல்கள் வரையிலான அரிய பனை ஓலைச் சுவடிகள் இங்கு உள்ளன. ஒரு தனித்துவமான கையெழுத்துப் பிரதி ராமாயணத்தை நேராகவும், கிருஷ்ணரின் கதையை தலைகீழாகவும் விவரிக்கிறது. எதிர்கால சந்ததியினருக்காக விலைமதிப்பற்ற கலாச்சார மற்றும் அறிவுசார் பாரம்பரியத்தைப் பாதுகாக்கும் தஞ்சாவூரின் அரச புரவலர்களால் வளர்க்கப்பட்ட அறிவார்ந்த உணர்விற்கு இந்த நூலகம் ஒரு சான்றாகும்.</p>
+                </div>
             `
         },
         artsdance: {
-            title: "Tanjore Paintings & Bharatanatyam Origins",
-            content: `
+            title_en: "Tanjore Paintings & Bharatanatyam Origins",
+            content_en: `
                 <div class="story-content">
                     <h4>The Artistic Legacy of Tanjore Paintings and Bharatanatyam</h4>
                     <p>Thanjavur is celebrated as a foundational center for classical arts in South India, notably as the cradle of Bharatanatyam, a classical dance form that originated as Sadir Attam, performed in temple courtyards as part of worship rituals. This rich tradition nurtured devotional expression through movement and storytelling.</p>
                     <p>Complementing this, the region is famed worldwide for Tanjore paintings, an art style distinguished by vibrant colors, detailed gold leaf craftsmanship, and religious themes often illustrating Hindu deities and mythological scenes. Influenced by diverse styles, including Vijayanagara and Maratha, these paintings were traditionally commissioned by temples and royal patrons, symbolizing the cultural vitality and artistic excellence of Thanjavur. Both Bharatanatyam and Tanjore paintings remain vital expressions of Thanjavur's enduring cultural heritage.</p>
+                </div>
+            `,
+            title_ta: "தஞ்சாவூர் ஓவியங்கள் & பரதநாட்டியத்தின் தோற்றம்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>தஞ்சாவூர் ஓவியங்கள் மற்றும் பரதநாட்டியத்தின் கலை மரபு</h4>
+                    <p>தென்னிந்தியாவில் செவ்வியல் கலைகளுக்கான அடிப்படை மையமாக தஞ்சாவூர் கொண்டாடப்படுகிறது. குறிப்பாக கோவில் முற்றங்களில் வழிபாட்டுச் சடங்குகளின் ஒரு பகுதியாக நிகழ்த்தப்பட்ட சதிர் ஆட்டம் என்ற செவ்வியல் நடன வடிவமான பரதநாட்டியத்தின் தொட்டிலாக இது திகழ்கிறது. இந்த செழுமையான பாரம்பரியம் இயக்கம் மற்றும் கதைசொல்லல் மூலம் பக்தி வெளிப்பாட்டை வளர்த்தது.</p>
+                    <p>இதற்கு இணையாக, துடிப்பான வண்ணங்கள், விரிவான தங்க இலை வேலைப்பாடுகள் மற்றும் இந்து தெய்வங்கள் மற்றும் புராணக் காட்சிகளை சித்தரிக்கும் மதக் கருப்பொருள்களால் வேறுபடும் தஞ்சாவூர் ஓவியங்களுக்கு இப்பகுதி உலகளவில் புகழ் பெற்றது. விஜயநகர மற்றும் மராட்டிய பாணிகள் உட்பட பல்வேறு பாணிகளால் ஈர்க்கப்பட்ட இந்த ஓவியங்கள் பாரம்பரியமாக கோவில்கள் மற்றும் அரச புரவலர்களால் நியமிக்கப்பட்டன. பரதநாட்டியம் மற்றும் தஞ்சாவூர் ஓவியங்கள் இரண்டும் தஞ்சாவூரின் நீடித்த கலாச்சார பாரம்பரியத்தின் முக்கிய வெளிப்பாடுகளாகத் திகழ்கின்றன.</p>
                 </div>
             `
         }
@@ -426,17 +464,24 @@ function startStory(storyType) {
 
     const modalBody = document.querySelector('#storytellingModal .modal-body');
     if (stories[storyType] && modalBody) {
-        modalBody.innerHTML = stories[storyType].content;
+        // Determine initial language
+        const lang = _selectedNarrationLanguage || 'ta';
+        const content = (lang === 'ta') ? stories[storyType].content_ta : stories[storyType].content_en;
+        const title = (lang === 'ta') ? stories[storyType].title_ta : stories[storyType].title_en;
+
+        modalBody.innerHTML = content;
 
         // Add a "Back to Stories" button so users can return to the selection
-        const backBtnHtml = `<div class="story-back-wrapper"><button class="action-btn secondary-btn back-to-stories" onclick="showStorySelection()">← Back to Stories</button></div>`;
+        const backText = (lang === 'ta') ? "← கதைகளுக்குத் திரும்பு" : "← Back to Stories";
+        const backBtnHtml = `<div class="story-back-wrapper"><button class="action-btn secondary-btn back-to-stories" onclick="showStorySelection()">${backText}</button></div>`;
         modalBody.insertAdjacentHTML('afterbegin', backBtnHtml);
 
         // Store current story metadata on the modal for later narration
         const modal = document.getElementById('storytellingModal');
         if (modal) {
-            modal.dataset.currentStoryTitle = stories[storyType].title || '';
-            modal.dataset.currentStoryHtml = stories[storyType].content || '';
+            modal.dataset.currentStoryKey = storyType; // Store key to allow re-rendering on language change
+            modal.dataset.currentStoryTitle = title;
+            modal.dataset.currentStoryHtml = content;
         }
 
         // Add Narrate controls (generate & play) below the story — include language + voice selectors
@@ -444,8 +489,8 @@ function startStory(storyType) {
             <div class="story-narration-controls">
                 <label for="narrationLanguage" class="voice-label">Language:</label>
                 <select id="narrationLanguage" class="quick-narrate-select">
-                    <option value="en">English</option>
-                    <option value="ta">தமிழ் (Tamil)</option>
+                    <option value="ta" ${lang === 'ta' ? 'selected' : ''}>தமிழ் (Tamil)</option>
+                    <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
                 </select>
                 <label for="voiceSelect" class="voice-label">Voice:</label>
                 <select id="voiceSelect" class="quick-narrate-select"><option>Loading voices...</option></select>
@@ -471,7 +516,7 @@ function startStory(storyType) {
 // Voice management for SpeechSynthesis
 let _selectedVoiceName = localStorage.getItem('thanjavur_voice') || null;
 // Persisted narration language: 'en' (English) or 'ta' (Tamil)
-let _selectedNarrationLanguage = localStorage.getItem('thanjavur_narration_lang') || 'en';
+let _selectedNarrationLanguage = localStorage.getItem('thanjavur_narration_lang') || 'ta';
 
 function populateVoiceList() {
     const select = document.getElementById('voiceSelect');
@@ -545,6 +590,12 @@ function populateNarrationLanguageSelector() {
         // Update availability / mismatch display when language changes
         try { updateVoiceAvailabilityIndicator(); } catch (e) {}
         try { updateVoiceMismatchWarning(); } catch (e) {}
+
+        // If a story is currently open, re-render it in the new language
+        const modal = document.getElementById('storytellingModal');
+        if (modal && modal.style.display === 'block' && modal.dataset.currentStoryKey) {
+            startStory(modal.dataset.currentStoryKey);
+        }
     });
 }
 
@@ -605,20 +656,20 @@ function showStorySelection() {
         modalBody.innerHTML = `
             <div class="story-options">
                 <div class="story-card" onclick="startStory('tanjan')">
-                    <h4>Anjan / Tanjan Asura Legend</h4>
-                    <p>The mythological origin of the name "Thanjavur" and the legend of Tanjan Asura.</p>
+                    <h4>அஞ்சன் (தஞ்சன்) அசுரன் & தஞ்சாவூரின் பெயர்</h4>
+                    <p>"தஞ்சாவூர்" என்ற பெயரின் புராண தோற்றம் மற்றும் தஞ்சன் அசுரனின் கதை.</p>
                 </div>
                 <div class="story-card" onclick="startStory('brihadi')">
-                    <h4>Brihadisvara: Architecture & Festivals</h4>
-                    <p>Explore the temple's architecture, rituals, and the living festivals that keep traditions alive.</p>
+                    <h4>பிரகதீஸ்வரர்: கட்டிடக்கலை & திருவிழாக்கள்</h4>
+                    <p>கோவிலின் கட்டிடக்கலை, சடங்குகள் மற்றும் மரபுகளை உயிர்ப்புடன் வைத்திருக்கும் திருவிழாக்களை ஆராயுங்கள்.</p>
                 </div>
                 <div class="story-card" onclick="startStory('saraswathi')">
-                    <h4>Saraswathi Mahal Library</h4>
-                    <p>Uncover the scholarly treasures and manuscripts preserved at the royal library.</p>
+                    <h4>சரஸ்வதி மகால் நூலகம்</h4>
+                    <p>அரச நூலகத்தில் பாதுகாக்கப்பட்டுள்ள அறிவார்ந்த பொக்கிஷங்கள் மற்றும் கையெழுத்துப் பிரதிகளை கண்டறியுங்கள்.</p>
                 </div>
                 <div class="story-card" onclick="startStory('artsdance')">
-                    <h4>Tanjore Paintings & Bharatanatyam</h4>
-                    <p>Learn how Thanjavur shaped classical dance and the famous painting style named after the city.</p>
+                    <h4>தஞ்சாவூர் ஓவியங்கள் & பரதநாட்டியம்</h4>
+                    <p>தஞ்சாவூர் எவ்வாறு செவ்வியல் நடனத்தையும், நகரத்தின் பெயரால் அழைக்கப்படும் புகழ்பெற்ற ஓவிய பாணியையும் வடிவமைத்தது என்பதை அறியுங்கள்.</p>
                 </div>
             </div>
         `;
@@ -2106,3 +2157,53 @@ function toggleReadMore(textId, button) {
         textElement.style.overflow = 'visible';
     }
 }
+
+// AR Model Lazy Loading
+function initARModelLazyLoading() {
+    const arModelFrames = document.querySelectorAll('.ar-model-frame');
+    
+    if (!arModelFrames.length) return;
+    
+    // Create intersection observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const iframe = entry.target;
+                const dataSrc = iframe.getAttribute('data-src');
+                
+                // Only load if not already loaded
+                if (dataSrc && iframe.src === 'about:blank') {
+                    iframe.src = dataSrc;
+                    console.log('Loading AR model:', dataSrc);
+                }
+            }
+        });
+    }, {
+        rootMargin: '50px' // Start loading slightly before element comes into view
+    });
+    
+    // Observe all AR model iframes
+    arModelFrames.forEach(frame => observer.observe(frame));
+}
+
+// Also load AR models when AR tab is clicked
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize lazy loading
+    initARModelLazyLoading();
+    
+    // Load models when AR tab becomes active
+    const arTabBtn = document.querySelector('.tab-btn:nth-child(3)'); // AR Models button
+    if (arTabBtn) {
+        arTabBtn.addEventListener('click', () => {
+            setTimeout(() => {
+                const arModelFrames = document.querySelectorAll('.ar-model-frame');
+                arModelFrames.forEach(iframe => {
+                    const dataSrc = iframe.getAttribute('data-src');
+                    if (dataSrc && iframe.src === 'about:blank') {
+                        iframe.src = dataSrc;
+                    }
+                });
+            }, 100);
+        });
+    }
+});
