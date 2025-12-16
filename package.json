@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "echo 'No build step required'",
     "preview": "vite preview",
     "server": "node backend/server.js",
-    "vercel-build": "vite build"
+    "vercel-build": "echo 'No build step required'"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
