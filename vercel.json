@@ -1,4 +1,11 @@
 {
+    "redirects": [
+        {
+            "source": "/",
+            "destination": "/signup.html",
+            "permanent": false
+        }
+    ],
     "rewrites": [
         {
             "source": "/api/(.*)",
