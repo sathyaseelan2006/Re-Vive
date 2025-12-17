@@ -82,19 +82,19 @@ const stateIdMap = {
     'py': 'IN-PY'
 };
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const imgElement = document.getElementById('indiaMapSVG');
-    
+
     if (imgElement) {
         // Create tooltip element
         const tooltip = document.createElement('div');
         tooltip.id = 'state-tooltip';
         tooltip.className = 'state-tooltip';
         document.body.appendChild(tooltip);
-        
+
         // Cache SVG content for better performance
         const cachedSVG = sessionStorage.getItem('indiaMapSVG');
-        const svgPromise = cachedSVG 
+        const svgPromise = cachedSVG
             ? Promise.resolve(cachedSVG)
             : fetch(imgElement.src)
                 .then(response => response.text())
@@ -102,52 +102,52 @@ document.addEventListener('DOMContentLoaded', function() {
                     sessionStorage.setItem('indiaMapSVG', svg);
                     return svg;
                 });
-        
+
         svgPromise
             .then(svgContent => {
                 // Create a container div and insert SVG content
                 const svgContainer = document.createElement('div');
                 svgContainer.innerHTML = svgContent;
                 const svgElement = svgContainer.querySelector('svg');
-                
+
                 if (svgElement) {
                     // Copy attributes from img to svg
                     svgElement.id = imgElement.id;
-                    svgElement.className = imgElement.className;
+                    svgElement.setAttribute('class', imgElement.className);
                     svgElement.setAttribute('alt', imgElement.alt);
-                    
+
                     // Replace img with svg
                     imgElement.parentNode.replaceChild(svgElement, imgElement);
-                    
+
                     // Add interactivity to all paths (states)
                     const allPaths = svgElement.querySelectorAll('path');
-                    
+
                     // Add title elements to each path for basic tooltip functionality
                     allPaths.forEach((path, index) => {
                         // Get state ID from various possible attributes and map it correctly
                         const pathId = path.id || path.getAttribute('data-id') || path.getAttribute('name') || 'state-' + index;
                         const stateKey = stateIdMap[pathId] || stateIdMap[pathId.toLowerCase()];
                         const stateInfo = stateData[stateKey];
-                        
+
                         // Create title element for basic browser tooltip
                         if (stateInfo) {
                             const titleElement = document.createElement('title');
                             titleElement.textContent = stateInfo.name + ': ' + stateInfo.culture;
                             path.appendChild(titleElement);
                         }
-                        
+
                         path.style.cursor = 'pointer';
                         path.style.transition = 'transform 0.2s ease, opacity 0.2s ease, fill 0.3s ease, filter 0.3s ease';
                         path.style.willChange = 'transform, opacity';
-                        
+
                         // Mouse enter event - show tooltip
-                        path.addEventListener('mouseenter', function(e) {
+                        path.addEventListener('mouseenter', function (e) {
                             // Only apply hover effect if not selected (golden)
                             if (!path.style.fill || (path.style.fill !== 'rgb(212, 175, 55)' && path.style.fill !== '#d4af37')) {
                                 path.style.transform = 'scale(1.02)';
                                 path.style.opacity = '0.9';
                             }
-                            
+
                             // Show tooltip with state information
                             if (stateInfo) {
                                 tooltip.innerHTML = `
@@ -162,20 +162,20 @@ document.addEventListener('DOMContentLoaded', function() {
                                 updateTooltipPosition(e);
                             }
                         });
-                        
-        // Mouse move event - update tooltip position (throttled for performance)
-        let tooltipMoveTimeout;
-        path.addEventListener('mousemove', function(e) {
-            if (tooltip.style.display === 'block') {
-                if (!tooltipMoveTimeout) {
-                    tooltipMoveTimeout = setTimeout(() => {
-                        updateTooltipPosition(e);
-                        tooltipMoveTimeout = null;
-                    }, 16); // ~60fps
-                }
-            }
-        });                        // Mouse leave event - hide tooltip
-                        path.addEventListener('mouseleave', function() {
+
+                        // Mouse move event - update tooltip position (throttled for performance)
+                        let tooltipMoveTimeout;
+                        path.addEventListener('mousemove', function (e) {
+                            if (tooltip.style.display === 'block') {
+                                if (!tooltipMoveTimeout) {
+                                    tooltipMoveTimeout = setTimeout(() => {
+                                        updateTooltipPosition(e);
+                                        tooltipMoveTimeout = null;
+                                    }, 16); // ~60fps
+                                }
+                            }
+                        });                        // Mouse leave event - hide tooltip
+                        path.addEventListener('mouseleave', function () {
                             // Only reset hover effect if not selected (golden)
                             if (!path.style.fill || (path.style.fill !== 'rgb(212, 175, 55)' && path.style.fill !== '#d4af37')) {
                                 path.style.transform = '';
@@ -183,11 +183,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                             tooltip.style.display = 'none';
                         });
-                        
+
                         // Click event - highlight with golden glow and navigate
-                        path.addEventListener('click', function(e) {
+                        path.addEventListener('click', function (e) {
                             console.log('Path clicked:', pathId, 'StateKey:', stateKey, 'StateInfo:', stateInfo);
-                            
+
                             // Reset all paths
                             allPaths.forEach(p => {
                                 p.style.fill = '';
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 p.style.transform = '';
                                 p.style.opacity = '';
                             });
-                            
+
                             // Highlight clicked path with golden glow
                             path.style.fill = '#d4af37';
                             path.style.stroke = '#e6c547';
@@ -205,11 +205,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             path.style.filter = 'drop-shadow(0 0 12px #d4af37) drop-shadow(0 0 20px #d4af37) brightness(1.2)';
                             path.style.transform = 'scale(1.05)';
                             path.style.opacity = '1';
-                            
+
                             // Show selection feedback and navigate
                             if (stateInfo) {
                                 console.log(`Selected: ${stateInfo.name}`);
-                                
+
                                 // Navigate to Tamil Nadu page when Tamil Nadu is clicked
                                 if (stateKey === 'IN-TN') {
                                     console.log('Navigating to Tamil Nadu...');
@@ -230,49 +230,49 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Error loading SVG:', error);
-                
+
                 // Fallback: Add event listeners directly to the img element
-                imgElement.addEventListener('mouseover', function(e) {
+                imgElement.addEventListener('mouseover', function (e) {
                     console.log('Map hovered');
                 });
             });
     }
-    
+
     // Function to update tooltip position
     function updateTooltipPosition(e) {
         const tooltip = document.getElementById('state-tooltip');
         if (!tooltip) return;
-        
+
         const tooltipRect = tooltip.getBoundingClientRect();
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
-        
+
         // Get the position of the hovered element
         const targetRect = e.target.getBoundingClientRect();
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-        
+
         // Position tooltip near the hovered state
         let left = targetRect.left + scrollLeft + targetRect.width / 2 - tooltipRect.width / 2;
         let top = targetRect.top + scrollTop - tooltipRect.height - 10;
-        
+
         // Adjust if tooltip goes off-screen
         if (left + tooltipRect.width > viewportWidth) {
             left = viewportWidth - tooltipRect.width - 10;
         }
-        
+
         if (left < 0) {
             left = 10;
         }
-        
+
         if (top + tooltipRect.height > viewportHeight + scrollTop) {
             top = targetRect.top + scrollTop + targetRect.height + 10;
         }
-        
+
         if (top < scrollTop) {
             top = targetRect.top + scrollTop + targetRect.height + 10;
         }
-        
+
         tooltip.style.left = left + 'px';
         tooltip.style.top = top + 'px';
     }
@@ -312,8 +312,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         });
                     }
                 });
-            }, { 
-                threshold: 0.1, 
+            }, {
+                threshold: 0.1,
                 rootMargin: '0px 0px -5% 0px'
             });
 
