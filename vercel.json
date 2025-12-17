@@ -8,10 +8,6 @@
     ],
     "rewrites": [
         {
-            "source": "/api/(.*)",
-            "destination": "/backend/server.js"
-        },
-        {
             "source": "/tamil-nadu/chennai/(.*)",
             "destination": "/tamil-nadu/chennai/$1"
         },
