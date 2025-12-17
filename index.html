@@ -153,30 +153,34 @@
                 clearPreferencesBtn.addEventListener('click', async () => {
                     if (confirm('Are you sure you want to clear your preferences? This will remove all personalized recommendations.')) {
                         try {
-                            const token = localStorage.getItem('token');
-                            const response = await fetch('/api/user/preferences', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': `Bearer ${token}`
-                                },
-                                body: JSON.stringify({
-                                    userId: user.id,
-                                    preferences: []
-                                })
-                            });
+                            // Import Supabase client dynamically
+                            const { supabase } = await import('./js/supabase-client.js');
 
-                            if (response.ok) {
-                                alert('Preferences cleared successfully!');
-                                // Clear local storage preferences
-                                localStorage.removeItem('userPreferences');
-                                localStorage.removeItem('emotionalProfile');
-                                localStorage.removeItem('recommendedSites');
-                                // Reload page
-                                window.location.reload();
-                            } else {
-                                alert('Failed to clear preferences. Please try again.');
+                            // Get current user
+                            const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
+
+                            if (authError || !authUser) {
+                                alert('Please login to clear preferences.');
+                                return;
                             }
+
+                            // Clear preferences in Supabase
+                            const { error } = await supabase
+                                .from('user_profiles')
+                                .update({ preferences: [] })
+                                .eq('user_id', authUser.id);
+
+                            if (error) {
+                                throw error;
+                            }
+
+                            alert('Preferences cleared successfully!');
+                            // Clear local storage preferences
+                            localStorage.removeItem('userPreferences');
+                            localStorage.removeItem('emotionalProfile');
+                            localStorage.removeItem('recommendedSites');
+                            // Reload page
+                            window.location.reload();
                         } catch (error) {
                             console.error('Error clearing preferences:', error);
                             alert('Error clearing preferences. Please try again.');

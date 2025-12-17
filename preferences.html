@@ -130,50 +130,41 @@
             submitBtn.textContent = 'Analyzing your preferences...';
 
             try {
-                // Get token from localStorage
-                const token = localStorage.getItem('token');
+                // Get current user from Supabase
+                const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
 
-                if (!token) {
+                if (authError || !authUser) {
                     alert('Session expired. Please login again.');
                     window.location.href = 'login.html';
                     return;
                 }
 
-                const response = await fetch(`${API_URL}/user/preferences`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        userId: userId,
-                        preferences: Array.from(selectedPreferences)
-                    })
-                });
+                // Update user preferences in Supabase
+                const preferencesArray = Array.from(selectedPreferences);
+                const { data, error } = await supabase
+                    .from('user_profiles')
+                    .update({ preferences: preferencesArray })
+                    .eq('user_id', authUser.id)
+                    .select()
+                    .single();
 
-                const data = await response.json();
-
-                if (data.success) {
-                    // Store preferences and recommendations in localStorage
-                    localStorage.setItem('userPreferences', JSON.stringify(data.data.preferences));
-                    localStorage.setItem('emotionalProfile', data.data.emotionalProfile);
-                    localStorage.setItem('recommendedSites', JSON.stringify(data.data.recommendedSites));
-
-                    // Update user object
-                    user.isFirstLogin = false;
-                    localStorage.setItem('user', JSON.stringify(user));
-
-                    // Show success and redirect
-                    alert('Preferences saved! We have personalized recommendations for you.');
-                    window.location.href = 'index.html';
-                } else {
-                    errorMessage.textContent = data.message || 'Failed to save preferences';
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Continue to Heritage Explorer';
+                if (error) {
+                    throw error;
                 }
+
+                // Store preferences in localStorage
+                localStorage.setItem('userPreferences', JSON.stringify(preferencesArray));
+
+                // Update user object
+                user.isFirstLogin = false;
+                localStorage.setItem('user', JSON.stringify(user));
+
+                // Show success and redirect
+                alert('Preferences saved! Explore your personalized heritage journey.');
+                window.location.href = 'index.html';
             } catch (error) {
                 console.error('Error saving preferences:', error);
-                errorMessage.textContent = 'Connection error. Please try again.';
+                errorMessage.textContent = 'Failed to save preferences. Please try again.';
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Continue to Heritage Explorer';
             }
