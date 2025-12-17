@@ -155,7 +155,7 @@
                 const { data, error } = await supabase
                     .from('user_profiles')
                     .update({ preferences: preferencesArray })
-                    .eq('user_id', authUser.id)
+                    .eq('id', authUser.id)
                     .select()
                     .single();
 
