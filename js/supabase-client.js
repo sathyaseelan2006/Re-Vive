@@ -1,20 +1,17 @@
-// Supabase Client Configuration for Frontend
-// This replaces localhost API calls with direct Supabase integration
+// Supabase Client Configuration for Frontend using CDN
+// This file provides Supabase client for browser use
 
-import { createClient } from '@supabase/supabase-js';
-
-// Get Supabase credentials from Vite environment variables
-// In production (Vercel), these will be set in the Vercel dashboard
-// In development, these come from .env file
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Get Supabase credentials from window (set by inline script in HTML)
+// Or fallback to hardcoded values for now
+const SUPABASE_URL = window.VITE_SUPABASE_URL || 'https://lmxshtqwtapzrvnjbdsv.supabase.co';
+const SUPABASE_ANON_KEY = window.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxteHNodHF3dGFwenJ2bmpic3N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQzNDY0MzIsImV4cCI6MjA0OTkyMjQzMn0.iyLjsaqnfUXmZPOuZujEQGc-JcRFT3admA1aTHKLYSQ';
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    console.error('Missing Supabase environment variables. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY');
+    console.error('Missing Supabase environment variables');
 }
 
-// Create Supabase client
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+// Create Supabase client using the global supabase object from CDN
+export const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     auth: {
         autoRefreshToken: true,
         persistSession: true,
