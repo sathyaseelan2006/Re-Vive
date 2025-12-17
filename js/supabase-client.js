@@ -1,13 +1,14 @@
 // Supabase Client Configuration for Frontend using CDN
 // This file provides Supabase client for browser use
 
-// Get Supabase credentials from window (set by inline script in HTML)
-// Or fallback to hardcoded values for now
-const SUPABASE_URL = window.VITE_SUPABASE_URL || 'https://lmxshtqwtapzrvnjbdsv.supabase.co';
-const SUPABASE_ANON_KEY = window.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxteHNodHF3dGFwenJ2bmpic3N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQzNDY0MzIsImV4cCI6MjA0OTkyMjQzMn0.iyLjsaqnfUXmZPOuZujEQGc-JcRFT3admA1aTHKLYSQ';
+// For Vercel deployment, we need to get these from a config endpoint or hardcode them
+// Since these are public keys (anon key), it's safe to include them in frontend code
+
+const SUPABASE_URL = 'https://lmxshtqwtapzrvnjbdsv.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxteHNodHF3dGFwenJ2bmpic3N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQzNDY0MzIsImV4cCI6MjA0OTkyMjQzMn0.iyLjsaqnfUXmZPOuZujEQGc-JcRFT3admA1aTHKLYSQ';
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    console.error('Missing Supabase environment variables');
+    console.error('Missing Supabase configuration');
 }
 
 // Create Supabase client using the global supabase object from CDN

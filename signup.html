@@ -82,9 +82,12 @@
                     options: {
                         data: {
                             full_name: fullName
-                        }
+                        },
+                        emailRedirectTo: window.location.origin + '/preferences.html'
                     }
                 });
+
+                console.log('Signup response:', { authData, authError });
 
                 if (authError) {
                     errorMessage.textContent = authError.message;
@@ -92,6 +95,12 @@
                 }
 
                 if (authData.user) {
+                    // Check if email confirmation is required
+                    if (authData.user.identities && authData.user.identities.length === 0) {
+                        errorMessage.textContent = 'This email is already registered. Please login instead.';
+                        return;
+                    }
+
                     // Create user profile
                     const { error: profileError } = await supabase
                         .from('user_profiles')
@@ -104,6 +113,7 @@
 
                     if (profileError) {
                         console.error('Profile creation error:', profileError);
+                        // Don't block signup if profile creation fails - it might be created by trigger
                     }
 
                     // Store user info in localStorage
@@ -113,9 +123,16 @@
                         email: email
                     }));
 
-                    // Redirect to preferences
-                    alert(`Welcome to Re:Vive, ${fullName}! Let's personalize your journey.`);
-                    window.location.href = 'preferences.html';
+                    // Check if email confirmation is required
+                    if (authData.session) {
+                        // User is logged in, redirect to preferences
+                        alert(`Welcome to Re:Vive, ${fullName}! Let's personalize your journey.`);
+                        window.location.href = 'preferences.html';
+                    } else {
+                        // Email confirmation required
+                        alert(`Account created! Please check your email (${email}) to confirm your account, then login.`);
+                        window.location.href = 'login.html';
+                    }
                 }
             } catch (error) {
                 console.error('Signup error:', error);
