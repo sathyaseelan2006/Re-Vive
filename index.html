@@ -12,6 +12,8 @@
     <link rel="preload" as="image" href="public/india-map.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -153,8 +155,10 @@
                 clearPreferencesBtn.addEventListener('click', async () => {
                     if (confirm('Are you sure you want to clear your preferences? This will remove all personalized recommendations.')) {
                         try {
-                            // Import Supabase client dynamically
-                            const { supabase } = await import('./js/supabase-client.js');
+                            // Use Supabase client (already initialized globally)
+                            const SUPABASE_URL = 'https://lmxshtqwtapzrvnjbdsv.supabase.co';
+                            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxteHNodHF3dGFwenJ2bmpiZHN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU4ODkwMTYsImV4cCI6MjA4MTQ2NTAxNn0.bo7SGaBK76yLjsaqnfUXmZPOuZujEQGc-JcRFT3admA';
+                            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
                             // Get current user
                             const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
