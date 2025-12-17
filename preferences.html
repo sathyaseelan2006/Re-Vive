@@ -85,10 +85,10 @@
 
     <script>
         // Initialize Supabase client inline
-        const SUPABASE_URL = 'https://lmxshtqwtapzrvnjbdsv.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxteHNodHF3dGFwenJ2bmpiZHN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU4ODkwMTYsImV4cCI6MjA4MTQ2NTAxNn0.bo7SGaBK76yLjsaqnfUXmZPOuZujEQGc-JcRFT3admA';
+        var SUPABASE_URL = 'https://lmxshtqwtapzrvnjbdsv.supabase.co';
+        var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxteHNodHF3dGFwenJ2bmpiZHN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU4ODkwMTYsImV4cCI6MjA4MTQ2NTAxNn0.bo7SGaBK76yLjsaqnfUXmZPOuZujEQGc-JcRFT3admA';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
             auth: {
                 autoRefreshToken: true,
                 persistSession: true,
