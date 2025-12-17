@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div id="root">
         <div class="app-container">
@@ -16,23 +18,11 @@
                 <h1 class="heritage-main-title">Re:Vive</h1>
                 <p class="heritage-subtitle">An Intelligent Cultural Platform</p>
             </div>
-            
+
             <div class="heritage-form-container">
                 <form class="heritage-form" id="loginForm">
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        id="email"
-                        class="heritage-input"
-                        required
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        id="password"
-                        class="heritage-input"
-                        required
-                    />
+                    <input type="email" placeholder="Email" id="email" class="heritage-input" required />
+                    <input type="password" placeholder="Password" id="password" class="heritage-input" required />
                     <div id="errorMessage" class="heritage-error"></div>
                     <button type="submit" class="heritage-btn">Login</button>
                 </form>
@@ -46,20 +36,20 @@
         </div>
     </div>
 
-    <script>
-        const API_URL = 'http://localhost:5000/api';
+    <script type="module">
+        import { supabase } from './js/supabase-client.js';
 
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('errorMessage');
             const submitBtn = e.target.querySelector('button[type="submit"]');
-            
+
             // Clear previous errors
             errorMessage.textContent = '';
-            
+
             // Validation
             if (!email || !password) {
                 errorMessage.textContent = 'Please enter both email and password.';
@@ -69,42 +59,49 @@
             // Disable button during request
             submitBtn.disabled = true;
             submitBtn.textContent = 'Logging in...';
-            
+
             try {
-                // Send login request to backend
-                const response = await fetch(`${API_URL}/auth/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password })
+                // Sign in with Supabase Auth
+                const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+                    email,
+                    password
                 });
 
-                const data = await response.json();
+                if (authError) {
+                    errorMessage.textContent = authError.message;
+                    return;
+                }
 
-                if (data.success) {
-                    // Store token and user info
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    
-                    // Check if first login - redirect to preferences
-                    const checkFirstLogin = await fetch(`${API_URL}/user/first-login/${data.user.id}`);
-                    const firstLoginData = await checkFirstLogin.json();
-                    
-                    if (firstLoginData.success && firstLoginData.isFirstLogin) {
-                        alert(`Welcome, ${data.user.fullName}! Let's personalize your experience.`);
+                if (authData.user) {
+                    // Get user profile
+                    const { data: profile, error: profileError } = await supabase
+                        .from('user_profiles')
+                        .select('*')
+                        .eq('user_id', authData.user.id)
+                        .single();
+
+                    // Store user info in localStorage
+                    const userInfo = {
+                        id: authData.user.id,
+                        fullName: profile?.full_name || authData.user.email,
+                        email: authData.user.email
+                    };
+                    localStorage.setItem('user', JSON.stringify(userInfo));
+
+                    // Check if user has preferences
+                    const hasPreferences = profile?.preferences && profile.preferences.length > 0;
+
+                    if (!hasPreferences) {
+                        alert(`Welcome, ${userInfo.fullName}! Let's personalize your experience.`);
                         window.location.href = 'preferences.html';
                     } else {
-                        alert(`Welcome back, ${data.user.fullName}!`);
+                        alert(`Welcome back, ${userInfo.fullName}!`);
                         window.location.href = 'index.html';
                     }
-                } else {
-                    // Show error message
-                    errorMessage.textContent = data.message || 'Login failed. Please try again.';
                 }
             } catch (error) {
                 console.error('Login error:', error);
-                errorMessage.textContent = 'Connection error. Please make sure the server is running.';
+                errorMessage.textContent = 'An unexpected error occurred. Please try again.';
             } finally {
                 // Re-enable button
                 submitBtn.disabled = false;
@@ -113,4 +110,5 @@
         });
     </script>
 </body>
+
 </html>

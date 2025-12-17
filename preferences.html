@@ -82,7 +82,9 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { supabase, updateUserPreferences } from './js/supabase-client.js';
+
         const API_URL = 'http://localhost:5000/api';
         const selectedPreferences = new Set();
         const preferenceCards = document.querySelectorAll('.preference-card');

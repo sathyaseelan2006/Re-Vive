@@ -8,27 +8,27 @@ class ProfessionalHeritageChatbot {
     constructor(siteName, siteKnowledge) {
         this.siteName = siteName;
         this.siteKnowledge = siteKnowledge;
-        this.apiEndpoint = 'http://localhost:5000/api/chatbot/chat';
+        this.apiEndpoint = '/api/chatbot/chat';
         this.conversationHistory = [];
         this.isOpen = false;
         this.isTyping = false;
-        
+
         console.log(`🚀 Initializing ${siteName} Professional Heritage Chatbot v4.0...`);
         this.init();
     }
-    
+
     init() {
         this.createChatbotUI();
         this.setupEventListeners();
         this.checkServerHealth();
         console.log('✅ Chatbot initialized successfully');
     }
-    
+
     async checkServerHealth() {
         try {
-            const response = await fetch('http://localhost:5000/api/chatbot/health');
+            const response = await fetch('/api/chatbot/health');
             const data = await response.json();
-            
+
             if (data.status === 'OK' && data.apiKeyConfigured) {
                 console.log('✅ Chatbot server is healthy and API key is configured');
                 this.showWelcomeMessage();
@@ -41,14 +41,14 @@ class ProfessionalHeritageChatbot {
             this.showErrorMessage('Cannot connect to chatbot server. Please ensure the backend server is running.');
         }
     }
-    
+
     createChatbotUI() {
         // Check if chatbot HTML already exists
         if (document.getElementById('chatbotToggle')) {
             console.log('Chatbot UI already exists');
             return;
         }
-        
+
         const chatbotHTML = `
             <!-- Chatbot Toggle Button -->
             <button id="chatbotToggle" class="chatbot-toggle" aria-label="Open Heritage Expert Chat">
@@ -105,26 +105,26 @@ class ProfessionalHeritageChatbot {
                 </div>
             </div>
         `;
-        
+
         document.body.insertAdjacentHTML('beforeend', chatbotHTML);
     }
-    
+
     setupEventListeners() {
         // Toggle chatbot
         document.getElementById('chatbotToggle')?.addEventListener('click', () => {
             this.toggleChatbot();
         });
-        
+
         // Close button
         document.getElementById('chatbotClose')?.addEventListener('click', () => {
             this.closeChatbot();
         });
-        
+
         // Send message button
         document.getElementById('sendMessage')?.addEventListener('click', () => {
             this.sendMessage();
         });
-        
+
         // Chat input - Enter key (Shift+Enter for new line)
         document.getElementById('chatInput')?.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -132,13 +132,13 @@ class ProfessionalHeritageChatbot {
                 this.sendMessage();
             }
         });
-        
+
         // Auto-resize textarea
         document.getElementById('chatInput')?.addEventListener('input', (e) => {
             e.target.style.height = 'auto';
             e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
         });
-        
+
         // Quick question buttons
         document.querySelectorAll('.quick-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -148,15 +148,15 @@ class ProfessionalHeritageChatbot {
             });
         });
     }
-    
+
     toggleChatbot() {
         const chatbotWindow = document.getElementById('chatbotWindow');
         this.isOpen = !this.isOpen;
-        
+
         if (this.isOpen) {
             chatbotWindow.style.display = 'flex';
             document.getElementById('chatInput')?.focus();
-            
+
             // Show welcome message if no conversation history
             if (this.conversationHistory.length === 0) {
                 this.showWelcomeMessage();
@@ -165,48 +165,48 @@ class ProfessionalHeritageChatbot {
             chatbotWindow.style.display = 'none';
         }
     }
-    
+
     closeChatbot() {
         this.isOpen = false;
         document.getElementById('chatbotWindow').style.display = 'none';
     }
-    
+
     showWelcomeMessage() {
         const welcomeText = `Greetings! I'm Dr. Archibald Thornbury, a historian and cultural heritage specialist. I've spent decades studying the magnificent architecture and rich cultural tapestry of sites like ${this.siteName}.
 
 I'm here to share fascinating insights about the history, architecture, and cultural significance of this remarkable place. Feel free to ask me anything about the historical context, architectural techniques, or cultural traditions associated with this heritage site.
 
 What would you like to explore today?`;
-        
+
         this.addBotMessage(welcomeText, true);
     }
-    
+
     showErrorMessage(message) {
         this.addBotMessage(`⚠️ ${message}`, false);
     }
-    
+
     async sendMessage() {
         const input = document.getElementById('chatInput');
         const message = input.value.trim();
-        
+
         if (!message || this.isTyping) return;
-        
+
         // Add user message to UI
         this.addUserMessage(message);
-        
+
         // Clear input
         input.value = '';
         input.style.height = 'auto';
-        
+
         // Add to conversation history
         this.conversationHistory.push({
             role: 'user',
             content: message
         });
-        
+
         // Show typing indicator
         this.showTypingIndicator();
-        
+
         try {
             // Send to backend API
             const response = await fetch(this.apiEndpoint, {
@@ -221,27 +221,27 @@ What would you like to explore today?`;
                     conversationHistory: this.conversationHistory.slice(-6) // Last 3 exchanges
                 })
             });
-            
+
             if (!response.ok) {
                 throw new Error(`Server error: ${response.status}`);
             }
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
                 // Add bot response to conversation history
                 this.conversationHistory.push({
                     role: 'assistant',
                     content: data.response
                 });
-                
+
                 // Remove typing indicator and show response
                 this.removeTypingIndicator();
                 this.addBotMessage(data.response);
             } else {
                 throw new Error(data.message || 'Unknown error');
             }
-            
+
         } catch (error) {
             console.error('Error sending message:', error);
             this.removeTypingIndicator();
@@ -251,14 +251,14 @@ What would you like to explore today?`;
             );
         }
     }
-    
+
     addUserMessage(message) {
         const messagesContainer = document.getElementById('chatMessages');
-        const messageTime = new Date().toLocaleTimeString('en-US', { 
-            hour: '2-digit', 
-            minute: '2-digit' 
+        const messageTime = new Date().toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit'
         });
-        
+
         const messageHTML = `
             <div class="message user-message">
                 <div class="message-content">
@@ -267,18 +267,18 @@ What would you like to explore today?`;
                 </div>
             </div>
         `;
-        
+
         messagesContainer.insertAdjacentHTML('beforeend', messageHTML);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
-    
+
     addBotMessage(message, isWelcome = false) {
         const messagesContainer = document.getElementById('chatMessages');
-        const messageTime = new Date().toLocaleTimeString('en-US', { 
-            hour: '2-digit', 
-            minute: '2-digit' 
+        const messageTime = new Date().toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit'
         });
-        
+
         const messageHTML = `
             <div class="message bot-message ${isWelcome ? 'welcome-message' : ''}">
                 <div class="message-avatar">
@@ -290,15 +290,15 @@ What would you like to explore today?`;
                 </div>
             </div>
         `;
-        
+
         messagesContainer.insertAdjacentHTML('beforeend', messageHTML);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
-    
+
     showTypingIndicator() {
         this.isTyping = true;
         const messagesContainer = document.getElementById('chatMessages');
-        
+
         const typingHTML = `
             <div class="message bot-message typing-indicator" id="typingIndicator">
                 <div class="message-avatar typing-avatar">
@@ -313,21 +313,21 @@ What would you like to explore today?`;
                 </div>
             </div>
         `;
-        
+
         messagesContainer.insertAdjacentHTML('beforeend', typingHTML);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
-    
+
     removeTypingIndicator() {
         this.isTyping = false;
         document.getElementById('typingIndicator')?.remove();
     }
-    
+
     formatBotMessage(text) {
         // Convert newlines to <br>
         return this.escapeHtml(text).replace(/\n/g, '<br>');
     }
-    
+
     escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;

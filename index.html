@@ -154,7 +154,7 @@
                     if (confirm('Are you sure you want to clear your preferences? This will remove all personalized recommendations.')) {
                         try {
                             const token = localStorage.getItem('token');
-                            const response = await fetch('http://localhost:5000/api/user/preferences', {
+                            const response = await fetch('/api/user/preferences', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
