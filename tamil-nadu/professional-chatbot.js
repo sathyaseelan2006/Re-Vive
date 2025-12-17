@@ -25,6 +25,11 @@ class ProfessionalHeritageChatbot {
     }
 
     async checkServerHealth() {
+        // Health check disabled - chatbot now uses Gemini API directly from frontend
+        console.log('✅ Chatbot using direct Gemini API integration');
+        this.showWelcomeMessage();
+
+        /* Backend API health check disabled
         try {
             const response = await fetch('/api/chatbot/health');
             const data = await response.json();
@@ -40,6 +45,7 @@ class ProfessionalHeritageChatbot {
             console.error('❌ Cannot connect to chatbot server:', error);
             this.showErrorMessage('Cannot connect to chatbot server. Please ensure the backend server is running.');
         }
+        */
     }
 
     createChatbotUI() {
