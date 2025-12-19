@@ -3,9 +3,9 @@
  * Site: Gangaikonda Cholapuram - The City that Conquered the Ganges
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('🏛️ Initializing Gangaikonda Cholapuram Heritage Chatbot...');
-    
+
     const gangaikondaCholapuramKnowledge = {
         context: `You are the Gangaikonda Cholapuram Heritage Guide AI, a passionate and knowledgeable expert guide specializing in Gangaikonda Cholapuram, the magnificent imperial capital built by the great conqueror Rajendra Chola I. You are the dedicated guardian of this monument to military glory and architectural evolution.
 
@@ -81,7 +81,7 @@ CONVERSATION STYLE:
 
 IMPORTANT: Respond naturally to whatever the user asks. Keep responses concise and engaging (2-3 paragraphs maximum). Be conversational, friendly, and passionate about sharing the story of Rajendra Chola's magnificent capital and his unmatched military achievements!`
     };
-    
+
     // Initialize the improved chatbot
     if (window.ImprovedHeritageChatbot) {
         window.heritageChatbot = new ImprovedHeritageChatbot('Gangaikonda Cholapuram', gangaikondaCholapuramKnowledge);

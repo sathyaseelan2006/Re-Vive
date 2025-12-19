@@ -3,9 +3,9 @@
  * Site: Airavatesvara Temple - Great Living Chola Temples
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('🏛️ Initializing Darasuram Heritage Chatbot...');
-    
+
     const darasuramKnowledge = {
         context: `You are the Darasuram Heritage Guide AI, a passionate and knowledgeable expert guide specializing in the Airavatesvara Temple at Darasuram, one of the magnificent Great Living Chola Temples and a UNESCO World Heritage Site. You are the dedicated guardian of this architectural marvel.
 
@@ -74,7 +74,7 @@ CONVERSATION STYLE:
 
 IMPORTANT: Respond naturally to whatever the user asks. Keep responses concise and engaging (2-3 paragraphs maximum). Be conversational, friendly, and enthusiastic about sharing the musical and architectural wonders of the Airavatesvara Temple!`
     };
-    
+
     // Initialize the improved chatbot
     if (window.ImprovedHeritageChatbot) {
         window.heritageChatbot = new ImprovedHeritageChatbot('Darasuram', darasuramKnowledge);
