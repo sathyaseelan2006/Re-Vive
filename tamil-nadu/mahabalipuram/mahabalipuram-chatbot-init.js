@@ -82,6 +82,30 @@ IMPORTANT: Respond naturally to whatever the user asks. Keep responses concise a
     if (window.ImprovedHeritageChatbot) {
         window.heritageChatbot = new ImprovedHeritageChatbot('Mahabalipuram', mahabalipuramKnowledge);
         console.log('✅ Mahabalipuram Heritage Chatbot initialized successfully!');
+        // Accessibility and theming adjustments for the toggle and controls
+        try {
+            const toggle = document.getElementById('chatbotToggle');
+            if (toggle) {
+                toggle.setAttribute('title', 'Open Heritage Guide');
+                toggle.setAttribute('aria-label', 'Open Heritage Guide');
+                toggle.setAttribute('role', 'button');
+                toggle.setAttribute('aria-pressed', 'false');
+            }
+
+            const closeBtn = document.getElementById('chatbotClose');
+            if (closeBtn) closeBtn.setAttribute('title', 'Close chat window');
+
+            const settingsBtn = document.getElementById('chatbotSettings');
+            if (settingsBtn) settingsBtn.setAttribute('title', 'Chatbot settings');
+
+            // Tidy up the welcome message emoji/rendering issues
+            const welcome = document.querySelector('#chatMessages .welcome-message .message-text');
+            if (welcome && welcome.textContent.includes('�')) {
+                welcome.innerHTML = welcome.innerHTML.replace(/�/g, '');
+            }
+        } catch (e) {
+            console.warn('Could not apply minor UI enhancements:', e);
+        }
     } else {
         console.error('❌ ImprovedHeritageChatbot not found. Make sure improved-chatbot.js is loaded first.');
     }

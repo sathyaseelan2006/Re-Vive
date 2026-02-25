@@ -19,7 +19,7 @@ function closeModal(modalId) {
 }
 
 // Close modal when clicking outside
-window.onclick = function(event) {
+window.onclick = function (event) {
     const modals = document.querySelectorAll('.modal');
     modals.forEach(modal => {
         if (event.target === modal) {
@@ -36,19 +36,19 @@ function switchTab(tabName) {
     tabContents.forEach(content => {
         content.classList.remove('active');
     });
-    
+
     // Remove active class from all tab buttons
     const tabButtons = document.querySelectorAll('.tab-btn');
     tabButtons.forEach(button => {
         button.classList.remove('active');
     });
-    
+
     // Show selected tab content
     const selectedTab = document.getElementById(tabName + '-tab');
     if (selectedTab) {
         selectedTab.classList.add('active');
     }
-    
+
     // Add active class to clicked button
     event.target.classList.add('active');
 }
@@ -56,24 +56,24 @@ function switchTab(tabName) {
 // Heritage Gallery Scroll Functionality
 let currentGalleryIndex = 0;
 let cardsPerView = 3; // Default for desktop
-const totalCards = 1; // Total number of heritage cards for Thanjavur (will expand later)
+const totalCards = 5; // Total number of heritage cards for Darasuram
 
 function scrollGallery(direction) {
     const galleryTrack = document.getElementById('galleryTrack');
     if (!galleryTrack) return;
-    
+
     const cardWidth = 320 + 25; // Card width + gap
     const maxIndex = Math.max(0, totalCards - cardsPerView);
-    
+
     if (direction === 'left') {
         currentGalleryIndex = Math.max(0, currentGalleryIndex - 1);
     } else {
         currentGalleryIndex = Math.min(maxIndex, currentGalleryIndex + 1);
     }
-    
+
     const translateX = -(currentGalleryIndex * cardWidth);
     galleryTrack.style.transform = `translateX(${translateX}px)`;
-    
+
     // Update navigation button states
     updateGalleryNavButtons();
 }
@@ -82,12 +82,12 @@ function updateGalleryNavButtons() {
     const prevBtn = document.querySelector('.prev-gallery');
     const nextBtn = document.querySelector('.next-gallery');
     const maxIndex = Math.max(0, totalCards - cardsPerView);
-    
+
     if (prevBtn) {
         prevBtn.style.opacity = currentGalleryIndex === 0 ? '0.5' : '1';
         prevBtn.disabled = currentGalleryIndex === 0;
     }
-    
+
     if (nextBtn) {
         nextBtn.style.opacity = currentGalleryIndex >= maxIndex ? '0.5' : '1';
         nextBtn.disabled = currentGalleryIndex >= maxIndex;
@@ -109,7 +109,7 @@ function handleGalleryTouchMove(e) {
 function handleGalleryTouchEnd() {
     const threshold = 50;
     const diff = galleryStartX - galleryEndX;
-    
+
     if (Math.abs(diff) > threshold) {
         if (diff > 0) {
             scrollGallery('right');
@@ -126,7 +126,7 @@ function openImageModal(imageSrc, caption) {
     if (existingModal) {
         existingModal.remove();
     }
-    
+
     // Create modal
     const modal = document.createElement('div');
     modal.className = 'image-modal';
@@ -137,19 +137,19 @@ function openImageModal(imageSrc, caption) {
             <div class="modal-caption">${caption}</div>
         </div>
     `;
-    
+
     document.body.appendChild(modal);
     modal.style.display = 'block';
-    
+
     // Close on outside click
-    modal.addEventListener('click', function(e) {
+    modal.addEventListener('click', function (e) {
         if (e.target === modal) {
             closeImageModal();
         }
     });
-    
+
     // Close on escape key
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             closeImageModal();
         }
@@ -168,7 +168,7 @@ function closeImageModal() {
 function toggleReadMore(textId, button) {
     const textElement = document.getElementById(textId);
     const isExpanded = textElement.classList.contains('expanded');
-    
+
     if (isExpanded) {
         textElement.classList.remove('expanded');
         button.textContent = 'Read More';
@@ -181,22 +181,22 @@ function toggleReadMore(textId, button) {
 // Check if text needs read more button and show/hide accordingly
 function checkTextOverflow() {
     const pinTexts = document.querySelectorAll('.pin-text');
-    
+
     pinTexts.forEach((textElement, index) => {
         const button = textElement.parentElement.querySelector('.read-more-btn');
         if (!button) return;
-        
+
         // Temporarily remove line clamp to check full height
         const originalClamp = textElement.style.webkitLineClamp;
         textElement.style.webkitLineClamp = 'unset';
-        
+
         const fullHeight = textElement.scrollHeight;
-        
+
         // Restore line clamp
         textElement.style.webkitLineClamp = originalClamp || '3';
-        
+
         const clampedHeight = textElement.scrollHeight;
-        
+
         // Show read more button if text is truncated
         if (fullHeight > clampedHeight) {
             button.classList.add('show');
@@ -216,7 +216,7 @@ function adjustCardsPerView() {
     } else {
         cardsPerView = 3;
     }
-    
+
     // Reset gallery position and update navigation
     currentGalleryIndex = 0;
     const galleryTrack = document.getElementById('galleryTrack');
@@ -235,15 +235,15 @@ function initializeHeritageGallery() {
         galleryContainer.addEventListener('touchmove', handleGalleryTouchMove, { passive: true });
         galleryContainer.addEventListener('touchend', handleGalleryTouchEnd);
     }
-    
+
     // Initialize navigation button states
     updateGalleryNavButtons();
-    
+
     // Check text overflow for read more buttons
     setTimeout(checkTextOverflow, 100); // Small delay to ensure DOM is rendered
-    
+
     // Adjust on resize
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         adjustCardsPerView();
         setTimeout(checkTextOverflow, 100); // Recheck after resize
     });
@@ -254,7 +254,7 @@ function initializeHeritageGallery() {
 function launchAR() {
     // Simulate AR launch - in real implementation, this would integrate with AR libraries
     alert('AR Experience launching... Please point your device camera at the monuments for an immersive 3D experience!');
-    
+
     // In a real implementation, you would integrate with libraries like:
     // - AR.js for web-based AR
     // - 8th Wall for advanced AR features
@@ -269,53 +269,278 @@ function openStorytellingModal() {
 
 function startStory(storyType) {
     const stories = {
-        king: {
-            title: "The Pallava King's Vision",
-            content: `
+        airavata: {
+            title_en: "Airavata's Lost Color and the Temple Tank",
+            content_en: `
                 <div class="story-content">
-                    <h4>Narasimhavarman I's Grand Vision</h4>
-                    <p>In the 10th century, Raja Raja Chola I stood in what would become Thanjavur, envisioning a magnificent temple that would rival any structure in the world. The fertile Cauvery delta beckoned with divine inspiration...</p>
+                    <h4>Airavata's Lost Color and the Temple Tank</h4>
+                    <p>The temple gets its very name from Airavata, Indra's celestial white elephant, who is said to have lost his spotless white colour due to a curse by sage Durvasa. Legends say Airavata, distressed and darkened by the curse, came to this spot at Darasuram, worshipped Shiva and bathed in the temple tank connected to the Kaveri, regaining his brilliant white form.</p>
                     
-                    <div class="story-choices">
-                        <button onclick="continueStory('king', 'vision')" class="story-choice-btn">Explore the King's Divine Vision</button>
-                        <button onclick="continueStory('king', 'construction')" class="story-choice-btn">Witness the Construction Begin</button>
-                    </div>
+                    <p>Because of this, devotees still treat the temple tank as purifying, and the whole shrine as a place where curses and "stains" in life can be washed away. The sacred waters that cleansed a celestial being are believed to hold the same power for mortals seeking redemption.</p>
+                    
+                    <p>Imagine the scene: a magnificent white elephant, his color faded to grey by divine curse, standing at the edge of the sacred tank. As he enters the water, priests chant ancient mantras, and slowly, miraculously, his pristine white color returns, gleaming in the sunlight. This is why the temple bears his name - Airavatesvara.</p>
+                </div>
+            `,
+            title_ta: "ஐராவதனோட நிறம் திரும்பிய கதை",
+            content_ta: `
+                <div class="story-content">
+                    <h4>ஐராவதனோட நிறம் திரும்பிய கதை</h4>
+                    <p>ஐராவதேஸ்வரர் அப்படின்னு பேர் வந்ததே, இந்தக் கோவிலுல சிவனைக் கும்பிட்ட அந்த தெய்வ யானை "ஐராவதன்" கதையாலத்தான். தேவராஜன் இந்திரனோட வெள்ளை யானை ஆன ஐராவதனுக்கு, முனிவர் தூர்வாசர் கோபத்துல சாபம் விட்றாராம் – "உன் தூய வெண்மையான நிறம் போயிடட்டும்"ன்னு.</p>
+                    
+                    <p>சாபத்தால, ஐராவதன் நிறம் கறை பட்ட மாதிரி மாறி, அவன் மனசு ரொம்ப வாடிப் போச்சு. "என் தர்மத்துக்கு நான் துரோகம் பண்ணலே; ஆனா என் மேல் இப்படி சாபம் ஏன்?"ன்னு வருத்தப்பட்டு, கங்கை, காவிரி கரைதோறும், பல தலங்களில போய்ப் பிரார்த்தனை பண்ணினானாம்.</p>
+                    
+                    <p>அப்படித்தான் ஒருநாள், காவிரி பகத்துல இருக்கும் தராசுரம்னு இங்க வந்து, சிவபெருமானைப் பிரார்த்தனை பண்ணி, இங்குள்ள தீர்த்தத்துல (கோவில் குளம்) புனித ஸ்நானம் பண்ணினான். அந்த நீரில் இறங்கும் நிமிஷத்துல, அவனோட மேல் இருந்த "சாப கறை" எல்லாம் கழுவப்பட்டு, அவன் முந்தைய மாதிரி பளிச்சென்ற வெண்மை நிறத்தோட திரும்பினான்னு கதையிருக்குது.</p>
+                    
+                    <p>அதனாலதான், இந்தத் தலம் "ஐராவதேஸ்வரர் கோவில்", இந்தத் தீர்த்தம் "ஐராவதன் பாவம் கழுவிய நீரு"ன்னு பக்தர்கள் மனசுல தங்கி இருக்குது. இப்போவும் மக்கள், "வாழ்க்கையிலப் படுற சாபம், கறை, துன்பம் இங்க குளிச்சா குறையும்னு" நம்பிக்கையோட இங்க தரிசனம் பண்றாங்க.</p>
                 </div>
             `
         },
-        sculptor: {
-            title: "The Master Sculptor's Tale",
-            content: `
+        yama: {
+            title_en: "Yama's Burning Skin and Yamatheertham",
+            content_en: `
                 <div class="story-content">
-                    <h4>The Artisan's Journey</h4>
-                    <p>Master sculptor Vishvakarma picked up his chisel, examining the massive granite boulder. Each strike would bring the Pancha Rathas closer to reality...</p>
+                    <h4>Yama's Burning Skin and Yamatheertham</h4>
+                    <p>Another famous legend says Yama, the god of death, was cursed by a sage so that his entire body felt like it was burning all the time. Yama is believed to have come to Darasuram, prayed intensely to Shiva here, and taken a ritual dip in the same temple tank, after which the burning sensation vanished and the curse was lifted.</p>
                     
-                    <div class="story-choices">
-                        <button onclick="continueStory('sculptor', 'technique')" class="story-choice-btn">Learn Ancient Carving Techniques</button>
-                        <button onclick="continueStory('sculptor', 'challenges')" class="story-choice-btn">Face the Sculptor's Challenges</button>
-                    </div>
+                    <p>Because of this, the tank is called "Yamatheertham", and people believe bathing here can help relieve suffering, karmic heat, or "doshams" associated with Yama and death. The waters that cooled the burning body of Death himself are considered especially powerful for removing afflictions.</p>
+                    
+                    <p>For narration, imagine the Lord of Death himself, unable to bear the constant burning pain, humbling himself before Shiva. As he emerges from the sacred waters, the relief on his face is visible - even Death can find mercy at this holy place.</p>
+                </div>
+            `,
+            title_ta: "எரியும் தேகத்தோடு வந்த யமன் – யமதீர்த்தம் கதை",
+            content_ta: `
+                <div class="story-content">
+                    <h4>எரியும் தேகத்தோடு வந்த யமன் – யமதீர்த்தம் கதை</h4>
+                    <p>மற்றொரு பெரும் புராணக் கதை – மரண தேவன் யமனைப் பற்றியது. ஒரு முனிவருக்கு எதிராக யமன் கிட்ட நடந்ததால, அந்த முனிவர் யமனுக்கு சாபம் விட்றாராம்: "உன் முழு உடம்பும் எப்பவும் எரிச்சலோட, தீக்காயம் பட்ட மாதிரி சூடா இருக்கட்டும்"ன்னு.</p>
+                    
+                    <p>அந்த சாபத்தால யமனுக்கு தினம்தோறும் தாங்க முடியாத சூடு, வலி. தன் தப்பை உணர்ந்த யமன், "இந்த வேதனையில இருந்து தப்பிக்க, சிவனிடம் தவிர வேற யாரிடம் போக முடியும்?"ன்னு நினைச்சு, தராசுரம் வந்து, இங்கிருக்கும் ஈஸ்வரனை தவமிருந்து உபாஸனை பண்ணினான்.</p>
+                    
+                    <p>சிவபெருமான் அருளால், கோவில் குளத்துல ஸ்நானம் பண்ண சொல்லப்படுறான். யமன் அந்தத் தீர்த்தத்துல மூழ்கி எழுந்த நிமிஷத்துல, அவன் உடம்பிலிருந்த அந்த எரிப்பு காய்ச்சல் எல்லாம் ஓயஞ்சு போச்சு; சாபமும் களைந்துட்டதாம்.</p>
+                    
+                    <p>அந்த நாளிலிருந்து, இந்தக் குளத்துக்கு "யமதீர்த்தம்"ன்னு பேர் வந்தது. இங்கக் குளிச்சா, யமசூன்யமா பாபம் குறையும்; மரணம், சனி, ராகு-கேது மாதிரி "கால துன்பம்" கம்மியா ஆகும், "உஷ்ணம்" கம்மி ஆகும்"ன்னு local நம்பிக்கையோட சொல்லிக்கிட்டுதாங்க.</p>
                 </div>
             `
         },
-        merchant: {
-            title: "A Merchant's Journey",
-            content: `
+        steps: {
+            title_en: "The Singing Steps / Musical Staircase",
+            content_en: `
                 <div class="story-content">
-                    <h4>The Bustling Port City</h4>
-                    <p>Merchant Krishnan's caravan approached Thanjavur's gates, loaded with precious goods from across the Chola Empire. The towering Brihadeeswarar Temple gleamed in the morning sun...</p>
+                    <h4>The Singing Steps / Musical Staircase</h4>
+                    <p>Darasuram is famous for its "singing steps": a small flight of carved stone steps leading to the balipeetam that produce different musical notes when tapped. Each step emits a distinct swara of the Indian scale, and traditional guides present it almost like magic—stone that sings when you awaken it with your fingers or a stick.</p>
                     
-                    <div class="story-choices">
-                        <button onclick="continueStory('merchant', 'trade')" class="story-choice-btn">Explore International Trade Routes</button>
-                        <button onclick="continueStory('merchant', 'culture')" class="story-choice-btn">Experience Cultural Exchange</button>
-                    </div>
+                    <p>Modern writers sometimes call this an "unsolved mystery" and local narration often turns it into a semi-mythical tale of Chola engineers who could make even granite respond like a veena or flute. The technical explanation involves resonance and acoustic engineering, but the mystical interpretation speaks of divine craftsmen who infused music into stone itself.</p>
+                    
+                    <p>For narration: "In the evening, as the temple gates prepare to close, a temple worker gently taps the steps with his staff. From within the stone, a musical note emerges—sa, ri, ga, ma—each step singing its own tune before falling silent again. It's as if the stone remembers the songs of a thousand years."</p>
+                </div>
+            `,
+            title_ta: "பாடும் படிகள் – கல்லில் இருந்து வரும் ஸ்ருதிகள்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>பாடும் படிகள் – கல்லில் இருந்து வரும் ஸ்ருதிகள்</h4>
+                    <p>தராசுரத்தில் மிகவும் பிரபலம் ஆன "அற்புதம்"ன்னா – கோவிலோட "இசை படிகள்" தான். கோவிலுக்குள், பாலிபீடம் பக்கம் இருக்கும் சிறிய படிக்கட்டில் உள்ள சில கற்களை மெதுவா தட்டினா, ஒவ்வொரு கல்லும் ஒரு ஒரு ஸ்வரம் மாதிரி ஒலி தரும் – சரி, கம, ப, த, நி…</p>
+                    
+                    <p>சாதாரண கல் படிகள் இல்லைன்னு, கையேடு சொல்ற guides, "இந்த கல்ல படிகளை தட்டினா, சா ரி கம பா தா நி எதோ ஒரு கூட்டம் கேட்கும்"ன்னு காட்டிக் காட்டுவாங்க. Technically sound waves, resonance சொல்லி explain பண்ணலாம்; ஆனா மக்கள் மனசுல இது "கல் கூட பாட வச்ச சோழ தொழில்நுட்பம்"ன்னு ஒரு மாயம்.</p>
+                    
+                    <p>சிலர் "இந்த படிகள் ரொம்ப சீக்கிரம் kulaiyidumனு"னு, இப்பவே சில இடம் பாதுகாப்புக்காக மூடி வச்சிருப்பாங்க; அது கூட கதையில mystery feel குடுக்கறது – "ஒரு காலத்துல கல் பாடுச்சு; இப்போ அந்தக் குரல் சும்மா ஆயிடுத்து"ன்னு சொல்லலாம்.</p>
+                    
+                    <p>நரேஷன்ல நீ இப்படி பேசலாம்: "ராத்திரி ஆலய வாசல் மூடுற சமயம், தேவறாளியோட கை லாம்பு ஒளியில இந்தப் படிகள் கண்ணுக்கு தெரியாம மங்கலாக நிழல் போட்டு நிற்குது. அவங்க மெதுவா staff-ஐ வைத்த தட்டுறாங்க… கல்லுக்குள்ளே அடங்கிக்கிட்டிருந்த ஒரு ஸ்வரம், ஏற்பாடு இல்லாம வெளியில் வந்து மறுபடியும் மௌனத்துக்குள் ஒளிஞ்சு போயிடுது."</p>
+                </div>
+            `
+        },
+        chariot: {
+            title_en: "The Stone Chariot and Shiva as Tripurantaka",
+            content_en: `
+                <div class="story-content">
+                    <h4>The Stone Chariot and Shiva as Tripurantaka</h4>
+                    <p>The mukhamandapam of the temple is sculpted like a stone chariot pulled by elephants and horses, and legend links it to Shiva's ride as Tripurantaka to destroy the three demon cities. Carvings show Brahma as the charioteer and Shiva with the burning arrow, and storytellers describe the entire mandapa as if it is frozen mid-charge, with the temple itself being the divine chariot of destruction and renewal.</p>
+                    
+                    <p>Some modern writeups even mention a belief that the stone wheels function like sundials, adding a layer of "ancient tech" mystery to the chariot imagery. The intricate carvings of wheels with spokes, horses in motion, and elephants in procession create an illusion of movement frozen in time.</p>
+                    
+                    <p>For narration: "Look closely at the stone wheels. Some say if you watch the shadows at different times of day, you can almost see them turning. The horses seem ready to gallop, the elephants to trumpet. This is not just architecture—it's a divine chariot waiting for the cosmic moment to resume its eternal journey."</p>
+                </div>
+            `,
+            title_ta: "கல் தேரும், திரிபுரத்தை எரித்த சிவனும்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>கல் தேரும், திரிபுரத்தை எரித்த சிவனும்</h4>
+                    <p>ஏராளமா புகைப்படத்துல பாத்திருப்பா – தராசுரம் கோவிலோட முன்மண்டபம், ஒரு கல் தேர மாதிரி வடிவமைத்திருக்காங்க. யானை, குதிரை, சக்கரம், spoke எல்லாம் செதுக்கப்பட்டு, தேரோட முழு உடம்பை கல்லுலயே உருவாக்கியிருக்காங்க.</p>
+                    
+                    <p>புராணப்படி, திரிபுராசுரர்களோட மூன்று புரங்களையும் அழிக்க, சிவபெருமான் ஒரு தெய்வீக தேரில் ஏறி, வேதங்களை வில்லாகவும், தேவர்களை மார்கண்டியாகவும் வைத்து, தீய புலியை அம்பாக எய்தி மூன்று நகரத்தையும் சாம்பலாக்கிறார் – அப்படின்னு Tripurantaka வடிவக் கதை.</p>
+                    
+                    <p>தராசுரத்தில் இருக்கும் இந்தக் கல் தேரை, அந்த தெய்வீக தேரோட பிரதிநிதியா மக்கள் பார்த்துக்கிட்டிருக்காங்க. "இது நின்னு இருக்கும் மாதிரி தோணும்; ஆனா, தெய்வீக நேரமா பார்த்தா, wheels சுழலலாம், யானை கால்கள் அசையலாம்"ன்னு சின்ன பசங்கம்னு scare–pack கூட கதை சொல்லிக்கிட்டு இருக்காங்க.</p>
+                    
+                    <p>சில modern write-upல "சக்கரங்களின் நிழல் பார்த்தா, சூரிய நிலைக்கு ஏற்ற sundial மாதிரி வேலை செய்யும்னு"னு கூட சொல்லுறாங்க – இதெல்லாம் உனக்கு narrationல, "ancient tech + mythic feel" இரண்டையும் balance பண்ணிக்க உதவும்.</p>
+                </div>
+            `
+        },
+        nayanmar: {
+            title_en: "Nayanmar Panels, Ghostly Devotion, and 'Living' Stone",
+            content_en: `
+                <div class="story-content">
+                    <h4>Nayanmar Panels, Ghostly Devotion, and 'Living' Stone</h4>
+                    <p>The walls and miniature panels at Darasuram are filled with detailed scenes from the lives of the 63 Nayanmars, the Shaivite bhakti saints, including intense episodes of sacrifice, miracles, and divine visions. Heritage writers note that the narrative panels are so vivid that locals sometimes talk about them as "stone stories" that come alive in the mind at dusk.</p>
+                    
+                    <p>For some, the temple feels like it still carries the emotional energy of those saints' devotion rather than just being old carvings. This has fed softer, atmospheric "urban legend" style talk—nothing like a horror ghost story, but the idea that Darasuram is a place where stone remembers every act of bhakti done there.</p>
+                    
+                    <p>For narration: "As evening light fades and shadows grow long, the carved faces of the Nayanmars seem to shift. Their expressions of ecstasy, pain, devotion—all frozen in stone—feel almost alive. The temple doesn't just preserve their stories; it holds their very emotions, their tears and prayers, absorbed into the granite itself. Every devotee who has ever wept here, every prayer whispered in desperation—the stones remember."</p>
+                </div>
+            `,
+            title_ta: "நாயன்மார்கள், கல்லுல உயிர், மாலைநேர நம்பிக்கை",
+            content_ta: `
+                <div class="story-content">
+                    <h4>நாயன்மார்கள், கல்லுல உயிர், மாலைநேர நம்பிக்கை</h4>
+                    <p>தராசுரம் கோவிலோட சுவர், சின்ன சின்ன panel-கள எல்லாமே – 63 நாயன்மார்களோட வாழ்க்கை, அதிசயம், அர்ப்பணிப்பு கதைகளால நிரம்பியிருக்கு. ஒரு panelல, ஒருவர் தன் உடம்பையே பரமசிவனுக்கு அர்ப்பணிச்சு நிற்பது; இன்னொரு பக்கத்துல, நம்பியாண்டார் மாதிரி செருக்கான பக்தர்கள் ரொம்ப intense ஆக கதையோட செதுக்கப்பட்டிருப்பாங்க.</p>
+                    
+                    <p>இவ்ளோ detailed-ஆ இருக்குற carving-களைப் பார்த்து, சிலருக்கு ஒரு feel – "இது கல்லு இல்ல பா, freeze பண்ணி வச்ச old திரைப்படக் காட்சிகள்"ன்னு. குறிப்பா மாலைக்கடைய நேரமா, வெளிச்சம் குறைஞ்சு, நீ shadowல இந்தக் கலைப் பாகங்களைப் பார்க்கும்போது, சிலருக்கு அந்தப் பாத்திரங்களின் முக கஷ்டம், சந்தோஷம், பக்தி எல்லாம் real face-ல மாதிரி தெரியும்.</p>
+                    
+                    <p>அதனால தான் லேசா ஒரு urban-legend flavour: "இங்க தங்கியிருக்கும் கல் எல்லாம், நாயன்மாரோட உணர்ச்சியும் பக்தியும் absorb பண்ணி வச்சிருக்குது. கோவில் சுவர்ல நாயன்மார்கள் மட்டும் இல்ல; இங்க வந்து கண்ணீரோட பிரார்த்தனை பண்ணின ஒவ்வொருத்தருடயுக்கும், இந்தக் கல்லு ஒரு memory வச்சுக்கிட்டு இருக்குது"ன்னு சொல்றாங்க.</p>
+                    
+                    <p>இது உண்மையா பொய்யா தெரியல; ஆனா listener கிட்ட ஒன்னு மட்டும் உறுதி – "இந்தத் தலம் வெறும் architecture கிடையாது; தூசிக்குள்ள இரகசியமா உயிர் சுவாசிக்குற இடம்"ன்னு feel வருவாங்க.</p>
                 </div>
             `
         }
     };
-    
+
+    // Ensure we have a cached copy of the story-selection HTML so we can return to it
+    if (!window._darasuram_story_options_html) {
+        const initialBody = document.querySelector('#storytellingModal .modal-body');
+        if (initialBody) window._darasuram_story_options_html = initialBody.innerHTML;
+    }
+
     const modalBody = document.querySelector('#storytellingModal .modal-body');
     if (stories[storyType] && modalBody) {
-        modalBody.innerHTML = stories[storyType].content;
+        // Determine initial language
+        const lang = _selectedNarrationLanguage || 'ta';
+        const content = (lang === 'ta') ? stories[storyType].content_ta : stories[storyType].content_en;
+        const title = (lang === 'ta') ? stories[storyType].title_ta : stories[storyType].title_en;
+
+        modalBody.innerHTML = content;
+
+        // Add a "Back to Stories" button so users can return to the selection
+        const backText = (lang === 'ta') ? "← கதைகளுக்குத் திரும்பு" : "← Back to Stories";
+        const backBtnHtml = `<div class="story-back-wrapper"><button class="action-btn secondary-btn back-to-stories" onclick="showStorySelection();">${backText}</button></div>`;
+        modalBody.insertAdjacentHTML('afterbegin', backBtnHtml);
+
+        // Store current story metadata on the modal for later narration
+        const modal = document.getElementById('storytellingModal');
+        if (modal) {
+            modal.dataset.currentStoryKey = storyType; // Store key to allow re-rendering on language change
+            modal.dataset.currentStoryTitle = title;
+            modal.dataset.currentStoryHtml = content;
+        }
+
+        // Add Narrate controls (generate & play) below the story — include language + voice selectors
+        const controlsHtml = `
+            <div class="story-narration-controls">
+                <label for="narrationLanguage" class="voice-label">Language:</label>
+                <select id="narrationLanguage" class="quick-narrate-select">
+                    <option value="ta" ${lang === 'ta' ? 'selected' : ''}>தமிழ் (Tamil)</option>
+                    <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
+                </select>
+                <label for="voiceSelect" class="voice-label">Voice:</label>
+                <select id="voiceSelect" class="quick-narrate-select"><option>Loading voices...</option></select>
+                <button class="action-btn primary-btn" onclick="narrateStory()">🔊 Narrate this story (AI)</button>
+                <button class="action-btn secondary-btn" onclick="narrateOriginal()">🔈 Narrate Original</button>
+                <button class="action-btn" id="playNarrationBtn" onclick="playNarration()" disabled>Play</button>
+                <button class="action-btn" id="pauseNarrationBtn" onclick="pauseNarration()" disabled>Pause</button>
+                <button class="action-btn" id="stopNarrationBtn" onclick="stopNarration()" disabled>Stop</button>
+                <div id="narrationSpinner">Generating...</div>
+                <div id="voiceAvailability" class="voice-availability" aria-live="polite" style="margin-top:8px;font-size:0.95rem;color:#f0e6d6"></div>
+                <div id="voiceMismatchWarning" class="voice-mismatch-warning" aria-live="polite" style="margin-top:6px;font-size:0.9rem;color:#ffcc66;display:none"></div>
+            </div>
+            <div id="narrationText"></div>
+        `;
+
+        modalBody.insertAdjacentHTML('beforeend', controlsHtml);
+        // Ensure voice list and language selector populate for the newly-inserted controls
+        try { populateVoiceList(); } catch (e) { }
+        try { populateNarrationLanguageSelector(); } catch (e) { }
+    }
+}
+
+// Voice management for SpeechSynthesis
+let _selectedVoiceName = localStorage.getItem('darasuram_voice') || null;
+// Persisted narration language: 'en' (English) or 'ta' (Tamil)
+let _selectedNarrationLanguage = localStorage.getItem('darasuram_narration_lang') || 'ta';
+
+function populateVoiceList() {
+    const select = document.getElementById('voiceSelect');
+    if (!select) return;
+
+    const voices = speechSynthesis.getVoices();
+    if (!voices || !voices.length) return;
+
+    // Clear existing
+    select.innerHTML = '';
+
+    voices.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.name;
+        opt.textContent = `${v.name} (${v.lang})${v.default ? ' — default' : ''}`;
+        // store language on option to help selection logic
+        try { opt.dataset.lang = v.lang || ''; } catch (e) { }
+        select.appendChild(opt);
+    });
+
+    // Pick stored voice if available
+    if (_selectedVoiceName && Array.from(select.options).some(o => o.value === _selectedVoiceName)) {
+        select.value = _selectedVoiceName;
+    } else {
+        // Try a reasonable preferred voice names (common on Chrome/Edge/macOS/Windows)
+        const preferredNames = [/Google US English/i, /Microsoft Zira/i, /Zira/i, /Samantha/i, /Alex/i, /Daniel/i, /Karen/i];
+        const preferred = voices.find(v => preferredNames.some(rx => rx.test(v.name)) || /en-?us|en-?gb|en-?au/i.test(v.lang));
+        if (preferred) select.value = preferred.name;
+    }
+
+    select.addEventListener('change', () => {
+        _selectedVoiceName = select.value;
+        try { localStorage.setItem('darasuram_voice', _selectedVoiceName); } catch (e) { }
+    });
+
+    // Also attach listener to narration language selector
+    const langSelect = document.getElementById('narrationLanguage');
+    if (langSelect) {
+        langSelect.addEventListener('change', () => {
+            const newLang = langSelect.value;
+            _selectedNarrationLanguage = newLang;
+            try { localStorage.setItem('darasuram_narration_lang', newLang); } catch (e) { }
+            // Re-render the current story in the new language
+            const modal = document.getElementById('storytellingModal');
+            if (modal && modal.dataset.currentStoryKey) {
+                startStory(modal.dataset.currentStoryKey);
+            }
+        });
+    }
+}
+
+function populateNarrationLanguageSelector() {
+    const langSelect = document.getElementById('narrationLanguage');
+    if (!langSelect) return;
+    // Already populated in HTML, just ensure event listener
+    langSelect.addEventListener('change', () => {
+        const newLang = langSelect.value;
+        _selectedNarrationLanguage = newLang;
+        try { localStorage.setItem('darasuram_narration_lang', newLang); } catch (e) { }
+        // Re-render the current story in the new language
+        const modal = document.getElementById('storytellingModal');
+        if (modal && modal.dataset.currentStoryKey) {
+            startStory(modal.dataset.currentStoryKey);
+        }
+    });
+}
+
+// Ensure voices are loaded
+if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = () => {
+        try { populateVoiceList(); } catch (e) { }
+    };
+}
+
+// Function to show story selection (return to initial modal state)
+function showStorySelection() {
+    const modalBody = document.querySelector('#storytellingModal .modal-body');
+    if (modalBody && window._darasuram_story_options_html) {
+        modalBody.innerHTML = window._darasuram_story_options_html;
     }
 }
 
@@ -334,7 +559,7 @@ function continueStory(character, choice) {
             culture: "The port city became a melting pot where Tamil, Sanskrit, and foreign languages blended in daily commerce..."
         }
     };
-    
+
     const modalBody = document.querySelector('#storytellingModal .modal-body');
     if (modalBody) {
         modalBody.innerHTML = `
@@ -357,43 +582,123 @@ function openBlogModal() {
         modalBody.innerHTML = `
             <div class="blog-posts">
                 <div class="blog-disclaimer">
-                    <h4>📚 Authentic Heritage Articles</h4>
-                    <p>These are summaries of real articles from authoritative sources. Click "Read Full Original Article" to access the complete content from official institutions.</p>
+                    <h4>📚 Authentic Airavatesvara Temple Articles</h4>
+                    <p>Curated collection of real articles from official tourism sites, historical research, and travel experiences. Click any article to visit the original source.</p>
                 </div>
-                <article class="blog-post">
-                    <div class="post-category">UNESCO World Heritage</div>
-                    <h4>Shore Temple: A Marvel of Pallava Architecture</h4>
-                    <p class="post-meta">Source: Archaeological Survey of India | Official Documentation</p>
-                    <p class="post-excerpt">Official ASI documentation of the Shore Temple, a UNESCO World Heritage Site representing the culmination of Pallava architectural achievements. Built during Narasimhavarman II's reign (700-728 CE)...</p>
-                    <button class="read-more-btn" onclick="readFullBlog('shore')">Read Summary & Source</button>
+                
+                <!-- Official Tourism Sites -->
+                <article class="blog-post" onclick="openExternalArticle('https://www.tamilnadutourism.tn.gov.in/destinations/airavatesvara-temple', 'Tamil Nadu Tourism')">
+                    <div class="post-category">🏛️ Official Tourism</div>
+                    <h4>Airavatesvara Temple - Tamil Nadu Tourism</h4>
+                    <p class="post-meta">Source: Tamil Nadu Tourism (Government of Tamil Nadu)</p>
+                    <p class="post-excerpt">Official tourism guide covering temple overview, history, art, visiting timings, and how to reach Darasuram, Kumbakonam.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://www.tamilnadutourism.tn.gov.in/destinations/airavatesvara-temple', 'Tamil Nadu Tourism')">🔗 Visit Official Site</button>
                 </article>
-                <article class="blog-post">
-                    <div class="post-category">World Heritage</div>
-                    <h4>Great Living Chola Temples - World Heritage Site</h4>
-                    <p class="post-meta">Source: UNESCO World Heritage Centre | Official Recognition</p>
-                    <p class="post-excerpt">UNESCO's official documentation of Mahabalipuram's Outstanding Universal Value, inscribed on the World Heritage List in 1984 for its exceptional testimony to Pallava art and architecture...</p>
-                    <button class="read-more-btn" onclick="readFullBlog('unesco')">Read Summary & Source</button>
+                
+                <article class="blog-post" onclick="openExternalArticle('https://www.incredibleindia.gov.in/en/tamil-nadu/thanjavur/airavatesvara-temple', 'Incredible India')">
+                    <div class="post-category">🏛️ Official Tourism</div>
+                    <h4>Airavatesvara Temple: Where Divinity Meets Heritage</h4>
+                    <p class="post-meta">Source: Incredible India (Government of India Tourism)</p>
+                    <p class="post-excerpt">Government of India's official tourism write-up highlighting the temple's divine heritage context and cultural significance.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://www.incredibleindia.gov.in/en/tamil-nadu/thanjavur/airavatesvara-temple', 'Incredible India')">🔗 Visit Official Site</button>
                 </article>
-                <article class="blog-post">
-                    <div class="post-category">Historical Research</div>
-                    <h4>The Pallava Dynasty and Mahabalipuram's Architectural Legacy</h4>
-                    <p class="post-meta">Source: Encyclopedia Britannica | Peer-reviewed Research</p>
-                    <p class="post-excerpt">Comprehensive analysis of the Pallava dynasty's role in establishing Mahabalipuram as their architectural laboratory, creating monuments that influenced South Indian temple design for centuries...</p>
-                    <button class="read-more-btn" onclick="readFullBlog('pallava')">Read Summary & Source</button>
+                
+                <article class="blog-post" onclick="openExternalArticle('https://www.trawell.in/tamilnadu/kumbakonam/darasuram-airavatheswar-temple', 'Trawell.in')">
+                    <div class="post-category">🗺️ Travel Guide</div>
+                    <h4>Darasuram Airavatheswar Temple, Kumbakonam (2025)</h4>
+                    <p class="post-meta">Source: Trawell.in | Updated 2025</p>
+                    <p class="post-excerpt">Comprehensive 2025 guide with history, architecture, best time to visit, nearby places, and detailed route map.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://www.trawell.in/tamilnadu/kumbakonam/darasuram-airavatheswar-temple', 'Trawell.in')">🔗 Read Full Guide</button>
                 </article>
-                <article class="blog-post">
-                    <div class="post-category">Scientific Research</div>
-                    <h4>Conservation of Mahabalipuram Monuments</h4>
-                    <p class="post-meta">Source: Current Science Journal | Peer-reviewed Publication</p>
-                    <p class="post-excerpt">Scientific research documenting advanced conservation methodologies employed to protect Mahabalipuram's monuments from environmental and anthropogenic threats...</p>
-                    <button class="read-more-btn" onclick="readFullBlog('conservation')">Read Summary & Source</button>
+                
+                <article class="blog-post" onclick="openExternalArticle('https://www.airial.travel/attractions/india/kumbakonam/airavatesvara-temple-darasuram-ATtXAcSI', 'Airial Travel')">
+                    <div class="post-category">🗺️ Travel Guide</div>
+                    <h4>Airavatesvara Temple Darasuram (2025)</h4>
+                    <p class="post-meta">Source: Airial Travel | 2025 Profile</p>
+                    <p class="post-excerpt">Short 2025 profile highlighting unique features like musical steps and chariot-form architecture.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://www.airial.travel/attractions/india/kumbakonam/airavatesvara-temple-darasuram-ATtXAcSI', 'Airial Travel')">🔗 Read Profile</button>
                 </article>
-                <article class="blog-post">
-                    <div class="post-category">Art History</div>
-                    <h4>Rock-cut Sculptures of Mahabalipuram</h4>
-                    <p class="post-meta">Source: Journal of Archaeological Science | Academic Research</p>
-                    <p class="post-excerpt">Archaeological analysis of sculptural techniques and iconographic programs, including detailed study of the Descent of the Ganges - the world's largest bas-relief sculpture...</p>
-                    <button class="read-more-btn" onclick="readFullBlog('sculpture')">Read Summary & Source</button>
+                
+                <article class="blog-post" onclick="openExternalArticle('https://www.makemytrip.com/tripideas/attractions/airavatesvara-temple', 'MakeMyTrip')">
+                    <div class="post-category">🗺️ Travel Guide</div>
+                    <h4>Airavatesvara Temple, Kumbakonam</h4>
+                    <p class="post-meta">Source: MakeMyTrip</p>
+                    <p class="post-excerpt">Practical travel information including location, timing, history, and visitor tips for planning your visit.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://www.makemytrip.com/tripideas/attractions/airavatesvara-temple', 'MakeMyTrip')">🔗 Plan Your Visit</button>
+                </article>
+                
+                <!-- History & Architecture -->
+                <article class="blog-post" onclick="openExternalArticle('https://en.wikipedia.org/wiki/Airavatesvara_Temple', 'Wikipedia')">
+                    <div class="post-category">📖 History & Architecture</div>
+                    <h4>Airavatesvara Temple - Wikipedia</h4>
+                    <p class="post-meta">Source: Wikipedia Encyclopedia</p>
+                    <p class="post-excerpt">Comprehensive article covering detailed history, legends, architectural features, and UNESCO World Heritage status.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://en.wikipedia.org/wiki/Airavatesvara_Temple', 'Wikipedia')">🔗 Read Full Article</button>
+                </article>
+                
+                <article class="blog-post" onclick="openExternalArticle('https://monidipa.net/2019/03/23/airavateswara-temple-in-darasuram-a-beautiful-stone-carved-verse-from-the-later-chola-period/', 'Monidipa\\'s Blog')">
+                    <div class="post-category">📖 History & Architecture</div>
+                    <h4>A Beautiful Stone Carved Verse from the Later Chola Period</h4>
+                    <p class="post-meta">Source: Monidipa's Heritage Blog</p>
+                    <p class="post-excerpt">In-depth exploration of temple history and exquisite sculpture work from the later Chola period.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://monidipa.net/2019/03/23/airavateswara-temple-in-darasuram-a-beautiful-stone-carved-verse-from-the-later-chola-period/', 'Monidipa\\'s Blog')">🔗 Read Analysis</button>
+                </article>
+                
+                <article class="blog-post" onclick="openExternalArticle('https://www.india-info.org/temples/airavatesvara_temple_darasuram.html', 'India Info')">
+                    <div class="post-category">📖 History & Architecture</div>
+                    <h4>Airavatesvara Temple, Darasuram</h4>
+                    <p class="post-meta">Source: India Info</p>
+                    <p class="post-excerpt">Concise overview of temple architecture and UNESCO World Heritage significance.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://www.india-info.org/temples/airavatesvara_temple_darasuram.html', 'India Info')">🔗 Read Overview</button>
+                </article>
+                
+                <article class="blog-post" onclick="openExternalArticle('https://famoustemplesofindia.com/airavatesvara-temple-darasuram/', 'Famous Temples of India')">
+                    <div class="post-category">📖 History & Architecture</div>
+                    <h4>Airavatesvara Temple Darasuram (2025)</h4>
+                    <p class="post-meta">Source: Famous Temples of India | Updated 2025</p>
+                    <p class="post-excerpt">Temple background and local setting in the historic village of Darasuram.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://famoustemplesofindia.com/airavatesvara-temple-darasuram/', 'Famous Temples of India')">🔗 Explore Temple</button>
+                </article>
+                
+                <article class="blog-post" onclick="openExternalArticle('https://www.theindia.co.in/places/airavatesvara-temple', 'TheIndia.co.in')">
+                    <div class="post-category">📖 History & Architecture</div>
+                    <h4>Airavatesvara Temple (2025)</h4>
+                    <p class="post-meta">Source: TheIndia.co.in | 2025 Edition</p>
+                    <p class="post-excerpt">Location, access information, and historical context for modern travelers.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://www.theindia.co.in/places/airavatesvara-temple', 'TheIndia.co.in')">🔗 View Details</button>
+                </article>
+                
+                <!-- Travel Blogs & Experiences -->
+                <article class="blog-post" onclick="openExternalArticle('https://thrillingtravel.in/darasuram-airavatesvara-temple-great-living-chola.html', 'Thrilling Travel')">
+                    <div class="post-category">✈️ Travel Experience</div>
+                    <h4>The Musical Notes of a Chariot - Darasuram Airavatesvara Temple</h4>
+                    <p class="post-meta">Source: Thrilling Travel Blog</p>
+                    <p class="post-excerpt">Engaging travelogue focusing on the famous musical steps, chariot structure, and stunning photography.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://thrillingtravel.in/darasuram-airavatesvara-temple-great-living-chola.html', 'Thrilling Travel')">🔗 Read Travelogue</button>
+                </article>
+                
+                <article class="blog-post" onclick="openExternalArticle('https://backpackersnovel.in/2019/10/29/darasuram/', 'Backpack, Camera & Me')">
+                    <div class="post-category">✈️ Travel Experience</div>
+                    <h4>Darasuram - Airavateshwara Temple</h4>
+                    <p class="post-meta">Source: Backpack, Camera & Me</p>
+                    <p class="post-excerpt">Personal visit write-up with authentic photos and first-hand impressions of the temple experience.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://backpackersnovel.in/2019/10/29/darasuram/', 'Backpack, Camera & Me')">🔗 Read Experience</button>
+                </article>
+                
+                <article class="blog-post" onclick="openExternalArticle('https://www.indianpanorama.in/city-guide/tamilnadu/darasuram.php', 'Indian Panorama')">
+                    <div class="post-category">✈️ Travel Experience</div>
+                    <h4>Airavatesvara Temple - Darasuram City Guide</h4>
+                    <p class="post-meta">Source: Indian Panorama</p>
+                    <p class="post-excerpt">Compact city and temple guide combining local context with visitor information.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://www.indianpanorama.in/city-guide/tamilnadu/darasuram.php', 'Indian Panorama')">🔗 View City Guide</button>
+                </article>
+                
+                <article class="blog-post" onclick="openExternalArticle('https://www.tripadvisor.in/Attraction_Review-g790279-d2711328-Reviews-Airavatesvara_Temple-Kumbakonam_Thanjavur_District_Tamil_Nadu.html', 'TripAdvisor')">
+                    <div class="post-category">⭐ Visitor Reviews</div>
+                    <h4>Airavatesvara Temple - Visitor Reviews & Photos</h4>
+                    <p class="post-meta">Source: TripAdvisor</p>
+                    <p class="post-excerpt">Real visitor reviews, photos, Q&A, and practical tips from travelers who have visited the temple.</p>
+                    <button class="read-more-btn" onclick="event.stopPropagation(); openExternalArticle('https://www.tripadvisor.in/Attraction_Review-g790279-d2711328-Reviews-Airavatesvara_Temple-Kumbakonam_Thanjavur_District_Tamil_Nadu.html', 'TripAdvisor')">🔗 Read Reviews</button>
                 </article>
             </div>
         `;
@@ -403,7 +708,7 @@ function openBlogModal() {
 function openExternalArticle(url, source) {
     // Show confirmation dialog
     const confirmed = confirm(`You are about to visit the original article from ${source}. This will open in a new tab.\n\nProceed to external source?`);
-    
+
     if (confirmed) {
         window.open(url, '_blank', 'noopener,noreferrer');
     }
@@ -412,18 +717,18 @@ function openExternalArticle(url, source) {
 function shareArticleSummary(articleType) {
     const articles = {
         shore: "Shore Temple: A Marvel of Pallava Architecture - ASI Official Documentation",
-        unesco: "Group of Monuments at Mahabalipuram - UNESCO World Heritage Centre", 
+        unesco: "Group of Monuments at Mahabalipuram - UNESCO World Heritage Centre",
         pallava: "The Pallava Dynasty and Mahabalipuram's Legacy - Encyclopedia Britannica",
         conservation: "Conservation of Mahabalipuram Monuments - Current Science Journal",
         sculpture: "Rock-cut Sculptures of Mahabalipuram - Journal of Archaeological Science"
     };
-    
+
     const articleTitle = articles[articleType];
     const shareUrl = `${window.location.origin}${window.location.pathname}?article=${articleType}`;
-    
+
     // Update browser URL without reload
-    window.history.pushState({article: articleType}, articleTitle, shareUrl);
-    
+    window.history.pushState({ article: articleType }, articleTitle, shareUrl);
+
     if (navigator.share) {
         navigator.share({
             title: articleTitle,
@@ -442,18 +747,18 @@ function shareArticleSummary(articleType) {
 function shareArticle(articleType) {
     const articles = {
         shore: "New Discoveries at Shore Temple - Mahabalipuram Heritage",
-        architecture: "Pallava Architectural Evolution - Mahabalipuram Heritage", 
+        architecture: "Pallava Architectural Evolution - Mahabalipuram Heritage",
         pagodas: "The Seven Pagodas Mystery - Mahabalipuram Heritage",
         conservation: "Preserving Heritage for Future Generations - Mahabalipuram Heritage",
         sculpture: "Masterpieces in Stone: Pallava Sculpture - Mahabalipuram Heritage"
     };
-    
+
     const articleTitle = articles[articleType];
     const shareUrl = `${window.location.origin}${window.location.pathname}?article=${articleType}`;
-    
+
     // Update browser URL without reload
-    window.history.pushState({article: articleType}, articleTitle, shareUrl);
-    
+    window.history.pushState({ article: articleType }, articleTitle, shareUrl);
+
     if (navigator.share) {
         navigator.share({
             title: articleTitle,
@@ -485,12 +790,12 @@ function showLinkCopiedMessage(url) {
             </div>
         </div>
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     // Show notification
     setTimeout(() => notification.classList.add('show'), 100);
-    
+
     // Hide and remove notification
     setTimeout(() => {
         notification.classList.remove('show');
@@ -505,21 +810,21 @@ function getArticleUrl(articleType) {
 function copyArticleUrl(articleType) {
     const url = getArticleUrl(articleType);
     const urlInput = document.querySelector('.article-url-input');
-    
+
     if (urlInput) {
         urlInput.select();
         urlInput.setSelectionRange(0, 99999); // For mobile devices
     }
-    
+
     navigator.clipboard.writeText(url).then(() => {
         showLinkCopiedMessage(url);
-        
+
         // Temporarily change button text
         const copyBtn = document.querySelector('.copy-url-btn');
         const originalText = copyBtn.innerHTML;
         copyBtn.innerHTML = '✅ Copied!';
         copyBtn.style.background = 'linear-gradient(135deg, #228B22, #32CD32)';
-        
+
         setTimeout(() => {
             copyBtn.innerHTML = originalText;
             copyBtn.style.background = '';
@@ -534,7 +839,7 @@ function copyArticleUrl(articleType) {
 function checkArticleParameter() {
     const urlParams = new URLSearchParams(window.location.search);
     const articleParam = urlParams.get('article');
-    
+
     if (articleParam) {
         // Small delay to ensure page is loaded
         setTimeout(() => {
@@ -744,7 +1049,7 @@ function readFullBlog(articleType) {
             relatedArticles: ['shore', 'pallava', 'unesco']
         }
     };
-    
+
     const modalBody = document.querySelector('#blogModal .modal-body');
     if (articles[articleType] && modalBody) {
         const article = articles[articleType];
@@ -760,7 +1065,7 @@ function readFullBlog(articleType) {
             }
             return '';
         }).join('');
-        
+
         modalBody.innerHTML = `
             <div class="full-article">
                 <div class="article-header">
@@ -908,9 +1213,9 @@ function showQuestion() {
                 </div>
                 <h4>${question.question}</h4>
                 <div class="quiz-options">
-                    ${question.options.map((option, index) => 
-                        `<button class="quiz-option" onclick="selectAnswer(${index})">${option}</button>`
-                    ).join('')}
+                    ${question.options.map((option, index) =>
+            `<button class="quiz-option" onclick="selectAnswer(${index})">${option}</button>`
+        ).join('')}
                 </div>
             </div>
         `;
@@ -922,21 +1227,21 @@ function showQuestion() {
 function selectAnswer(selectedIndex) {
     const question = quizQuestions[currentQuestion];
     const options = document.querySelectorAll('.quiz-option');
-    
+
     // Disable all options
     options.forEach(option => option.disabled = true);
-    
+
     // Show correct/incorrect
     options[selectedIndex].classList.add(selectedIndex === question.correct ? 'correct' : 'incorrect');
     if (selectedIndex !== question.correct) {
         options[question.correct].classList.add('correct');
     }
-    
+
     // Update score
     if (selectedIndex === question.correct) {
         score++;
     }
-    
+
     // Show explanation
     const quizContainer = document.getElementById('quizContainer');
     quizContainer.innerHTML += `
@@ -957,7 +1262,7 @@ function showQuizResults() {
     let message = "";
     let quote = "";
     let achievement = "";
-    
+
     if (percentage >= 90) {
         achievement = "🏛️ Chola Empire Master";
         message = "Outstanding! You possess the wisdom of royal architects!";
@@ -975,7 +1280,7 @@ function showQuizResults() {
         message = "Keep exploring! The ancient Chola treasures await your return!";
         quote = "\"Even the mightiest vimana began with a single foundation stone. Your learning journey has just begun - return to discover the royal treasures of Thanjavur.\"";
     }
-    
+
     const quizContainer = document.getElementById('quizContainer');
     quizContainer.innerHTML = `
         <div class="quiz-results">
@@ -1016,12 +1321,12 @@ function showQuizResults() {
 // Scroll Reveal Animation
 function revealOnScroll() {
     const reveals = document.querySelectorAll('.reveal');
-    
+
     reveals.forEach(element => {
         const windowHeight = window.innerHeight;
         const elementTop = element.getBoundingClientRect().top;
         const elementVisible = 150;
-        
+
         if (elementTop < windowHeight - elementVisible) {
             element.classList.add('fade-up');
         }
@@ -1031,7 +1336,7 @@ function revealOnScroll() {
 // Floating Elements Animation
 function initFloatingElements() {
     const floatingElements = document.querySelectorAll('.floating-element');
-    
+
     floatingElements.forEach((element, index) => {
         element.style.animationDelay = `${index * 0.5}s`;
     });
@@ -1041,38 +1346,38 @@ function initFloatingElements() {
 function adjustManuscriptHeight() {
     const body = document.body;
     const contentHeight = body.scrollHeight;
-    
+
     // Ensure manuscript covers all content with new SVG sizes
     body.style.setProperty('--manuscript-height', contentHeight + 'px');
-    
+
     // Dynamically adjust the middle section repeat (accounting for 150px top + 150px bottom)
     const middleSection = window.getComputedStyle(body, '::after');
     body.style.setProperty('--middle-repeat-height', Math.max(contentHeight - 300, 500) + 'px');
 }
 
 // Initialize manuscript height adjustment
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     adjustManuscriptHeight();
-    
+
     // Readjust on window resize
     window.addEventListener('resize', adjustManuscriptHeight);
-    
+
     // Initialize scroll reveal
     window.addEventListener('scroll', revealOnScroll);
     revealOnScroll(); // Initial check
-    
+
     // Initialize floating elements
     initFloatingElements();
-    
+
     // Add glow effect to important elements
     const glowElements = document.querySelectorAll('.site-title, .timeline-year');
     glowElements.forEach(element => {
         element.classList.add('glow');
     });
-    
+
     // Smooth scrolling for navigation links
     document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
@@ -1083,22 +1388,22 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // Add hover effects to cards
     const cards = document.querySelectorAll('.detail-card, .fact-card, .legend-card, .culture-item, .option-card');
     cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
+        card.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-5px) scale(1.02)';
         });
-        
-        card.addEventListener('mouseleave', function() {
+
+        card.addEventListener('mouseleave', function () {
             this.style.transform = 'translateY(0) scale(1)';
         });
     });
 });
 
 // Keyboard navigation for modals
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
         const openModals = document.querySelectorAll('.modal[style*="block"]');
         openModals.forEach(modal => {
@@ -1217,14 +1522,14 @@ function updateCarousel() {
     // Update model cards
     const cards = document.querySelectorAll('.model-card');
     const currentModelSpan = document.getElementById('currentModel');
-    
+
     cards.forEach((card, index) => {
         card.classList.remove('active');
         if (index === currentModelIndex) {
             card.classList.add('active');
         }
     });
-    
+
     // Update counter
     if (currentModelSpan) {
         currentModelSpan.textContent = currentModelIndex + 1;
@@ -1279,20 +1584,20 @@ let touchEndX = 0;
 function handleTouch() {
     const carouselTrack = document.querySelector('.carousel-track');
     if (!carouselTrack) return;
-    
+
     carouselTrack.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;
     });
-    
+
     carouselTrack.addEventListener('touchend', (e) => {
         touchEndX = e.changedTouches[0].screenX;
         handleSwipe();
     });
-    
+
     function handleSwipe() {
         const swipeThreshold = 50;
         const diff = touchStartX - touchEndX;
-        
+
         if (Math.abs(diff) > swipeThreshold) {
             if (diff > 0) {
                 switchModel('next'); // Swipe left - next model
@@ -1319,7 +1624,7 @@ class HeritageGuideAI {
         this.isOpen = false;
         this.conversationHistory = [];
         this.isTyping = false;
-        
+
         // Heritage-specific knowledge base for context
         this.knowledgeBase = {
             context: `You are the Thanjavur Heritage Guide AI, a passionate and knowledgeable expert guide specializing in Thanjavur, the Cultural Capital of Tamil Nadu, India. You are the dedicated guardian of Chola heritage and wisdom. You should respond naturally to ANY question the user asks, while being especially enthusiastic about Thanjavur's magnificent heritage.
@@ -1380,7 +1685,7 @@ CONVERSATION STYLE:
 - Express genuine excitement about Thanjavur's unmatched heritage
 
 IMPORTANT: Answer whatever the user asks about while channeling the wisdom and grandeur of the Chola empire. Let every response reflect the glory of Thanjavur as the greatest cultural capital of ancient India.`,
-            
+
             quickFacts: {
                 "Brihadeeswarar Temple": "Built by Raja Raja Chola I (1010 CE), 216 feet tall, UNESCO World Heritage Site, architectural marvel with 80-ton capstone",
                 "Raja Raja Chola I": "Greatest Chola emperor (985-1014 CE), builder of Big Temple, extended empire across India and Southeast Asia",
@@ -1394,10 +1699,10 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
                 "Dakshina Meru": "Ancient name meaning 'Southern Meru' (sacred mountain), reflecting its spiritual significance"
             }
         };
-        
+
         this.init();
     }
-    
+
     init() {
         console.log('📋 Initializing chatbot...');
         try {
@@ -1408,10 +1713,10 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
             console.error('❌ Error during chatbot initialization:', error);
         }
     }
-    
+
     setupEventListeners() {
         console.log('🔗 Setting up event listeners...');
-        
+
         // Toggle chatbot
         const toggleBtn = document.getElementById('chatbotToggle');
         if (toggleBtn) {
@@ -1422,34 +1727,34 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
         } else {
             console.error('❌ chatbotToggle element not found');
         }
-        
+
         // Close chatbot
         document.getElementById('chatbotClose').addEventListener('click', () => {
             this.closeChatbot();
         });
-        
+
         // Settings (Reset API Key)
         document.getElementById('chatbotSettings').addEventListener('click', () => {
             this.resetApiKey();
         });
-        
+
         // API key setup
         document.getElementById('saveApiKey').addEventListener('click', () => {
             this.saveApiKey();
         });
-        
+
         // Enter key for API key input
         document.getElementById('apiKeyInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 this.saveApiKey();
             }
         });
-        
+
         // Send message
         document.getElementById('sendMessage').addEventListener('click', () => {
             this.sendMessage();
         });
-        
+
         // Enter key for chat input
         document.getElementById('chatInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -1457,7 +1762,7 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
                 this.sendMessage();
             }
         });
-        
+
         // Quick question buttons
         document.querySelectorAll('.quick-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1466,7 +1771,7 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
                 this.sendMessage();
             });
         });
-        
+
         // Close on outside click
         document.addEventListener('click', (e) => {
             const chatbot = document.getElementById('aiChatbot');
@@ -1475,7 +1780,7 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
             }
         });
     }
-    
+
     checkApiKey() {
         if (this.apiKey) {
             this.showChatInterface();
@@ -1483,45 +1788,45 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
             this.showApiKeySetup();
         }
     }
-    
+
     saveApiKey() {
         const apiKeyInput = document.getElementById('apiKeyInput');
         const apiKey = apiKeyInput.value.trim();
-        
+
         console.log('💾 Attempting to save API key:', apiKey.substring(0, 10) + '...');
-        
+
         if (!apiKey) {
             this.showNotification('Please enter your Gemini API key', 'error');
             return;
         }
-        
+
         // Basic validation for Gemini API key format
         if (!apiKey.startsWith('AIza') || apiKey.length < 35) {
-            console.error('❌ Invalid API key format:', { 
-                startsWithAIza: apiKey.startsWith('AIza'), 
-                length: apiKey.length 
+            console.error('❌ Invalid API key format:', {
+                startsWithAIza: apiKey.startsWith('AIza'),
+                length: apiKey.length
             });
             this.showNotification('Please enter a valid Gemini API key (should start with "AIza" and be at least 35 characters)', 'error');
             return;
         }
-        
+
         this.apiKey = apiKey;
         localStorage.setItem('gemini_api_key', apiKey);
         console.log('✅ API key saved to localStorage');
-        
+
         // Test the API immediately
         this.testApiKey(apiKey);
-        
+
         this.showNotification('API key saved successfully!', 'success');
         this.showChatInterface();
     }
-    
+
     async testApiKey(apiKey) {
         console.log('🧪 Testing API key...');
         try {
             const testUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             console.log('🧪 Test URL:', testUrl.replace(apiKey, 'API_KEY_HIDDEN'));
-            
+
             const response = await fetch(testUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1529,13 +1834,13 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
                     contents: [{ parts: [{ text: 'Hello' }] }]
                 })
             });
-            
+
             console.log('🧪 API Test Result:', {
                 status: response.status,
                 statusText: response.statusText,
                 ok: response.ok
             });
-            
+
             if (!response.ok) {
                 const errorText = await response.text();
                 console.error('❌ API test failed:', errorText);
@@ -1549,7 +1854,7 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
             console.error('❌ API test error:', error);
         }
     }
-    
+
     showApiKeySetup() {
         document.getElementById('apiKeySetup').classList.remove('hidden');
         document.getElementById('chatMessages').classList.remove('show');
@@ -1557,7 +1862,7 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
         document.getElementById('sendMessage').disabled = true;
         document.querySelector('.chat-input-container').classList.remove('show');
     }
-    
+
     showChatInterface() {
         document.getElementById('apiKeySetup').classList.add('hidden');
         document.getElementById('chatMessages').classList.add('show');
@@ -1565,16 +1870,16 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
         document.getElementById('sendMessage').disabled = false;
         document.querySelector('.chat-input-container').classList.add('show');
     }
-    
+
     toggleChatbot() {
         const window = document.getElementById('chatbotWindow');
-        
+
         if (this.isOpen) {
             this.closeChatbot();
         } else {
             window.classList.add('show');
             this.isOpen = true;
-            
+
             // Focus on input if chat interface is shown
             if (!document.getElementById('apiKeySetup').classList.contains('hidden')) {
                 setTimeout(() => {
@@ -1587,13 +1892,13 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
             }
         }
     }
-    
+
     closeChatbot() {
         const window = document.getElementById('chatbotWindow');
         window.classList.remove('show');
         this.isOpen = false;
     }
-    
+
     resetApiKey() {
         if (confirm('Are you sure you want to reset your API key? You will need to enter it again.')) {
             localStorage.removeItem('gemini_api_key');
@@ -1601,42 +1906,42 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
             this.conversationHistory = [];
             this.showNotification('API key reset! Please enter your new key.', 'info');
             this.showApiKeySetup();
-            
+
             // Clear chat messages
             const messagesContainer = document.getElementById('chatMessages');
             const messages = messagesContainer.querySelectorAll('.message:not(.welcome-message)');
             messages.forEach(msg => msg.remove());
         }
     }
-    
+
     async sendMessage() {
         const input = document.getElementById('chatInput');
         const message = input.value.trim();
-        
+
         if (!message || this.isTyping) return;
-        
+
         // Add user message
         this.addMessage(message, 'user');
         input.value = '';
-        
+
         // Show typing indicator
         this.showTypingIndicator();
-        
+
         try {
             // Get AI response
             const response = await this.getAIResponse(message);
-            
+
             // Hide typing indicator
             this.hideTypingIndicator();
-            
+
             // Add AI response
             this.addMessage(response, 'bot');
-            
+
         } catch (error) {
             this.hideTypingIndicator();
-            
+
             let errorMessage = "I apologize, but I'm having trouble connecting to my knowledge base right now. ";
-            
+
             if (error.message.includes('API request failed: 400')) {
                 errorMessage += "❌ **API Key Error**: Your API key appears to be invalid. Please check and re-enter your Gemini API key.";
             } else if (error.message.includes('API request failed: 403')) {
@@ -1648,35 +1953,35 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
             } else {
                 errorMessage += "🔧 **Technical Issue**: Please refresh the page and try again.";
             }
-            
+
             errorMessage += "\n\n💡 **Quick Fix**: Click the ⚙️ icon in the header to reset your API key.";
-            
+
             this.addMessage(errorMessage, 'bot');
             console.error('AI Response Error:', error);
         }
     }
-    
+
     async getAIResponse(userMessage) {
         // Add to conversation history
         this.conversationHistory.push({
             role: 'user',
             content: userMessage
         });
-        
+
         // Prepare the prompt with context
         const systemPrompt = this.knowledgeBase.context;
         const conversationContext = this.conversationHistory
             .slice(-6) // Keep last 6 messages for context
             .map(msg => `${msg.role}: ${msg.content}`)
             .join('\n');
-            
+
         const fullPrompt = `${systemPrompt}\n\nConversation:\n${conversationContext}\n\nPlease respond naturally and helpfully to the user's question as Heritage Guide AI. Always address what they actually asked about, whether it's heritage-related or not. If it's about Mahabalipuram or heritage topics, provide rich detailed information. For other topics, still be helpful and friendly while maintaining your heritage guide personality. Keep responses engaging and conversational (2-3 paragraphs max when appropriate).`;
-        
+
         // Call Gemini API - Using gemini-1.5-flash (stable model)
         const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${this.apiKey}`;
-        
+
         console.log('🌐 Calling Gemini API:', apiUrl.replace(this.apiKey, 'API_KEY_HIDDEN'));
-        
+
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -1696,7 +2001,7 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
                 }
             })
         });
-        
+
         if (!response.ok) {
             const errorText = await response.text();
             console.error('❌ Gemini API Error:', {
@@ -1706,7 +2011,7 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
                 fullUrl: apiUrl,
                 errorResponse: errorText
             });
-            
+
             // Try to parse the error as JSON
             try {
                 const errorJson = JSON.parse(errorText);
@@ -1714,35 +2019,35 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
             } catch (e) {
                 console.error('❌ Raw error text:', errorText);
             }
-            
+
             throw new Error(`API request failed: ${response.status}`);
         }
-        
+
         const data = await response.json();
         console.log('✅ Gemini API Response received:', data);
-        
+
         if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
             throw new Error('Invalid API response format');
         }
-        
+
         const aiResponse = data.candidates[0].content.parts[0].text;
-        
+
         // Add to conversation history
         this.conversationHistory.push({
             role: 'assistant',
             content: aiResponse
         });
-        
+
         return aiResponse;
     }
-    
+
     addMessage(content, sender) {
         const messagesContainer = document.getElementById('chatMessages');
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
-        
-        const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        
+
+        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
         messageDiv.innerHTML = `
             <div class="message-avatar">
                 <svg viewBox="0 -8 72 72" xmlns="http://www.w3.org/2000/svg">
@@ -1756,10 +2061,10 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
                 <div class="message-time">${currentTime}</div>
             </div>
         `;
-        
+
         messagesContainer.appendChild(messageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        
+
         // Remove welcome message if this is the first user message
         if (sender === 'user' && messagesContainer.children.length === 2) {
             const welcomeMessage = messagesContainer.querySelector('.welcome-message');
@@ -1768,7 +2073,7 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
             }
         }
     }
-    
+
     formatMessage(content) {
         // Format the message content with basic markdown-like formatting
         return content
@@ -1777,18 +2082,18 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
             .replace(/\n/g, '<br>')
             .replace(/🏛️|🏗️|📜|🎨|⏰|🕒|📸|🚗|🌅|💡|🔍|⚡|🌟|✨|🎯|📖|🗿|🏺|⛩️|🕌|🏰|🌸|🌿|🍃/g, '<span style="font-size: 1.1em;">$&</span>');
     }
-    
+
     showTypingIndicator() {
         this.isTyping = true;
         document.getElementById('typingIndicator').classList.add('show');
         document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
     }
-    
+
     hideTypingIndicator() {
         this.isTyping = false;
         document.getElementById('typingIndicator').classList.remove('show');
     }
-    
+
     showNotification(message, type = 'info') {
         // Create notification element
         const notification = document.createElement('div');
@@ -1798,9 +2103,9 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
             top: 20px;
             right: 20px;
             z-index: 10000;
-            background: ${type === 'success' ? 'linear-gradient(135deg, #228B22, #32CD32)' : 
-                        type === 'error' ? 'linear-gradient(135deg, #DC143C, #FF6347)' : 
-                        'linear-gradient(135deg, #4169E1, #6495ED)'};
+            background: ${type === 'success' ? 'linear-gradient(135deg, #228B22, #32CD32)' :
+                type === 'error' ? 'linear-gradient(135deg, #DC143C, #FF6347)' :
+                    'linear-gradient(135deg, #4169E1, #6495ED)'};
             color: white;
             padding: 15px 20px;
             border-radius: 10px;
@@ -1815,15 +2120,15 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
             text-align: center;
         `;
         notification.textContent = message;
-        
+
         document.body.appendChild(notification);
-        
+
         // Show notification
         setTimeout(() => {
             notification.style.transform = 'translateY(0)';
             notification.style.opacity = '1';
         }, 100);
-        
+
         // Hide notification
         setTimeout(() => {
             notification.style.transform = 'translateY(-100px)';
@@ -1840,7 +2145,7 @@ IMPORTANT: Answer whatever the user asks about while channeling the wisdom and g
 // Initialize chatbot after DOM loads
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🤖 Initializing Thanjavur Heritage Chatbot v2.5 (gemini-1.5-flash)...');
-    
+
     // Check if required elements exist
     const requiredElements = [
         'aiChatbot',
@@ -1852,16 +2157,16 @@ document.addEventListener('DOMContentLoaded', () => {
         'sendMessage',
         'chatInput'
     ];
-    
+
     const missingElements = requiredElements.filter(id => !document.getElementById(id));
-    
+
     if (missingElements.length > 0) {
         console.error('❌ Missing chatbot elements:', missingElements);
         return;
     }
-    
+
     console.log('✅ All chatbot elements found');
-    
+
     // Initialize chatbot after a short delay to ensure all other components are loaded
     setTimeout(() => {
         try {
@@ -1872,11 +2177,11 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('❌ Failed to initialize chatbot:', error);
         }
     }, 1000);
-    
+
     // Add click handler for tour preview
     const tourPreview = document.querySelector('.tour-preview');
     if (tourPreview) {
-        tourPreview.addEventListener('click', function() {
+        tourPreview.addEventListener('click', function () {
             window.open('https://www.tamilnadutourism.tn.gov.in/virtualtour-pkg/thanjavur/index.html', '_blank');
         });
     }
@@ -1885,7 +2190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Copy virtual tour link function
 function copyTourLink() {
     const tourUrl = "https://www.tamilnadutourism.tn.gov.in/virtualtour-pkg/thanjavur/index.html";
-    
+
     if (navigator.clipboard && window.isSecureContext) {
         // Use modern clipboard API
         navigator.clipboard.writeText(tourUrl).then(() => {
@@ -1905,11 +2210,11 @@ function fallbackCopyTextToClipboard(text) {
     textArea.style.top = "0";
     textArea.style.left = "0";
     textArea.style.position = "fixed";
-    
+
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
-    
+
     try {
         document.execCommand('copy');
         showCopySuccess();
@@ -1917,7 +2222,7 @@ function fallbackCopyTextToClipboard(text) {
         console.error('Fallback: Oops, unable to copy', err);
         alert('Copy failed. Please manually copy: ' + text);
     }
-    
+
     document.body.removeChild(textArea);
 }
 
@@ -1939,9 +2244,9 @@ function showCopySuccess() {
         font-family: 'Cinzel', serif;
         box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
     `;
-    
+
     document.body.appendChild(successDiv);
-    
+
     // Remove after 3 seconds
     setTimeout(() => {
         successDiv.style.animation = 'slideOutRight 0.3s ease';
@@ -1954,64 +2259,22 @@ function showCopySuccess() {
 }
 
 // Gallery Navigation Functions
-function scrollGallery(direction) {
-    console.log('=== scrollGallery called with direction:', direction, '===');
-    
-    // Try to find the scrollable container first
-    const galleryContainer = document.querySelector('.gallery-scroll-container');
-    const galleryTrack = document.getElementById('galleryTrack');
-    
-    console.log('Gallery container found:', galleryContainer);
-    console.log('Gallery track found:', galleryTrack);
-    
-    const scrollElement = galleryContainer || galleryTrack;
-    
-    if (!scrollElement) {
-        console.error('Gallery scroll element not found!');
-        // Try to find any gallery element as fallback
-        const anyGallery = document.querySelector('.heritage-gallery');
-        console.log('Fallback gallery element:', anyGallery);
-        return;
-    }
-    
-    console.log('Using scroll element:', scrollElement);
-    console.log('Current scrollLeft:', scrollElement.scrollLeft);
-    console.log('ScrollWidth:', scrollElement.scrollWidth);
-    console.log('ClientWidth:', scrollElement.clientWidth);
-    
-    const cardWidth = 345; // Adjusted for actual card width + gap
-    const scrollAmount = cardWidth * 2; // Scroll 2 cards at a time
-    
-    if (direction === 'left') {
-        console.log('Scrolling left by', -scrollAmount);
-        scrollElement.scrollLeft -= scrollAmount;
-    } else if (direction === 'right') {
-        console.log('Scrolling right by', scrollAmount);
-        scrollElement.scrollLeft += scrollAmount;
-    }
-    
-    // Log new position
-    setTimeout(() => {
-        console.log('New scrollLeft after scroll:', scrollElement.scrollLeft);
-    }, 100);
-}
-
 // Tab Switching Function
 function switchTab(tabName) {
     // Hide all tab contents
     const tabContents = document.querySelectorAll('.tab-content');
     tabContents.forEach(content => content.classList.remove('active'));
-    
+
     // Remove active class from all tab buttons
     const tabButtons = document.querySelectorAll('.tab-btn');
     tabButtons.forEach(btn => btn.classList.remove('active'));
-    
+
     // Show selected tab content
     const selectedTab = document.getElementById(tabName + '-tab');
     if (selectedTab) {
         selectedTab.classList.add('active');
     }
-    
+
     // Add active class to clicked button
     event.target.classList.add('active');
 }
@@ -2033,7 +2296,7 @@ function openImageModal(imageSrc, imageTitle) {
             </div>
         </div>
     `;
-    
+
     // Add modal styles
     if (!document.querySelector('#modal-styles')) {
         const style = document.createElement('style');
@@ -2067,7 +2330,7 @@ function openImageModal(imageSrc, imageTitle) {
         `;
         document.head.appendChild(style);
     }
-    
+
     document.body.appendChild(modal);
     document.body.style.overflow = 'hidden';
 }
@@ -2084,9 +2347,9 @@ function closeImageModal() {
 function toggleReadMore(textId, button) {
     const textElement = document.getElementById(textId);
     if (!textElement) return;
-    
+
     const isExpanded = textElement.classList.contains('expanded');
-    
+
     if (isExpanded) {
         textElement.classList.remove('expanded');
         button.textContent = 'Read More';

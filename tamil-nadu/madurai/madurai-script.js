@@ -269,83 +269,254 @@ function openStorytellingModal() {
 
 function startStory(storyType) {
     const stories = {
-        king: {
-            title: "The Pallava King's Vision",
-            content: `
+        kannagi: {
+            title_en: "Kannagi and the Burning of Madurai",
+            content_en: `
                 <div class="story-content">
-                    <h4>Narasimhavarman I's Grand Vision</h4>
-                    <p>In the 10th century, Raja Raja Chola I stood in what would become Thanjavur, envisioning a magnificent temple that would rival any structure in the world. The fertile Cauvery delta beckoned with divine inspiration...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('king', 'vision')" class="story-choice-btn">Explore the King's Divine Vision</button>
-                        <button onclick="continueStory('king', 'construction')" class="story-choice-btn">Witness the Construction Begin</button>
-                    </div>
+                    <h4>🔥 The Tale of Justice and Fire</h4>
+                    <p>Kannagi and Kovalan were a wealthy merchant couple from the great port city of Puhar. After marriage, Kovalan fell for the dancer Madhavi, spent all his wealth on her, and eventually returned to Kannagi only after losing everything. Ashamed but determined to rebuild their life, Kannagi broke her precious anklets and chose one pair to sell in Madurai so Kovalan could start fresh.</p>
+                    <p>In Madurai, Kovalan went to a royal goldsmith to sell Kannagi's anklet. Unfortunately, that goldsmith had just stolen the queen's similar-looking anklet and, to save himself, blamed Kovalan as the thief. The enraged Pandya king, without a proper trial or investigation, ordered Kovalan's execution on the spot. When news reached Kannagi, she walked straight into the court, holding the single remaining anklet. She broke it open and showed that her anklet was filled with rubies, while the queen's anklets traditionally held pearls—proving that Kovalan had been innocent and the king's judgment unjust.</p>
+                    <p>Realizing his terrible mistake, the king collapsed in shock and is said to have died of grief, followed by the queen. But Kannagi's sorrow had already turned into righteous fury. She tore off her breast and flung it toward the city, cursing Madurai to burn for its injustice to an innocent man and to a faithful wife. As the legend goes, flames rose across the city, and Madurai was engulfed in fire until the gods themselves had to intervene and appease Kannagi. Over time, she came to be revered not only as a wronged woman but as a powerful goddess of justice and chastity, worshipped in many parts of Tamil Nadu and Sri Lanka.</p>
+                </div>
+            `,
+            title_ta: "கண்ணகி மற்றும் மதுரை எரிந்த கதை",
+            content_ta: `
+                <div class="story-content">
+                    <h4>🔥 நீதி மற்றும் தீயின் கதை</h4>
+                    <p>கண்ணகி மற்றும் கோவலன் பெரிய துறைமுக நகரமான புகாரைச் சேர்ந்த செல்வந்த வணிகர் தம்பதியினர். திருமணத்திற்குப் பிறகு, கோவலன் நடனக் கலைஞரான மாதவியின் மீது காதல் கொண்டு, தனது அனைத்து செல்வத்தையும் அவர் மீது செலவழித்து, இறுதியாக எல்லாவற்றையும் இழந்த பிறகு கண்ணகியிடம் திரும்பினார். வெட்கப்பட்டாலும் தங்கள் வாழ்க்கையை மீண்டும் கட்டியெழுப்ப உறுதியுடன், கண்ணகி தனது விலைமதிப்பற்ற கொலுசுகளை உடைத்து, கோவலன் புதிதாக தொடங்குவதற்காக ஒரு ஜோடியை மதுரையில் விற்க தேர்ந்தெடுத்தாள்.</p>
+                    <p>மதுரையில், கோவலன் கண்ணகியின் கொலுசை விற்க அரச தங்கசாமிக்குச் சென்றார். துரதிர்ஷ்டவசமாக, அந்த தங்கசாமி ராணியின் ஒத்த கொலுசை திருடி, தன்னைக் காப்பாற்றிக் கொள்ள, கோவலனை திருடன் என்று குற்றம் சாட்டினார். கோபமடைந்த பாண்டிய மன்னர், சரியான விசாரணை அல்லது விசாரணை இல்லாமல், கோவலனை அந்த இடத்திலேயே தூக்கிலிட உத்தரவிட்டார். செய்தி கண்ணகியை அடைந்தபோது, அவள் நேராக நீதிமன்றத்திற்குச் சென்று, மீதமுள்ள ஒற்றை கொலுசை பிடித்துக்கொண்டாள். அவள் அதை உடைத்து திறந்து, தன் கொலுசு மாணிக்கங்களால் நிரப்பப்பட்டிருப்பதையும், ராணியின் கொலுசுகள் பாரம்பரியமாக முத்துக்களை வைத்திருப்பதையும் காட்டினார்—கோவலன் குற்றமற்றவர் என்பதையும் மன்னரின் தீர்ப்பு அநீதியானது என்பதையும் நிரூபித்தார்.</p>
+                    <p>தனது பயங்கரமான தவறை உணர்ந்து, மன்னர் அதிர்ச்சியில் சரிந்தார் மற்றும் துயரத்தால் இறந்துவிட்டதாகக் கூறப்படுகிறது, அதைத் தொடர்ந்து ராணியும் இறந்தாள். ஆனால் கண்ணகியின் துயரம் ஏற்கனவே நீதியான சீற்றமாக மாறிவிட்டது. அவள் தன் மார்பகத்தைக் கிழித்து நகரத்தை நோக்கி வீசி, ஒரு அப்பாவி மனிதனுக்கும் விசுவாசமான மனைவிக்கும் அநீதி இழைத்ததற்காக மதுரை எரிக்கப்பட வேண்டும் என்று சபித்தாள். புராணத்தின்படி, நகரம் முழுவதும் தீப்பிழம்புகள் எழுந்தன, மதுரை தீயில் மூழ்கியது, தெய்வங்கள் தலையிட்டு கண்ணகியை சமாதானப்படுத்த வேண்டியிருந்தது. காலப்போக்கில், அவள் ஒரு அநீதி செய்யப்பட்ட பெண் மட்டுமல்ல, நீதி மற்றும் கற்புக்கான சக்திவாய்ந்த தெய்வமாக மதிக்கப்படுகிறாள், தமிழ்நாடு மற்றும் இலங்கையின் பல பகுதிகளில் வணங்கப்படுகிறாள்.</p>
                 </div>
             `
         },
-        sculptor: {
-            title: "The Master Sculptor's Tale",
-            content: `
+        meenakshi: {
+            title_en: "Warrior-Queen Meenakshi",
+            content_en: `
                 <div class="story-content">
-                    <h4>The Artisan's Journey</h4>
-                    <p>Master sculptor Vishvakarma picked up his chisel, examining the massive granite boulder. Each strike would bring the Pancha Rathas closer to reality...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('sculptor', 'technique')" class="story-choice-btn">Learn Ancient Carving Techniques</button>
-                        <button onclick="continueStory('sculptor', 'challenges')" class="story-choice-btn">Face the Sculptor's Challenges</button>
-                    </div>
+                    <h4>👑 The Three-Breasted Warrior Princess</h4>
+                    <p>Long ago, in Madurai, the Pandya king Malayadhwaja and his queen Kanchanamalai had everything—prosperity, fame, a glorious capital—except a child to inherit the throne. After long penance and elaborate yajnas praying for a son, a miracle happened: from the sacred fire emerged not a boy, but a small three-year-old girl, radiant like an emerald, with three breasts. Priests and sages were stunned, but a divine voice proclaimed that the third breast would vanish the moment she met her destined husband.</p>
+                    <p>The royal couple named her Tadaatakai (later Meenakshi) and raised her not as a delicate princess but as a warrior-heir. She mastered weapons, led armies, and is said to have conquered neighboring realms, proving herself as capable as any king. Her unusual birth and destiny became a matter of pride rather than shame in the Pandya court. When it was finally time to perform her coronation and discuss marriage, sages reminded the king of the prophecy: her true consort would be no ordinary man.</p>
+                    <p>Meenakshi set out on a northern digvijaya (conquest tour). In one version of the legend, her campaign finally reached Kailash, the abode of Shiva. When she saw Shiva on the battlefield, sword in hand, her third breast disappeared instantly. The fearless warrior-queen, who had never bent before any man, lowered her gaze in shyness for the first time. Shiva accepted her as his consort and agreed to come to Madurai as Sundareshwarar. Their grand wedding in Madurai became the celestial marriage between the city's ruling goddess and the supreme god. This divine marriage is still celebrated every year as Chithirai Thiruvizha: the entire city transforms into a living stage for their wedding, processions fill the streets, and for Madurai's people, it reaffirms that their city itself is built around a goddess-queen and her cosmic marriage.</p>
+                </div>
+            `,
+            title_ta: "போர்வீரன் ராணி மீனாட்சி",
+            content_ta: `
+                <div class="story-content">
+                    <h4>👑 மூன்று மார்பகங்கள் கொண்ட போர்வீரன் இளவரசி</h4>
+                    <p>நெடுங்காலத்திற்கு முன்பு, மதுரையில், பாண்டிய மன்னர் மலையத்வஜன் மற்றும் அவரது ராணி காஞ்சனமலை எல்லாவற்றையும் கொண்டிருந்தனர்—செழிப்பு, புகழ், ஒரு புகழ்பெற்ற தலைநகரம்—ஆனால் சிம்மாசனத்தை பெற ஒரு குழந்தை இல்லை. நீண்ட தவம் மற்றும் ஒரு மகனுக்காக பிரார்த்தனை செய்யும் விரிவான யாகங்களுக்குப் பிறகு, ஒரு அதிசயம் நடந்தது: புனித நெருப்பிலிருந்து ஒரு பையன் அல்ல, மாறாக மரகதம் போல் பிரகாசமான, மூன்று மார்பகங்களுடன் ஒரு சிறிய மூன்று வயது பெண் வெளிப்பட்டாள். பூசாரிகள் மற்றும் முனிவர்கள் திகைத்துப் போனார்கள், ஆனால் ஒரு தெய்வீக குரல் அறிவித்தது, அவள் தன் விதிக்கப்பட்ட கணவனைச் சந்திக்கும் தருணத்தில் மூன்றாவது மார்பகம் மறைந்துவிடும்.</p>
+                    <p>அரச தம்பதிகள் அவளுக்கு தடாதகை (பின்னர் மீனாட்சி) என்று பெயரிட்டு, அவளை ஒரு மென்மையான இளவரசியாக அல்ல, மாறாக ஒரு போர்வீரன்-வாரிசாக வளர்த்தனர். அவள் ஆயுதங்களில் தேர்ச்சி பெற்றாள், படைகளை வழிநடத்தினாள், அண்டை ராஜ்யங்களை வெற்றி கொண்டதாகக் கூறப்படுகிறது, எந்த மன்னரையும் போல் திறமையானவள் என்பதை நிரூபித்தாள். அவளுடைய அசாதாரண பிறப்பு மற்றும் விதி பாண்டிய அரசவையில் வெட்கத்திற்குப் பதிலாக பெருமையின் விஷயமாக மாறியது. இறுதியாக அவளது முடிசூட்டு விழாவை நடத்தவும் திருமணத்தைப் பற்றி விவாதிக்கவும் நேரம் வந்தபோது, முனிவர்கள் மன்னருக்கு தீர்க்கதரிசனத்தை நினைவுபடுத்தினர்: அவளுடைய உண்மையான துணை சாதாரண மனிதராக இருக்க மாட்டார்.</p>
+                    <p>மீனாட்சி வடக்கு திக்விஜயத்திற்கு (வெற்றி சுற்றுப்பயணம்) புறப்பட்டாள். புராணத்தின் ஒரு பதிப்பில், அவளது பிரச்சாரம் இறுதியாக சிவனின் இருப்பிடமான கைலாசத்தை அடைந்தது. போர்க்களத்தில் கையில் வாளுடன் சிவனைப் பார்த்தபோது, அவளுடைய மூன்றாவது மார்பகம் உடனடியாக மறைந்தது. எந்த மனிதனுக்கும் முன்பு வணங்காத அச்சமற்ற போர்வீரன்-ராணி, முதல் முறையாக வெட்கத்தில் தன் பார்வையைத் தாழ்த்தினாள். சிவன் அவளை தனது துணையாக ஏற்றுக்கொண்டு, சுந்தரேஸ்வரராக மதுரைக்கு வர ஒப்புக்கொண்டார். மதுரையில் அவர்களின் பிரமாண்டமான திருமணம் நகரின் ஆளும் தெய்வத்திற்கும் உச்ச கடவுளுக்கும் இடையிலான தெய்வீக திருமணமாக மாறியது. இந்த தெய்வீக திருமணம் இன்றும் ஒவ்வொரு ஆண்டும் சித்திரைத் திருவிழாவாக கொண்டாடப்படுகிறது.</p>
                 </div>
             `
         },
-        merchant: {
-            title: "A Merchant's Journey",
-            content: `
+        veeran: {
+            title_en: "Madurai Veeran – The Outlaw Protector",
+            content_en: `
                 <div class="story-content">
-                    <h4>The Bustling Port City</h4>
-                    <p>Merchant Krishnan's caravan approached Thanjavur's gates, loaded with precious goods from across the Chola Empire. The towering Brihadeeswarar Temple gleamed in the morning sun...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('merchant', 'trade')" class="story-choice-btn">Explore International Trade Routes</button>
-                        <button onclick="continueStory('merchant', 'culture')" class="story-choice-btn">Experience Cultural Exchange</button>
-                    </div>
+                    <h4>⚔️ From Bandit to Guardian Deity</h4>
+                    <p>Madurai Veeran's story begins at the margins of society. Born in a lower-caste or outcaste family (versions differ), he grew up with extraordinary courage, skill in arms, and a strong sense of justice. Instead of serving oppressive landlords and officials, he chose the forest and the road, attacking corrupt rich travelers and protecting the poor. This dual role—bandit to some, hero to others—made him a legendary figure around Madurai's outskirts.</p>
+                    <p>During the rule of Thirumalai Nayak, the king of Madurai, persistent trouble from highway robbers threatened trade and royal authority. Hearing of Veeran's fearless exploits, the king wanted to either crush him or bring him to his side. In many tellings, Veeran is eventually persuaded to protect Madurai instead of preying on its caravans. His bravery in defending the city against enemies and criminals wins him a place in the royal force, and sometimes even the secret love of a woman from a higher status, which creates jealousy and tension in the court.</p>
+                    <p>However, caste and politics catch up with him. Court rivals accuse Veeran of betrayal, exaggerate his "bandit" past, and turn the king against him. Though he had risked his life for the city, he is condemned and executed—some versions say by mutilation or hanging. After his death, strange misfortunes and disturbances begin around Madurai, which people interpret as the restless spirit of the wronged warrior. To pacify him and honor his sacrifice, a temple is established for Madurai Veeran, and he is enshrined not outside but within the sacred space of Meenakshi Amman Temple as a guardian deity. For many marginalized communities, Madurai Veeran is more than a folk hero; he is a symbol of resistance, dignity, and the idea that even someone born outside the "respectable" order can become the city's protector.</p>
+                </div>
+            `,
+            title_ta: "மதுரை வீரன் – கொள்ளைக்காரனிலிருந்து பாதுகாவலர் தெய்வமாக",
+            content_ta: `
+                <div class="story-content">
+                    <h4>⚔️ கொள்ளைக்காரனிலிருந்து பாதுகாவலர் தெய்வமாக</h4>
+                    <p>மதுரை வீரனின் கதை சமூகத்தின் விளிம்புகளில் தொடங்குகிறது. கீழ்ஜாதி அல்லது புறஜாதி குடும்பத்தில் பிறந்து (பதிப்புகள் வேறுபடுகின்றன), அவர் அசாதாரண தைரியம், ஆயுதங்களில் திறமை மற்றும் வலுவான நீதி உணர்வுடன் வளர்ந்தார். ஒடுக்கும் நில உடையாளர்கள் மற்றும் அதிகாரிகளுக்கு சேவை செய்வதற்கு பதிலாக, அவர் காடு மற்றும் சாலையைத் தேர்ந்தெடுத்தார், ஊழல் செல்வந்த பயணிகளைத் தாக்கி ஏழைகளைப் பாதுகாத்தார். இந்த இரட்டைப் பாத்திரம்—சிலருக்கு கொள்ளைக்காரர், மற்றவர்களுக்கு ஹீரோ—மதுரையின் புறநகர்ப் பகுதிகளில் அவரை ஒரு புகழ்பெற்ற நபராக ஆக்கியது.</p>
+                    <p>மதுரை அரசரான திருமலை நாயக்கரின் ஆட்சியின் போது, நெடுஞ்சாலை கொள்ளைக்காரர்களிடமிருந்து தொடர்ச்சியான பிரச்சனை வர்த்தகம் மற்றும் அரச அதிகாரத்தை அச்சுறுத்தியது. வீரனின் அச்சமற்ற சாதனைகளைக் கேள்விப்பட்டு, மன்னர் அவரை நசுக்க விரும்பினார் அல்லது தன் பக்கம் கொண்டுவர விரும்பினார். பல கதைகளில், வீரன் இறுதியாக அதன் வண்டிகளைக் கொள்ளையடிப்பதற்குப் பதிலாக மதுரையைப் பாதுகாக்க சம்மதிக்கப்படுகிறார். எதிரிகள் மற்றும் குற்றவாளிகளுக்கு எதிராக நகரத்தைப் பாதுகாப்பதில் அவரது துணிச்சல் அரச படையில் அவருக்கு ஒரு இடத்தைப் பெற்றுத் தருகிறது.</p>
+                    <p>இருப்பினும், ஜாதி மற்றும் அரசியல் அவரைப் பிடிக்கிறது. அரசவை போட்டியாளர்கள் வீரனை துரோகம் என்று குற்றம் சாட்டுகிறார்கள், அவரது "கொள்ளைக்காரர்" கடந்த காலத்தை மிகைப்படுத்தி, மன்னரை அவருக்கு எதிராகத் திருப்புகிறார்கள். அவர் நகரத்திற்காக தனது உயிரைப் பணயம் வைத்திருந்தாலும், அவர் கண்டனம் செய்யப்பட்டு தூக்கிலிடப்படுகிறார். அவரது மரணத்திற்குப் பிறகு, மதுரையைச் சுற்றி விசித்திரமான துரதிர்ஷ்டங்களும் குழப்பங்களும் தொடங்குகின்றன, இதை மக்கள் அநீதி இழைக்கப்பட்ட போர்வீரனின் அமைதியற்ற ஆவி என்று விளக்குகிறார்கள். அவரை சமாதானப்படுத்தவும் அவரது தியாகத்தை கௌரவிக்கவும், மதுரை வீரனுக்கு ஒரு கோவில் நிறுவப்படுகிறது, மேலும் அவர் வெளியில் அல்ல, மாறாக மீனாட்சி அம்மன் கோவிலின் புனித இடத்திற்குள் ஒரு பாதுகாவலர் தெய்வமாக பிரதிஷ்டை செய்யப்படுகிறார். பல ஒதுக்கப்பட்ட சமூகங்களுக்கு, மதுரை வீரன் ஒரு நாட்டுப்புற ஹீரோ மட்டுமல்ல; அவர் எதிர்ப்பு, கண்ணியம் மற்றும் "மரியாதைக்குரிய" ஒழுங்கிற்கு வெளியே பிறந்தவர் கூட நகரத்தின் பாதுகாவலராக மாற முடியும் என்ற எண்ணத்தின் அடையாளமாகும்.</p>
                 </div>
             `
         }
     };
     
+    // Cache story selection HTML
+    if (!window._madurai_story_options_html) {
+        const initialBody = document.querySelector('#storytellingModal .modal-body');
+        if (initialBody) window._madurai_story_options_html = initialBody.innerHTML;
+    }
+
     const modalBody = document.querySelector('#storytellingModal .modal-body');
     if (stories[storyType] && modalBody) {
-        modalBody.innerHTML = stories[storyType].content;
+        const lang = _selectedNarrationLanguage || 'en';
+        const content = (lang === 'ta') ? stories[storyType].content_ta : stories[storyType].content_en;
+        const title = (lang === 'ta') ? stories[storyType].title_ta : stories[storyType].title_en;
+
+        modalBody.innerHTML = content;
+
+        const backText = (lang === 'ta') ? "← கதைகளுக்குத் திரும்பு" : "← Back to Stories";
+        const backBtnHtml = `<div class="story-back-wrapper"><button class="action-btn secondary-btn back-to-stories" onclick="showStorySelection()">${backText}</button></div>`;
+        modalBody.insertAdjacentHTML('afterbegin', backBtnHtml);
+
+        const modal = document.getElementById('storytellingModal');
+        if (modal) {
+            modal.dataset.currentStoryKey = storyType;
+            modal.dataset.currentStoryTitle = title;
+            modal.dataset.currentStoryHtml = content;
+        }
+
+        const controlsHtml = `
+            <div class="story-narration-controls">
+                <label for="narrationLanguage" class="voice-label">Language:</label>
+                <select id="narrationLanguage" class="quick-narrate-select">
+                    <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
+                    <option value="ta" ${lang === 'ta' ? 'selected' : ''}>தமிழ் (Tamil)</option>
+                </select>
+                <label for="voiceSelect" class="voice-label">Voice:</label>
+                <select id="voiceSelect" class="quick-narrate-select"><option>Loading voices...</option></select>
+                <button class="action-btn primary-btn" onclick="narrateStory()">🔊 Narrate this story (AI)</button>
+                <button class="action-btn secondary-btn" onclick="narrateOriginal()">🔈 Narrate Original</button>
+                <button class="action-btn" id="playNarrationBtn" onclick="playNarration()" disabled>Play</button>
+                <button class="action-btn" id="pauseNarrationBtn" onclick="pauseNarration()" disabled>Pause</button>
+                <button class="action-btn" id="stopNarrationBtn" onclick="stopNarration()" disabled>Stop</button>
+                <div id="narrationSpinner">Generating...</div>
+                <div id="voiceAvailability" class="voice-availability" aria-live="polite"></div>
+                <div id="voiceMismatchWarning" class="voice-mismatch-warning" aria-live="polite" style="display:none"></div>
+            </div>
+            <div id="narrationText"></div>
+        `;
+
+        modalBody.insertAdjacentHTML('beforeend', controlsHtml);
+        
+        try { populateVoiceList(); } catch (e) {}
+        try { populateNarrationLanguageSelector(); } catch (e) {}
     }
 }
 
-function continueStory(character, choice) {
-    const continuations = {
-        king: {
-            vision: "The king saw in his dreams magnificent temples carved from living rock, each telling the story of dharma and devotion...",
-            construction: "Thousands of skilled artisans gathered from across the empire, ready to transform the king's vision into eternal stone..."
-        },
-        sculptor: {
-            technique: "The ancient techniques passed down through generations involved precise measurements and understanding of rock grain...",
-            challenges: "Working with granite required immense patience, as one wrong strike could ruin months of careful work..."
-        },
-        merchant: {
-            trade: "Caravans from across South India and Southeast Asia regularly came here, making Thanjavur the prosperous capital of the Chola Empire...",
-            culture: "The port city became a melting pot where Tamil, Sanskrit, and foreign languages blended in daily commerce..."
-        }
-    };
-    
+// Voice management for TTS
+let _selectedVoiceName = localStorage.getItem('madurai_voice') || null;
+let _selectedNarrationLanguage = localStorage.getItem('madurai_narration_lang') || 'en';
+
+function showStorySelection() {
     const modalBody = document.querySelector('#storytellingModal .modal-body');
-    if (modalBody) {
-        modalBody.innerHTML = `
-            <div class="story-continuation">
-                <h4>Story Continues...</h4>
-                <p>${continuations[character][choice]}</p>
-                <button onclick="startStory('${character}')" class="story-choice-btn">Return to Story Selection</button>
-                <button onclick="closeModal('storytellingModal')" class="story-choice-btn">End Story</button>
-            </div>
-        `;
+    if (modalBody && window._madurai_story_options_html) {
+        modalBody.innerHTML = window._madurai_story_options_html;
     }
+}
+
+function populateVoiceList() {
+    const select = document.getElementById('voiceSelect');
+    if (!select) return;
+
+    const voices = speechSynthesis.getVoices();
+    if (!voices || !voices.length) return;
+
+    select.innerHTML = '';
+    voices.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.name;
+        opt.textContent = `${v.name} (${v.lang})${v.default ? ' — default' : ''}`;
+        try { opt.dataset.lang = v.lang || ''; } catch (e) {}
+        select.appendChild(opt);
+    });
+
+    if (_selectedVoiceName && Array.from(select.options).some(o => o.value === _selectedVoiceName)) {
+        select.value = _selectedVoiceName;
+    }
+
+    select.addEventListener('change', () => {
+        _selectedVoiceName = select.value;
+        localStorage.setItem('madurai_voice', _selectedVoiceName);
+    });
+}
+
+function populateNarrationLanguageSelector() {
+    const langSelect = document.getElementById('narrationLanguage');
+    if (!langSelect) return;
+
+    langSelect.addEventListener('change', () => {
+        const newLang = langSelect.value;
+        _selectedNarrationLanguage = newLang;
+        localStorage.setItem('madurai_narration_lang', newLang);
+        
+        const modal = document.getElementById('storytellingModal');
+        if (modal && modal.dataset.currentStoryKey) {
+            startStory(modal.dataset.currentStoryKey);
+        }
+    });
+}
+
+function narrateStory() {
+    console.log('AI narration - feature placeholder');
+    alert('AI narration feature coming soon! Use "Narrate Original" for text-to-speech.');
+}
+
+function narrateOriginal() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal || !modal.dataset.currentStoryHtml) return;
+    
+    const storyDiv = document.createElement('div');
+    storyDiv.innerHTML = modal.dataset.currentStoryHtml;
+    const textContent = storyDiv.textContent || storyDiv.innerText || '';
+    
+    if (!textContent.trim()) {
+        alert('No story text available to narrate.');
+        return;
+    }
+    
+    speakText(textContent);
+}
+
+function speakText(text) {
+    if (!window.speechSynthesis) {
+        alert('Text-to-speech is not supported in your browser.');
+        return;
+    }
+    
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    const voices = window.speechSynthesis.getVoices();
+    
+    if (_selectedVoiceName) {
+        const selectedVoice = voices.find(v => v.name === _selectedVoiceName);
+        if (selectedVoice) utterance.voice = selectedVoice;
+    }
+    
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+    
+    window.speechSynthesis.speak(utterance);
+    
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = false;
+    if (stopBtn) stopBtn.disabled = false;
+}
+
+function playNarration() {
+    if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+    }
+}
+
+function pauseNarration() {
+    if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+        window.speechSynthesis.pause();
+    }
+}
+
+function stopNarration() {
+    window.speechSynthesis.cancel();
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    
+    if (playBtn) playBtn.disabled = true;
+    if (pauseBtn) pauseBtn.disabled = true;
+    if (stopBtn) stopBtn.disabled = true;
+}
+
+// Load voices when available
+if (typeof speechSynthesis !== 'undefined') {
+    speechSynthesis.onvoiceschanged = () => {
+        try { populateVoiceList(); } catch (e) {}
+    };
 }
 
 // Blog Modal Functions

@@ -3281,8 +3281,9 @@ body.heritage-site-body::after {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 9999;
+    z-index: 2147483647; /* Ensure on top of any page elements */
     font-family: 'Cinzel', serif;
+    pointer-events: auto;
 }
 
 /* Floating Toggle Button */
@@ -3300,6 +3301,13 @@ body.heritage-site-body::after {
     justify-content: center;
     border: 3px solid rgba(255, 255, 255, 0.2);
     animation: chatbotFloat 3s ease-in-out infinite;
+}
+
+/* Focus styles for keyboard accessibility */
+.chatbot-toggle:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(218,165,32,0.25), 0 8px 25px rgba(218, 165, 32, 0.4);
+    transform: scale(1.08);
 }
 
 .chatbot-toggle:hover {

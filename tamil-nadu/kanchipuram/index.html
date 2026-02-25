@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/performance-optimizations.css">
     <link rel="stylesheet" href="kanchipuram-style.css">    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body class="heritage-site-body">
@@ -32,7 +33,7 @@
             </div>
             <div class="site-hero-visual">
                 <div class="site-image-container">
-                    <img src="Kanchipuram/placeholder-cover.jpg" alt="Kanchipuram Temples" class="site-main-image">
+                    <img src="../site_photos/Kanchipuram/1.jpg" alt="Kanchipuram Temples" class="site-main-image">
                     <div class="image-overlay">
                         <div class="image-caption">
                             <h3>Sacred Temple City</h3>
@@ -256,7 +257,7 @@
                     <!-- Virtual Tour Card (placeholder for future implementation) -->
                     <div class="virtual-tour-card">
                         <div class="tour-preview">
-                            <img src="Kanchipuram/placeholder-tour.jpg" 
+                            <img src="Kanchipuram/tour.jpg" 
                                  alt="Kanchipuram Virtual Tour Preview" 
                                  class="tour-preview-image">
                             <div class="tour-overlay">
@@ -348,7 +349,7 @@
                                     <!-- Placeholder Image Cards -->
                                     <div class="heritage-card">
                                         <div class="card-image-container">
-                                            <img src="Kanchipuram/placeholder-temple1.jpg" alt="Kanchipuram Temple" class="card-image">
+                                            <img src="Kanchipuram/temple1.jpg" alt="Kanchipuram Temple" class="card-image" loading="lazy" decoding="async">
                                             <div class="pin-message">
                                                 <div class="pin-icon">🕌</div>
                                                 <div class="pin-text-container">
@@ -357,7 +358,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-overlay">
-                                                <button class="view-btn" onclick="openImageModal('Kanchipuram/placeholder-temple1.jpg', 'Kanchipuram Temple')">View</button>
+                                                <button class="view-btn" onclick="openImageModal('Kanchipuram/temple1.jpg', 'Kanchipuram Temple')">View</button>
                                             </div>
                                         </div>
                                         <div class="card-info">
@@ -520,6 +521,7 @@
     </div>
 
     <!-- Improved Chatbot System -->
+    <script src="../../js/performance-utils.js" defer></script>
     <script src="../improved-chatbot.js"></script>
     <script src="kanchipuram-chatbot-init.js"></script>
     

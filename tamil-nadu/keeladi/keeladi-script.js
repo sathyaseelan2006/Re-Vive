@@ -267,11 +267,364 @@ function openStorytellingModal() {
     openModal('storytellingModal');
 }
 
+// Voice management for SpeechSynthesis
+let _selectedVoiceName = localStorage.getItem('keeladi_voice') || null;
+let _selectedNarrationLanguage = localStorage.getItem('keeladi_narration_lang') || 'ta';
+let _currentUtterance = null;
+let _currentNarrationText = '';
+
+function populateVoiceList() {
+    const select = document.getElementById('voiceSelect');
+    if (!select) return;
+
+    const voices = speechSynthesis.getVoices();
+    if (!voices || !voices.length) return;
+
+    select.innerHTML = '';
+    voices.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.name;
+        opt.textContent = `${v.name} (${v.lang})${v.default ? ' — default' : ''}`;
+        try { opt.dataset.lang = v.lang || ''; } catch (e) {}
+        select.appendChild(opt);
+    });
+
+    if (_selectedVoiceName && Array.from(select.options).some(o => o.value === _selectedVoiceName)) {
+        select.value = _selectedVoiceName;
+    } else {
+        const preferredNames = [/Google US English/i, /Microsoft Zira/i, /Zira/i, /Samantha/i, /Alex/i];
+        const preferred = voices.find(v => preferredNames.some(rx => rx.test(v.name)) || /en-?us|en-?gb/i.test(v.lang));
+        if (preferred) select.value = preferred.name;
+    }
+
+    select.addEventListener('change', () => {
+        _selectedVoiceName = select.value;
+        try { localStorage.setItem('keeladi_voice', _selectedVoiceName); } catch (e) {}
+        try { updateVoiceMismatchWarning(); } catch (e) {}
+    });
+
+    try { updateVoiceAvailabilityIndicator(); } catch (e) {}
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(populateVoiceList, 100);
+    setTimeout(() => {
+        try { populateNarrationLanguageSelector(); } catch (e) {}
+    }, 120);
+});
+
+if (typeof speechSynthesis !== 'undefined') {
+    speechSynthesis.onvoiceschanged = function() {
+        try { populateVoiceList(); } catch (e) {}
+    };
+}
+
+function populateNarrationLanguageSelector() {
+    const langSelect = document.getElementById('narrationLanguage');
+    if (!langSelect) return;
+
+    try {
+        if (_selectedNarrationLanguage && Array.from(langSelect.options).some(o => o.value === _selectedNarrationLanguage)) {
+            langSelect.value = _selectedNarrationLanguage;
+        } else {
+            langSelect.value = _selectedNarrationLanguage || 'en';
+        }
+    } catch (e) {}
+
+    langSelect.addEventListener('change', () => {
+        _selectedNarrationLanguage = langSelect.value;
+        try { localStorage.setItem('keeladi_narration_lang', _selectedNarrationLanguage); } catch (e) {}
+        try { updateVoiceAvailabilityIndicator(); } catch (e) {}
+        try { updateVoiceMismatchWarning(); } catch (e) {}
+        
+        // If a story is currently open, re-render it in the newly selected language
+        try {
+            const modal = document.getElementById('storytellingModal');
+            if (modal && modal.style.display === 'block' && modal.dataset && modal.dataset.currentStoryKey) {
+                startStory(modal.dataset.currentStoryKey);
+            }
+        } catch (e) {}
+    });
+}
+
+function updateVoiceAvailabilityIndicator() {
+    const indicator = document.getElementById('voiceAvailability');
+    const lang = _selectedNarrationLanguage || 'en';
+    if (!indicator) return;
+
+    const voices = speechSynthesis.getVoices() || [];
+    const lower = lang === 'ta' ? 'ta' : 'en';
+    const matches = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith(lower));
+
+    if (matches.length > 0) {
+        indicator.textContent = `Voice availability: ${matches.length} ${lang === 'ta' ? 'Tamil' : 'English'} voice(s) available on your browser/device.`;
+        indicator.style.color = '#DAA520';
+    } else {
+        indicator.textContent = `No ${lang === 'ta' ? 'Tamil' : 'English'} voices detected. Playback may use a fallback voice or server-side TTS.`;
+        indicator.style.color = '#ffcc66';
+
+        if (lang === 'ta') {
+            if (!document.getElementById('serverTamilFallbackBtn')) {
+                const btn = document.createElement('button');
+                btn.id = 'serverTamilFallbackBtn';
+                btn.className = 'action-btn secondary-btn';
+                btn.style.marginLeft = '10px';
+                btn.textContent = 'Use Server Tamil TTS';
+                btn.title = 'Request Tamil narration audio from server (if available)';
+                btn.addEventListener('click', async () => {
+                    try {
+                        const modal = document.getElementById('storytellingModal');
+                        if (!modal) return alert('Open a story first');
+                        const title = modal.dataset.currentStoryTitle || 'Heritage Story';
+                        const html = modal.dataset.currentStoryHtml || '';
+                        const tmp = document.createElement('div'); tmp.innerHTML = html;
+                        const plain = tmp.innerText.trim();
+                        btn.disabled = true;
+                        btn.textContent = 'Requesting audio...';
+                        const audioData = await requestNarrationAudioFromServer(title, plain, 'ta');
+                        if (audioData && audioData.audioBase64) {
+                            await playBase64Audio(audioData.audioBase64);
+                        } else if (audioData && audioData.audioUrl) {
+                            const a = new Audio(audioData.audioUrl);
+                            await a.play();
+                        } else if (audioData && audioData.narration) {
+                            _currentNarrationText = audioData.narration;
+                            const textEl = document.getElementById('narrationText');
+                            if (textEl) { textEl.textContent = _currentNarrationText; textEl.style.display = 'block'; }
+                            playNarration();
+                        } else {
+                            alert('Server did not return Tamil audio. Please try "Narrate this story (AI)" or enable a Tamil voice in your browser.');
+                        }
+                    } catch (err) {
+                        console.error('Server Tamil TTS failed', err);
+                        alert('Server Tamil TTS failed. Check console for details.');
+                    } finally {
+                        btn.disabled = false;
+                        btn.textContent = 'Use Server Tamil TTS';
+                    }
+                });
+                indicator.parentNode && indicator.parentNode.appendChild(btn);
+            }
+        }
+    }
+}
+
+async function requestNarrationAudioFromServer(title, content, language = 'en') {
+    try {
+        const resp = await fetch('/api/chatbot/narrate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, content, language })
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data?.message || 'Narration request failed');
+        return data;
+    } catch (err) {
+        console.error('Narration audio request failed', err);
+        return null;
+    }
+}
+
+async function playBase64Audio(base64) {
+    try {
+        const byteChars = atob(base64);
+        const byteNumbers = new Array(byteChars.length);
+        for (let i = 0; i < byteChars.length; i++) {
+            byteNumbers[i] = byteChars.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'audio/mpeg' });
+        const url = URL.createObjectURL(blob);
+        const audio = new Audio(url);
+        await audio.play();
+        audio.addEventListener('ended', () => { URL.revokeObjectURL(url); });
+    } catch (err) {
+        console.error('playBase64Audio error', err);
+        throw err;
+    }
+}
+
+function updateVoiceMismatchWarning() {
+    const warningEl = document.getElementById('voiceMismatchWarning');
+    if (!warningEl) return;
+
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (!voiceSelect) { warningEl.style.display = 'none'; return; }
+
+    const selectedOpt = voiceSelect.options[voiceSelect.selectedIndex];
+    const voiceLang = (selectedOpt && selectedOpt.dataset && selectedOpt.dataset.lang) ? selectedOpt.dataset.lang.toLowerCase() : '';
+    const requestedLang = (_selectedNarrationLanguage === 'ta') ? 'ta' : 'en';
+
+    if (!voiceLang) {
+        warningEl.style.display = 'none';
+        return;
+    }
+
+    if (!voiceLang.startsWith(requestedLang)) {
+        warningEl.textContent = 'Warning: The selected voice language does not match the chosen narration language; pronunciation may be poor.';
+        warningEl.style.display = 'block';
+    } else {
+        warningEl.style.display = 'none';
+    }
+}
+
+function narrateOriginal() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal) return;
+    const html = modal.dataset.currentStoryHtml || '';
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.innerText.trim();
+
+    _currentNarrationText = plain;
+    const textEl = document.getElementById('narrationText');
+    if (textEl) {
+        textEl.textContent = _currentNarrationText;
+        textEl.style.display = 'block';
+    }
+
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+    if (stopBtn) stopBtn.disabled = false;
+
+    const spinner = document.getElementById('narrationSpinner');
+    if (spinner) spinner.style.display = 'none';
+
+    playNarration();
+}
+
+async function requestNarrationFromServer(title, content, language = 'en') {
+    try {
+        const resp = await fetch('/api/chatbot/narrate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, content, language })
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data?.message || 'Narration request failed');
+        return data.narration || '';
+    } catch (err) {
+        console.error('Narration request failed', err);
+        throw err;
+    }
+}
+
+async function narrateStory() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal) return;
+    const title = modal.dataset.currentStoryTitle || 'Heritage Story';
+    const html = modal.dataset.currentStoryHtml || '';
+
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.innerText.trim();
+
+    const spinner = document.getElementById('narrationSpinner');
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    const textEl = document.getElementById('narrationText');
+
+    if (spinner) spinner.style.display = 'inline-block';
+    try {
+        const narration = await requestNarrationFromServer(title, plain, _selectedNarrationLanguage);
+        _currentNarrationText = narration || '';
+        if (textEl) {
+            textEl.textContent = _currentNarrationText;
+            textEl.style.display = 'block';
+        }
+
+        if (playBtn) playBtn.disabled = false;
+        if (pauseBtn) pauseBtn.disabled = true;
+        if (stopBtn) stopBtn.disabled = false;
+
+        playNarration();
+    } catch (err) {
+        if (textEl) {
+            textEl.textContent = 'Unable to generate narration. Please try again later.';
+            textEl.style.display = 'block';
+        }
+    } finally {
+        if (spinner) spinner.style.display = 'none';
+    }
+}
+
+function playNarration() {
+    if (!_currentNarrationText) return;
+    if (speechSynthesis.speaking && speechSynthesis.paused) {
+        speechSynthesis.resume();
+        document.getElementById('pauseNarrationBtn').disabled = false;
+        return;
+    }
+
+    if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+    }
+
+    const utter = new SpeechSynthesisUtterance(_currentNarrationText);
+    utter.rate = 1.0;
+    utter.pitch = 1.0;
+    
+    const voices = speechSynthesis.getVoices();
+    if (voices && voices.length) {
+        if (_selectedNarrationLanguage === 'ta') {
+            utter.lang = 'ta-IN';
+        } else {
+            utter.lang = 'en-US';
+        }
+        
+        if (_selectedVoiceName) {
+            const userVoice = voices.find(v => v.name === _selectedVoiceName);
+            if (userVoice) utter.voice = userVoice;
+        }
+
+        if (!utter.voice) {
+            const langPrefix = _selectedNarrationLanguage === 'ta' ? 'ta' : 'en';
+            const preferred = voices.find(v => v.lang && v.lang.toLowerCase().startsWith(langPrefix)) || 
+                            voices.find(v => /Google US English|Microsoft Zira/i.test(v.name)) || 
+                            voices[0];
+            if (preferred) utter.voice = preferred;
+        }
+    }
+    
+    utter.onend = () => {
+        document.getElementById('pauseNarrationBtn').disabled = true;
+        document.getElementById('playNarrationBtn').disabled = false;
+    };
+    utter.onerror = (e) => {
+        console.error('TTS error', e);
+    };
+
+    _currentUtterance = utter;
+    speechSynthesis.speak(utter);
+    document.getElementById('playNarrationBtn').disabled = true;
+    document.getElementById('pauseNarrationBtn').disabled = false;
+}
+
+function pauseNarration() {
+    if (speechSynthesis.speaking && !speechSynthesis.paused) {
+        speechSynthesis.pause();
+        document.getElementById('pauseNarrationBtn').disabled = true;
+        document.getElementById('playNarrationBtn').disabled = false;
+    }
+}
+
+function stopNarration() {
+    if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+    }
+    document.getElementById('pauseNarrationBtn').disabled = true;
+    document.getElementById('playNarrationBtn').disabled = false;
+}
+
 function startStory(storyType) {
     const stories = {
         merchant: {
-            title: "The Sangam Trader's Tale",
-            content: `
+            title_en: "The Sangam Trader's Tale",
+            content_en: `
                 <div class="story-content">
                     <h4>A Merchant in Ancient Keeladi</h4>
                     <p>The year is 500 BCE. A prosperous merchant named Chattan walks through Keeladi's bustling marketplace, his hands bearing Tamil-Brahmi inscribed pottery recording the day's trade. Roman gold coins jingle in his pouch...</p>
@@ -281,11 +634,23 @@ function startStory(storyType) {
                         <button onclick="continueStory('merchant', 'market')" class="story-choice-btn">Explore the Marketplace</button>
                     </div>
                 </div>
+            `,
+            title_ta: "சங்க கால வணிகரின் கதை",
+            content_ta: `
+                <div class="story-content">
+                    <h4>பண்டைய கீழடியில் ஒரு வணிகர்</h4>
+                    <p>கி.மு. 500 ஆம் ஆண்டு. சாத்தன் என்ற வளமான வணிகர் கீழடியின் பரபரப்பான சந்தையில் நடக்கிறார், அவரது கைகளில் அன்றைய வர்த்தகத்தைப் பதிவு செய்யும் தமிழ்-பிராமி பொறிக்கப்பட்ட மட்பாண்டங்கள் உள்ளன. ரோமானிய தங்க நாணயங்கள் அவரது பையில் ஒலிக்கின்றன...</p>
+                    
+                    <div class="story-choices">
+                        <button onclick="continueStory('merchant', 'trade')" class="story-choice-btn">வர்த்தக வழிகளைப் பின்தொடரவும்</button>
+                        <button onclick="continueStory('merchant', 'market')" class="story-choice-btn">சந்தையை ஆராயுங்கள்</button>
+                    </div>
+                </div>
             `
         },
         scribe: {
-            title: "The Tamil-Brahmi Scholar",
-            content: `
+            title_en: "The Tamil-Brahmi Scholar",
+            content_en: `
                 <div class="story-content">
                     <h4>Chronicles of an Ancient Scribe</h4>
                     <p>Seated in a well-lit workshop, the scribe carefully inscribes Tamil-Brahmi letters onto pottery. Each mark preserves Tamil language and culture for millennia to come. This is the dawn of written Tamil literature...</p>
@@ -295,11 +660,23 @@ function startStory(storyType) {
                         <button onclick="continueStory('scribe', 'literature')" class="story-choice-btn">Discover Tamil Literature</button>
                     </div>
                 </div>
+            `,
+            title_ta: "தமிழ்-பிராமி அறிஞர்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>ஒரு பண்டைய எழுத்தரின் வரலாறு</h4>
+                    <p>நன்கு ஒளிரும் பட்டறையில் அமர்ந்து, எழுத்தர் கவனமாக மட்பாண்டங்களில் தமிழ்-பிராமி எழுத்துக்களைப் பொறிக்கிறார். ஒவ்வொரு குறியீடும் தமிழ் மொழியையும் கலாச்சாரத்தையும் ஆயிரக்கணக்கான ஆண்டுகளாகப் பாதுகாக்கிறது. இது எழுதப்பட்ட தமிழ் இலக்கியத்தின் விடியல்...</p>
+                    
+                    <div class="story-choices">
+                        <button onclick="continueStory('scribe', 'script')" class="story-choice-btn">பண்டைய எழுத்துமுறையைக் கற்றுக்கொள்ளுங்கள்</button>
+                        <button onclick="continueStory('scribe', 'literature')" class="story-choice-btn">தமிழ் இலக்கியத்தைக் கண்டறியவும்</button>
+                    </div>
+                </div>
             `
         },
         archaeologist: {
-            title: "The Great Discovery",
-            content: `
+            title_en: "The Great Discovery",
+            content_en: `
                 <div class="story-content">
                     <h4>Unearthing Keeladi's Secrets</h4>
                     <p>Year 2015. Dr. Rajesh brushes away 2,600 years of earth to reveal a pottery fragment. As he cleans it, Tamil-Brahmi letters emerge - rewriting everything we thought we knew about ancient Tamil civilization...</p>
@@ -309,40 +686,147 @@ function startStory(storyType) {
                         <button onclick="continueStory('archaeologist', 'significance')" class="story-choice-btn">Understand the Significance</button>
                     </div>
                 </div>
+            `,
+            title_ta: "மகத்தான கண்டுபிடிப்பு",
+            content_ta: `
+                <div class="story-content">
+                    <h4>கீழடியின் ரகசியங்களை வெளிக்கொணர்தல்</h4>
+                    <p>ஆண்டு 2015. டாக்டர் ராஜேஷ் 2,600 ஆண்டுகால மண்ணை அகற்றி ஒரு மட்பாண்டத் துண்டைக் கண்டுபிடிக்கிறார். அவர் அதைச் சுத்தம் செய்யும்போது, தமிழ்-பிராமி எழுத்துக்கள் வெளிப்படுகின்றன - பண்டைய தமிழ் நாகரிகத்தைப் பற்றி நாம் அறிந்த அனைத்தையும் மாற்றி எழுதுகின்றன...</p>
+                    
+                    <div class="story-choices">
+                        <button onclick="continueStory('archaeologist', 'discovery')" class="story-choice-btn">கண்டுபிடிப்பைக் காணுங்கள்</button>
+                        <button onclick="continueStory('archaeologist', 'significance')" class="story-choice-btn">முக்கியத்துவத்தைப் புரிந்து கொள்ளுங்கள்</button>
+                    </div>
+                </div>
             `
         }
     };
     
+    // Ensure we have a cached copy of the story-selection HTML so we can return to it
+    if (!window._keeladi_story_options_html) {
+        const initialBody = document.querySelector('#storytellingModal .modal-body');
+        if (initialBody) window._keeladi_story_options_html = initialBody.innerHTML;
+    }
+
     const modalBody = document.querySelector('#storytellingModal .modal-body');
     if (stories[storyType] && modalBody) {
-        modalBody.innerHTML = stories[storyType].content;
+        // Render content based on the selected narration language
+        const lang = _selectedNarrationLanguage === 'ta' ? 'ta' : 'en';
+        const titleKey = `title_${lang}`;
+        const contentKey = `content_${lang}`;
+        const renderedTitle = stories[storyType][titleKey] || stories[storyType].title_en || '';
+        const renderedContent = stories[storyType][contentKey] || stories[storyType].content_en || '';
+
+        modalBody.innerHTML = renderedContent;
+
+        // Add a "Back to Stories" button so users can return to the selection
+        const backText = lang === 'ta' ? '← கதைகளுக்குத் திரும்பு' : '← Back to Stories';
+        const backBtnHtml = `<div class="story-back-wrapper"><button class="action-btn secondary-btn back-to-stories" onclick="showStorySelection()">${backText}</button></div>`;
+        modalBody.insertAdjacentHTML('afterbegin', backBtnHtml);
+
+        // Store current story metadata on the modal for later narration
+        const modal = document.getElementById('storytellingModal');
+        if (modal) {
+            modal.dataset.currentStoryKey = storyType;
+            modal.dataset.currentStoryTitle = renderedTitle || '';
+            modal.dataset.currentStoryHtml = renderedContent || '';
+        }
+
+        // Add Narrate controls (generate & play) below the story — include language + voice selectors
+        const controlsHtml = `
+            <div class="story-narration-controls">
+                <label for="narrationLanguage" class="voice-label">Language:</label>
+                <select id="narrationLanguage" class="quick-narrate-select">
+                    <option value="en">English</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                </select>
+                <label for="voiceSelect" class="voice-label">Voice:</label>
+                <select id="voiceSelect" class="quick-narrate-select"><option>Loading voices...</option></select>
+                <button class="action-btn primary-btn" onclick="narrateStory()">🔊 Narrate this story (AI)</button>
+                <button class="action-btn secondary-btn" onclick="narrateOriginal()">🔈 Narrate Original</button>
+                <button class="action-btn" id="playNarrationBtn" onclick="playNarration()" disabled>Play</button>
+                <button class="action-btn" id="pauseNarrationBtn" onclick="pauseNarration()" disabled>Pause</button>
+                <button class="action-btn" id="stopNarrationBtn" onclick="stopNarration()" disabled>Stop</button>
+                <div id="narrationSpinner" style="display:none;margin-top:10px;color:#DAA520;">Generating narration...</div>
+                <div id="voiceAvailability" class="voice-availability" aria-live="polite" style="margin-top:8px;font-size:0.95rem;color:#f0e6d6"></div>
+                <div id="voiceMismatchWarning" class="voice-mismatch-warning" aria-live="polite" style="margin-top:6px;font-size:0.9rem;color:#ffcc66;display:none"></div>
+            </div>
+            <div id="narrationText" style="margin-top:15px;padding:15px;background:rgba(218,165,32,0.1);border-radius:10px;display:none;"></div>
+        `;
+
+        modalBody.insertAdjacentHTML('beforeend', controlsHtml);
+        
+        // Ensure voice list and language selector populate for the newly-inserted controls
+        try { populateVoiceList(); } catch (e) {}
+        try { populateNarrationLanguageSelector(); } catch (e) {}
+    }
+}
+
+// Restore the original story selection grid inside the storytelling modal
+function showStorySelection() {
+    const modalBody = document.querySelector('#storytellingModal .modal-body');
+    if (!modalBody) return;
+    if (window._keeladi_story_options_html) {
+        modalBody.innerHTML = window._keeladi_story_options_html;
+    } else {
+        // Fallback: reconstruct simple options if cached HTML isn't available
+        modalBody.innerHTML = `
+            <div class="story-options">
+                <div class="story-card" onclick="startStory('merchant')">
+                    <h4>?? The Merchant's Journey</h4>
+                    <p>Follow a Sangam-era trader through ancient Keeladi's bustling markets, international trade networks, and cultural exchanges</p>
+                </div>
+                <div class="story-card" onclick="startStory('scribe')">
+                    <h4>?? The Scribe's Chronicle</h4>
+                    <p>Experience the development of Tamil-Brahmi script through a scholar's daily life and literary pursuits</p>
+                </div>
+                <div class="story-card" onclick="startStory('archaeologist')">
+                    <h4>?? The Great Discovery</h4>
+                    <p>Join modern archaeologists as they uncover Keeladi's 2,600-year-old secrets layer by layer</p>
+                </div>
+            </div>
+        `;
     }
 }
 
 function continueStory(character, choice) {
     const continuations = {
         merchant: {
-            trade: "Caravans from Rome, Sri Lanka, and Southeast Asia regularly arrived in Keeladi, bringing exotic goods and taking back Tamil Nadu's famed textiles and spices...",
-            market: "The marketplace buzzed with different languages - Tamil, Prakrit, and foreign tongues. Every transaction was recorded on pottery in Tamil-Brahmi script..."
+            trade_en: "Caravans from Rome, Sri Lanka, and Southeast Asia regularly arrived in Keeladi, bringing exotic goods and taking back Tamil Nadu's famed textiles and spices...",
+            trade_ta: "ரோம், இலங்கை மற்றும் தென்கிழக்கு ஆசியாவிலிருந்து வணிகக் குழுக்கள் தொடர்ந்து கீழடிக்கு வந்து, கவர்ச்சியான பொருட்களைக் கொண்டு வந்து, தமிழ்நாட்டின் புகழ்பெற்ற ஜவுளி மற்றும் மசாலாப் பொருட்களை எடுத்துச் சென்றன...",
+            market_en: "The marketplace buzzed with different languages - Tamil, Prakrit, and foreign tongues. Every transaction was recorded on pottery in Tamil-Brahmi script...",
+            market_ta: "சந்தை பல்வேறு மொழிகளால் - தமிழ், பிராகிருதம் மற்றும் வெளிநாட்டு மொழிகளால் பரபரப்பாக இருந்தது. ஒவ்வொரு பரிவர்த்தனையும் தமிழ்-பிராமி எழுத்துக்களில் மட்பாண்டங்களில் பதிவு செய்யப்பட்டது..."
         },
         scribe: {
-            script: "The Tamil-Brahmi script evolved from Brahmi, adapting it perfectly to Tamil phonology. Each inscription preserved Tamil language for future generations...",
-            literature: "The scribe's work was part of the great Sangam literary tradition, documenting trade, poetry, and daily life in beautiful Tamil verses..."
+            script_en: "The Tamil-Brahmi script evolved from Brahmi, adapting it perfectly to Tamil phonology. Each inscription preserved Tamil language for future generations...",
+            script_ta: "தமிழ்-பிராமி எழுத்துமுறை பிராமியிலிருந்து உருவானது, இது தமிழ் ஒலிப்பு முறைக்கு ஏற்றவாறு மாற்றியமைக்கப்பட்டது. ஒவ்வொரு கல்வெட்டும் எதிர்கால சந்ததியினருக்காக தமிழ் மொழியைப் பாதுகாத்தது...",
+            literature_en: "The scribe's work was part of the great Sangam literary tradition, documenting trade, poetry, and daily life in beautiful Tamil verses...",
+            literature_ta: "எழுத்தரின் பணி சிறந்த சங்க இலக்கிய மரபின் ஒரு பகுதியாக இருந்தது, வர்த்தகம், கவிதை மற்றும் அன்றாட வாழ்வை அழகான தமிழ் பாடல்களில் ஆவணப்படுத்தியது..."
         },
         archaeologist: {
-            discovery: "Layer by layer, the excavation revealed urban planning, drainage systems, craft workshops - evidence of a sophisticated 2,600-year-old civilization...",
-            significance: "This discovery pushed Tamil civilization back by centuries, proving ancient Tamil culture was contemporary with the Indus Valley Civilization..."
+            discovery_en: "Layer by layer, the excavation revealed urban planning, drainage systems, craft workshops - evidence of a sophisticated 2,600-year-old civilization...",
+            discovery_ta: "அடுக்கு அடுக்காக, அகழ்வாராய்ச்சி நகரத் திட்டமிடல், வடிகால் அமைப்புகள், கைவினைப் பட்டறைகள் ஆகியவற்றை வெளிப்படுத்தியது - இது 2,600 ஆண்டுகள் பழமையான நாகரிகத்தின் சான்றாகும்...",
+            significance_en: "This discovery pushed Tamil civilization back by centuries, proving ancient Tamil culture was contemporary with the Indus Valley Civilization...",
+            significance_ta: "இந்தக் கண்டுபிடிப்பு தமிழ் நாகரிகத்தின் காலத்தை பல நூற்றாண்டுகளுக்கு பின்னோக்கித் தள்ளியது, பண்டைய தமிழ் கலாச்சாரம் சிந்து சமவெளி நாகரிகத்திற்கு சமகாலத்தது என்பதை நிரூபித்தது..."
         }
     };
     
     const modalBody = document.querySelector('#storytellingModal .modal-body');
-    if (modalBody) {
+    if (modalBody && continuations[character]) {
+        const lang = _selectedNarrationLanguage === 'ta' ? 'ta' : 'en';
+        const contentKey = `${choice}_${lang}`;
+        const content = continuations[character][contentKey] || continuations[character][`${choice}_en`];
+        
+        const returnText = lang === 'ta' ? 'கதை தேர்வுக்குத் திரும்பு' : 'Return to Story Selection';
+        const endText = lang === 'ta' ? 'கதையை முடிக்கவும்' : 'End Story';
+        const titleText = lang === 'ta' ? 'கதை தொடர்கிறது...' : 'Story Continues...';
+
         modalBody.innerHTML = `
             <div class="story-continuation">
-                <h4>Story Continues...</h4>
-                <p>${continuations[character][choice]}</p>
-                <button onclick="startStory('${character}')" class="story-choice-btn">Return to Story Selection</button>
-                <button onclick="closeModal('storytellingModal')" class="story-choice-btn">End Story</button>
+                <h4>${titleText}</h4>
+                <p>${content}</p>
+                <button onclick="startStory('${character}')" class="story-choice-btn">${returnText}</button>
+                <button onclick="closeModal('storytellingModal')" class="story-choice-btn">${endText}</button>
             </div>
         `;
     }

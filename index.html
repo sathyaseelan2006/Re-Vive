@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Re:Vive - Indian Heritage Platform</title>
+    
+    <!-- Performance Optimizations -->
+    <link rel="stylesheet" href="css/performance-optimizations.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="preload" as="image" href="/india-map.svg">
-    <!-- Optional: Link to custom font in /assets/fonts/ if you add one -->
+    <link rel="preload" as="image" href="public/india-map.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
     
@@ -41,7 +45,7 @@
         <!-- Interactive Map Section -->
         <section class="map-section reveal">
             <div class="map-container">
-                <img src="/india-map.svg" alt="Map of India" id="indiaMapSVG" class="india-map">
+                <img src="public/india-map.svg" alt="Map of India" id="indiaMapSVG" class="india-map">
             </div>
             <div class="select-region">SELECT YOUR REGION</div>
         </section>
@@ -82,8 +86,11 @@
             <a href="#" class="footer-link">Resources</a>
         </div>
     </footer>
-    <script src="js/main.js"></script>
-    <script>
+    
+    <!-- Performance Utils -->
+    <script src="js/performance-utils.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script defer>
         // User Profile Logic
         window.addEventListener('DOMContentLoaded', () => {
             const user = JSON.parse(localStorage.getItem('user') || '{}');

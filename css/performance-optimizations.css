@@ -1,0 +1,125 @@
+/* Performance Optimization CSS - Load First */
+/* This file should be loaded before other stylesheets */
+
+/* Critical Performance Improvements */
+
+/* 1. Reduce Repaints and Reflows */
+/* Exclude html, body, and chatbot elements to prevent position:fixed issues */
+*:not(html):not(body):not(.ai-chatbot-container):not(.chatbot-toggle):not(.chatbot-window) {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* 2. GPU Acceleration for Animations */
+.heritage-card,
+.model-card,
+.gallery-track,
+.carousel-track {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+}
+
+/* 3. Optimize Images */
+img {
+    content-visibility: auto;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* 4. Lazy Load Optimization */
+img[loading="lazy"],
+iframe[loading="lazy"] {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 400px;
+}
+
+/* 5. Reduce Animation Complexity */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* 6. Contain Layout Shifts */
+.site-section,
+.gallery-container,
+.model-viewer-container {
+    contain: layout style paint;
+}
+
+/* 7. Optimize Heavy Elements */
+.sketchfab-embed-wrapper iframe,
+.video-embed iframe {
+    content-visibility: auto;
+    contain-intrinsic-size: 640px 480px;
+}
+
+/* 8. Debounce Scroll Events */
+.gallery-scroll-container,
+.carousel-container {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 9. Optimize Chatbot */
+#chatMessages {
+    contain: strict;
+    content-visibility: auto;
+}
+
+.ai-chatbot-container {
+    will-change: transform, opacity;
+}
+
+/* 10. Reduce Shadow Complexity */
+.heritage-card,
+.modal-content,
+.feature-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Remove expensive shadows on scroll */
+.scrolling .heritage-card,
+.scrolling .modal-content {
+    box-shadow: none;
+}
+
+/* 11. Optimize Fonts - Applied globally */
+body, h1, h2, h3, h4, h5, h6 {
+    font-display: swap; /* Show fallback immediately */
+}
+
+/* 12. Critical CSS Only */
+body {
+    font-synthesis: none;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 13. Intersection Observer Helpers */
+.lazy-load-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 500px;
+}
+
+/* 14. Prevent Layout Thrashing */
+.site-hero-visual,
+.gallery-track,
+.model-carousel {
+    contain: layout;
+}
+
+/* 15. Optimize Backdrop Filters (expensive) */
+.modal,
+.image-overlay {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.9);
+}

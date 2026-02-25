@@ -70,10 +70,22 @@ IMPORTANT: Answer ANY question naturally and helpfully. Keep responses concise a
     };
     
     // Initialize the improved chatbot
+    // Prefer the ImprovedHeritageChatbot if available, otherwise fall back to ProfessionalHeritageChatbot
     if (window.ImprovedHeritageChatbot) {
-        window.heritageChatbot = new ImprovedHeritageChatbot('Palani', palaniKnowledge);
-        console.log('✅ Palani Heritage Chatbot initialized successfully!');
+        try {
+            window.palaniChatbot = new ImprovedHeritageChatbot('Palani - Sacred Hill Temple', { context: palaniKnowledge.context || palaniKnowledge });
+            console.log('✅ Palani Heritage Chatbot (Improved) initialized successfully');
+        } catch (err) {
+            console.error('❌ Failed to initialize ImprovedHeritageChatbot for Palani:', err);
+        }
+    } else if (window.ProfessionalHeritageChatbot) {
+        try {
+            window.palaniChatbot = new ProfessionalHeritageChatbot('Palani - Sacred Hill Temple', palaniKnowledge.context || palaniKnowledge);
+            console.log('✅ Palani Heritage Chatbot (Professional) initialized successfully');
+        } catch (err) {
+            console.error('❌ Failed to initialize ProfessionalHeritageChatbot for Palani:', err);
+        }
     } else {
-        console.error('❌ ImprovedHeritageChatbot not found. Make sure improved-chatbot.js is loaded first.');
+        console.error('❌ No chatbot implementation found for Palani. Ensure improved-chatbot.js or professional-chatbot.js is loaded before this initializer.');
     }
 });

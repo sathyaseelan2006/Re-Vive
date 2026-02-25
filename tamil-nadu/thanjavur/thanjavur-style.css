@@ -1208,7 +1208,7 @@ button {
     right: 15px;
     background: linear-gradient(135deg, rgba(218, 165, 32, 0.95), rgba(184, 134, 11, 0.95));
     border-radius: 12px;
-    padding: 12px 15px;
+    padding: 12px 35px 12px 15px;
     color: white;
     font-size: 0.85rem;
     line-height: 1.4;
@@ -1279,6 +1279,33 @@ button {
     background: rgba(255, 255, 255, 0.3);
     border-color: rgba(255, 255, 255, 0.5);
     transform: scale(1.05);
+}
+
+.pin-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    padding: 0;
+}
+
+.pin-close-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
 }
 
 /* Better contrast and clearer call-to-action for blog/article buttons */
@@ -1369,20 +1396,23 @@ button {
 
 .card-overlay {
     position: absolute;
-    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    height: auto;
     background: linear-gradient(
-        45deg,
-        rgba(218, 165, 32, 0.8),
-        rgba(139, 69, 19, 0.6)
+        to top,
+        rgba(218, 165, 32, 0.95),
+        rgba(218, 165, 32, 0.7) 70%,
+        transparent
     );
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     opacity: 0;
     transition: all 0.4s ease;
+    padding: 20px 15px;
+    pointer-events: none;
 }
 
 .heritage-card:hover .card-overlay {
@@ -1390,23 +1420,19 @@ button {
 }
 
 .view-btn {
-    background: rgba(255, 255, 255, 0.9);
-    border: 2px solid #DAA520;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #8B4513;
     color: #8B4513;
-    padding: 12px 24px;
+    padding: 10px 20px;
     border-radius: 25px;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
-}
-
-/* Keep the view button on top of transient pin notes on touch devices */
-.view-btn {
-    position: relative;
-    z-index: 7; /* higher than .pin-message (z-index:5) */
+    pointer-events: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .view-btn:hover {
@@ -3966,6 +3992,30 @@ button {
    AI CHATBOT SYSTEM - IMPROVED VERSION
    =============================================== */
 
+/*
+ * Performance helper: the global `* { transform: translateZ(0); }` in
+ * `performance-optimizations.css` creates stacking contexts on many
+ * elements (including `html`/`body`) which can turn `position: fixed`
+ * into viewport-relative behavior in some browsers. That causes the
+ * chatbot to be positioned relative to the page instead of the
+ * viewport (appearing 'stuck' at the bottom of the document).
+ *
+ * Fix: explicitly reset transforms for the root and chatbot elements
+ * so the chatbot stays fixed to the viewport while keeping other
+ * performance optimizations intact.
+ */
+html, body {
+    -webkit-transform: none !important;
+    transform: none !important;
+}
+
+.ai-chatbot-container,
+.chatbot-toggle,
+.chatbot-window {
+    -webkit-transform: none !important;
+    transform: none !important;
+}
+
 .ai-chatbot-container {
     position: fixed;
     bottom: 20px;
@@ -3976,7 +4026,10 @@ button {
 
 /* Floating Toggle Button */
 .chatbot-toggle {
-    position: relative;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, #DAA520, #CD853F);
@@ -4032,9 +4085,10 @@ button {
 
 /* Chatbot Window */
 .chatbot-window {
-    position: absolute;
-    bottom: 80px;
-    right: 0;
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 9998;
     width: 380px;
     height: 600px;
     background: #DEBF89;
@@ -4552,26 +4606,19 @@ button {
 
 /* Chatbot Responsive Design */
 @media (max-width: 768px) {
-    .ai-chatbot-container {
+    .chatbot-toggle {
         bottom: 15px;
         right: 15px;
+        width: 60px;
+        height: 60px;
     }
     
     .chatbot-window {
+        bottom: 90px;
+        right: 15px;
         width: calc(100vw - 30px);
         height: calc(100vh - 120px);
-        bottom: 70px;
-        right: -15px;
-    }
-    
-    .chatbot-toggle {
-        width: 55px;
-        height: 55px;
-    }
-    
-    .chatbot-icon {
-        width: 25px;
-        height: 25px;
+        max-width: 380px;
     }
 }
 

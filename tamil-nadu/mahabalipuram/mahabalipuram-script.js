@@ -3,10 +3,13 @@
 
 // Modal Management
 function openModal(modalId) {
+    console.log('Opening modal:', modalId);
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
+    } else {
+        console.error('Modal not found:', modalId);
     }
 }
 
@@ -19,7 +22,7 @@ function closeModal(modalId) {
 }
 
 // Close modal when clicking outside
-window.onclick = function(event) {
+window.addEventListener('click', function(event) {
     const modals = document.querySelectorAll('.modal');
     modals.forEach(modal => {
         if (event.target === modal) {
@@ -27,7 +30,7 @@ window.onclick = function(event) {
             document.body.style.overflow = 'auto';
         }
     });
-}
+});
 
 // Gallery Tab Management
 function switchTab(tabName) {
@@ -140,20 +143,125 @@ function openImageModal(imageSrc, caption) {
     
     document.body.appendChild(modal);
     modal.style.display = 'block';
-    
+
+    // Helper: get list of gallery image srcs in order
+    function getGalleryImages() {
+        const imgs = Array.from(document.querySelectorAll('.gallery-track .card-image'));
+        return imgs.map(i => i.getAttribute('src'));
+    }
+
+    // Navigate to next/previous image
+    function showImageByIndex(idx) {
+        const images = getGalleryImages();
+        if (!images.length) return;
+        const newSrc = images[(idx + images.length) % images.length];
+        const imgEl = modal.querySelector('.modal-image');
+        if (imgEl) imgEl.src = newSrc;
+        // update caption from matching card overlay button if possible
+        const card = Array.from(document.querySelectorAll('.gallery-track .heritage-card')).find(c => c.querySelector('.card-image') && c.querySelector('.card-image').getAttribute('src') === newSrc);
+        const newCaption = card ? (card.querySelector('.card-info h5')?.textContent || '') : '';
+        const capEl = modal.querySelector('.modal-caption');
+        if (capEl && newCaption) capEl.textContent = newCaption;
+
+        // Preload next image
+        const nextIdx = ((idx + 1) % images.length);
+        const pre = new Image(); pre.src = images[nextIdx];
+    }
+
+    function getCurrentIndex() {
+        const images = getGalleryImages();
+        const imgEl = modal.querySelector('.modal-image');
+        const cur = imgEl ? imgEl.getAttribute('src') : imageSrc;
+        return images.findIndex(s => s === cur);
+    }
+
     // Close on outside click
     modal.addEventListener('click', function(e) {
         if (e.target === modal) {
             closeImageModal();
         }
     });
-    
-    // Close on escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeImageModal();
+
+    // Add navigation and actions to modal
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'modal-prev';
+    prevBtn.setAttribute('aria-label', 'Previous image');
+    prevBtn.innerHTML = '◀';
+    prevBtn.addEventListener('click', () => {
+        const idx = getCurrentIndex();
+        showImageByIndex(idx - 1);
+    });
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'modal-next';
+    nextBtn.setAttribute('aria-label', 'Next image');
+    nextBtn.innerHTML = '▶';
+    nextBtn.addEventListener('click', () => {
+        const idx = getCurrentIndex();
+        showImageByIndex(idx + 1);
+    });
+
+    const downloadBtn = document.createElement('a');
+    downloadBtn.className = 'modal-download';
+    downloadBtn.setAttribute('download', '');
+    downloadBtn.setAttribute('aria-label', 'Download image');
+    downloadBtn.textContent = 'Download';
+    downloadBtn.style.marginLeft = '8px';
+
+    const shareBtn = document.createElement('button');
+    shareBtn.className = 'modal-share';
+    shareBtn.setAttribute('aria-label', 'Share image');
+    shareBtn.textContent = 'Share';
+    shareBtn.style.marginLeft = '8px';
+    shareBtn.addEventListener('click', async () => {
+        const imgEl = modal.querySelector('.modal-image');
+        const url = imgEl ? imgEl.src : window.location.href;
+        if (navigator.share) {
+            try { await navigator.share({ title: caption || 'Mahabalipuram Image', url }); } catch (e) { console.warn('Share canceled', e); }
+        } else {
+            // fallback: copy to clipboard
+            try { await navigator.clipboard.writeText(url); alert('Image URL copied to clipboard'); } catch (e) { alert('Share not available'); }
         }
     });
+
+    const modalContent = modal.querySelector('.image-modal-content');
+    if (modalContent) {
+        modalContent.appendChild(prevBtn);
+        modalContent.appendChild(nextBtn);
+        modalContent.appendChild(downloadBtn);
+        modalContent.appendChild(shareBtn);
+        // set download href
+        const imgEl = modal.querySelector('.modal-image');
+        if (imgEl) downloadBtn.href = imgEl.src;
+    }
+
+    // Keyboard navigation and escape
+    function modalKeyHandler(e) {
+        if (e.key === 'Escape') {
+            closeImageModal();
+        } else if (e.key === 'ArrowLeft') {
+            const idx = getCurrentIndex(); showImageByIndex(idx - 1);
+        } else if (e.key === 'ArrowRight') {
+            const idx = getCurrentIndex(); showImageByIndex(idx + 1);
+        }
+    }
+    document.addEventListener('keydown', modalKeyHandler);
+
+    // Update download link when image changes (observe src changes)
+    const observer = new MutationObserver(() => {
+        const imgEl = modal.querySelector('.modal-image');
+        if (imgEl) {
+            downloadBtn.href = imgEl.src;
+        }
+    });
+    const imgElForObs = modal.querySelector('.modal-image');
+    if (imgElForObs) observer.observe(imgElForObs, { attributes: true, attributeFilter: ['src'] });
+
+    // Ensure we cleanup when modal closes
+    modal._cleanup = function() {
+        document.removeEventListener('keydown', modalKeyHandler);
+        observer.disconnect();
+    };
 }
 
 function closeImageModal() {
@@ -269,54 +377,509 @@ function openStorytellingModal() {
 
 function startStory(storyType) {
     const stories = {
-        king: {
-            title: "The Pallava King's Vision",
-            content: `
+        seven_pagodas: {
+            title_en: "The Legend of the Seven Pagodas",
+            content_en: `
                 <div class="story-content">
-                    <h4>Narasimhavarman I's Grand Vision</h4>
-                    <p>In the 7th century, King Narasimhavarman I, known as Mamalla, stood on the shores of what would become Mahabalipuram. The sea breeze carried whispers of divine inspiration...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('king', 'vision')" class="story-choice-btn">Explore the King's Divine Vision</button>
-                        <button onclick="continueStory('king', 'construction')" class="story-choice-btn">Witness the Construction Begin</button>
-                    </div>
+                    <h4>The Mystery of the Submerged Temples</h4>
+                    <p>Along the Coromandel Coast, ancient mariners spoke of a breathtaking sight—seven magnificent temples that rose from the shore like divine beacons, their spires touching the heavens. These weren't ordinary temples but architectural marvels that guided ships safely to harbor, their golden pinnacles visible from miles across the Bay of Bengal. Sailors from distant lands—from Southeast Asia, China, and even the Roman Empire—navigated by these sacred landmarks, each temple more splendid than the last.</p>
+                    <p>But the gods grew jealous of such earthly perfection. Legend says that Indra, the king of gods, feared that mortals had created something too beautiful, something that rivaled the celestial palaces of the heavens themselves. In divine envy, he summoned a great deluge that swallowed six of the seven temples beneath the waves. Today, only the Shore Temple stands as a solitary sentinel, bearing witness to the glory that once was. Local fishermen still speak of glimpses beneath the waters during calm seas—the outline of submerged spires, the echo of temple bells carried by the tide. The seven pagodas remain one of India's greatest mysteries, a reminder that some treasures belong both to history and to legend, waiting beneath the waves for their stories to resurface.</p>
+                </div>
+            `,
+            title_ta: "ஏழு பக்கங்கள் விளக்கத்தின் கதை",
+            content_ta: `
+                <div class="story-content">
+                    <h4>முனையப்பட்ட கோவில்களின் மர்மம்</h4>
+                    <p>கொரமண்டல் கரையைப்போற்றி, பழமையான கடலோர வணிகர்கள் ஏழு மகத்தான கோவில்களின் அதிசய தோற்றத்தைப் பற்றி பேச்ரார்கள் — கரையோரத்தில் நிலைத்து, தாம்பேல் போல உயர்ந்த அ尖கோபுரங்கள் நீண்ட தூரத்திலிருந்து காட்சி அளித்தன. இவை சாதாரணக் கோவில்கள் அல்ல; யான்களை பாதுகாக்கும் அசாதாரண கட்டிடக் கலை விளக்கங்கள் போன்றவை. தென்னகாசிய, சீனா மற்றும் ரோமன் பேரரசுகளிலிருந்து வந்த கொள்ளையோர் கூட இக் கரைவழி அடையாளங்களையொட்டி பயணித்தார்கள்.</p>
+                    <p>ஆனால், கடவுள்கள் இந்த பூமியின் அழகைப் பார்த்து பொறாமை கொண்டதாகச் சொல்லப்படுகிறது. அரசரான இந்த்ரர், மக்களால் சித்திக்கப்பட்ட இந்த அழகை பார்க்கி அதனை அழிக்க ஒரு பெரும் கரைநீர் அனுப்பினான்; அதன் பயனாலே ஆறு கோவில்கள் அலைகளினால் மூழ்கின. இன்று மட்டும் ஓர் கரை கோவில் மட்டுமே நிலைத்திருக்கிறது — அந்தக் காலத்தின் மகிமையை சாட்சியமளிக்கிறது. மீனவர்கள் அமைதியான கடல்நேரங்களில் ஆழத்தளத்தில் அடையாளங்களைக் காண்பதாகச் சொல்லுகிறார்கள் — மூழ்கிச் சென்ற மாடிகளின் இலக்குகள், அலைகளோடு வந்து சென்ற கேவலங்கள். ஏழு பக்கங்கள் என்ற மர்மம் இன்றும் வாழ்கிறது, வரலாறும் கதைகளும் ஒன்றாக இணைந்திருக்கும் ஒரு நினைவாக.</p>
                 </div>
             `
         },
-        sculptor: {
-            title: "The Master Sculptor's Tale",
-            content: `
+        butter_ball: {
+            title_en: "Krishna's Butter Ball",
+            content_en: `
                 <div class="story-content">
-                    <h4>The Artisan's Journey</h4>
-                    <p>Master sculptor Vishvakarma picked up his chisel, examining the massive granite boulder. Each strike would bring the Pancha Rathas closer to reality...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('sculptor', 'technique')" class="story-choice-btn">Learn Ancient Carving Techniques</button>
-                        <button onclick="continueStory('sculptor', 'challenges')" class="story-choice-btn">Face the Sculptor's Challenges</button>
-                    </div>
+                    <h4>The Immovable Divine Prank</h4>
+                    <p>Perched impossibly on a steep slope sits a massive granite boulder, defying all laws of physics and human understanding. Measuring about 6 meters in height and weighing approximately 250 tons, this giant rock balances on an incredibly small contact point, appearing as if it might roll down at any moment—yet it has remained frozen in place for over 1,200 years. The locals call it "Krishna's Butter Ball," and the story behind this name is as charming as it is divine.</p>
+                    <p>According to legend, Lord Krishna, known for his mischievous childhood antics and insatiable love for butter, placed this boulder here as a cosmic reminder of his playful nature. Just as young Krishna would steal butter from his mother Yashoda's kitchen, this "butter ball" represents a divine prank—a monument to innocence and wonder. What makes this legend even more compelling is the boulder's stubborn resistance to movement. In 1908, Governor Arthur Lawley attempted to move it using seven elephants, fearing it might roll into the village below. The elephants failed. Modern engineers with tractors and equipment have also tried and failed. The boulder simply will not budge, as if protected by divine intervention. Today, visitors from around the world come to photograph themselves "pushing" the immovable rock, participating in a tradition that connects the playful with the profound, the human with the divine.</p>
+                </div>
+            `,
+            title_ta: "கிருஷ்ணாவின் வெண்ணெய் கல்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>இறைவன் வைத்த நடையற்ற சிக்கல்</h4>
+                    <p>ஒரு கடினமிகு ஈர்மை போகும் மலைத் தாண்டலில் நிலைத்திருக்கும் மிகப் பெரிய கிரானைட் கல், இயற்பியல் விதிகளுக்கு எதிராக நின்று கொண்டிருக்கிறது. சுமார் 6 மீட்டர் உயரமுள்ள இந்தப் பிண்னனியின் எடை சுமார் 250 டன் என்று கருதப்படுகிறது; அது மிகவும் சிறிய தொடர்பு புள்ளியில் சமநிலை பெற்று, எந்த நேரத்திலாவது கீழே தொடர்வதை போலத் தெரிந்தாலும் 1200 ஆண்டுகளுக்கும் மேலாக அங்கு நின்று கிடக்கிறது. இதில் உள்ள கிராம மக்கள் இதை "கிருஷ்ணாவின் வெண்ணெய் கல்" என்று அழைப்பார்கள் — இதன் பின்னணி கதை அற்புதமாகவும் இறைவீரமானவும்தான்.</p>
+                    <p>பழமைவாழ்ந்த கதைகளில், கிருஷ்ணன் சிறுவயதில் yaptığı விருது மற்றும் வெண்ணெய் திருடும் களஞ்சியத்தின் விளைவாகவே இந்தக் கல்லை இங்கு வைத்ததாகச் சொல்லப்படுகிறது. 1908-ம் ஆண்டில் ஆணையர் கருத்தில் கொண்டு ஏழு ஆயுத எலிகளால் அதை நகர்த்த முயன்றபோதும் gagalஆயிற்று. நவீன பொறியியலாளர்களும் அதனை நகர்த்த முயன்றார்களா — அனைத்தும் வெற்றி பெறவில்லை. இன்று சுற்றுலாப் பயணிகள் இங்கே வந்து இந்தக் கல்லை தள்ளும் போல போட்டோ எடுப்பதால் இது ஒரு பாரம்பரிய அனுபவமாக மாறியிருக்கிறது.</p>
                 </div>
             `
         },
-        merchant: {
-            title: "A Merchant's Journey",
-            content: `
+        arjuna_penance: {
+            title_en: "Arjuna's Penance / Descent of the Ganges",
+            content_en: `
                 <div class="story-content">
-                    <h4>The Bustling Port City</h4>
-                    <p>Merchant Dhananjaya's ship approached Mahabalipuram's harbor, loaded with precious goods from distant lands. The Shore Temple gleamed in the morning sun...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('merchant', 'trade')" class="story-choice-btn">Explore International Trade Routes</button>
-                        <button onclick="continueStory('merchant', 'culture')" class="story-choice-btn">Experience Cultural Exchange</button>
-                    </div>
+                    <h4>The Epic Ambiguity in Stone</h4>
+                    <p>Carved upon a colossal granite canvas stretching over 100 feet long and 45 feet high stands one of the world's largest open-air bas-reliefs—a masterpiece so intricate and enigmatic that scholars debate its true meaning even today. The monumental sculpture depicts hundreds of figures: gods and goddesses, humans and ascetics, life-sized elephants, deer, monkeys, and celestial beings, all converging around a natural cleft in the rock. The ambiguity of its narrative has given rise to two equally compelling interpretations, both rooted in India's epic traditions.</p>
+                    <p>The first interpretation sees this as Arjuna's Penance. The great warrior Arjuna, hero of the Mahabharata, stands on one leg in severe penance, seeking the powerful Pashupatastra weapon from Lord Shiva to defeat his enemies in the great war of Kurukshetra. Shiva, pleased by Arjuna's devotion, appears in the guise of a hunter to test the warrior's worthiness. The second interpretation identifies the scene as the Descent of the Ganges—depicting King Bhagiratha's legendary penance to bring the sacred river Ganga from heaven to earth, to purify the ashes of his ancestors. The natural cleft represents the celestial river flowing down, captured by Shiva's matted locks to prevent its force from destroying the earth. What makes this relief truly extraordinary is that both interpretations coexist, neither diminishing the other. The ambiguity reflects the richness of Indian mythology where multiple truths can exist simultaneously, where art transcends singular narrative to become a meditation on devotion, sacrifice, and the eternal connection between the mortal and divine realms.</p>
+                </div>
+            `,
+            title_ta: "அர்ஜுனப் பிரயாசம் / கணவு தாங்கிய கங்கை",
+            content_ta: `
+                <div class="story-content">
+                    <h4>கல்லில் வெளிப்பட்ட பாரம்பரியக் கருத்து</h4>
+                    <p>ஒரு பெரிய கிரானைட் பலகையில் தொன்றி நூறு அடி நீளமும் நாற்பது அடி உயரமும் கொண்ட உலகிலேயே பெரிய தட்டப்பட்ட சிற்பங்களில் ஒன்று இங்கு உள்ளது — இதன் நுணுக்கமான சிற்பக்காட்சி இன்று வரையும் அறிஞர்களின் விவாதத்திற்கு வழியாகிறது. அரண்மனைகள், தெய்வங்கள், மனிதர்கள், வேணுகளில் வாழும் விலங்குகள் மற்றும் பரலோக உருவங்கள் ஆகியோரின் எண்ணற்ற உருவங்கள் இந்த விசாலமான கல்லில் கூடியுள்ளன. இந்தக் காட்சியின் வர்ணனை இரண்டு பலமான மொழிகளில் விளக்கப்படுகிறது.
+                    <p>முதலில் இது அர்ஜுனாவின் பிரயாசமாக கருதப்படுவதாகும். மகாபாரதத்தின் வீரன் அர்ஜுனன் ஒரு காலில் நின்று கடும் தவம் செய்து, கடுமையான ஆயுதத்தைப் பெற முயல்கிறான். இரண்டாம் உரை கதை என்பது கணவ மற்றும் கங்கை இறக்கத்தின் கதை — பாகிரதன் என்று அழைக்கப்பட்ட ராஜாவிற்கு புவியின்மேல் கங்கையை கொண்டு வர தன் அம்மாவின் பிறப்பினை சுத்திகரிக்க வேண்டிய கடுமையான தவம் குறித்தப் பாடலைக் குறிப்பிடுகிறது. இரு கதைகளும் ஒரே சிற்பத்தில் இணைந்து இருப்பதே இதன் அதிசயம்; பல விரிவான உண்மைகள் ஒரே நேரத்தில் coexist செய்யும் பாரம்பரியத்தின் அழகை இது காட்டுகின்றது.</p>
                 </div>
             `
         }
     };
-    
+
+    // Ensure we have a cached copy of the story-selection HTML so we can return to it
+    if (!window._mahabalipuram_story_options_html) {
+        const initialBody = document.querySelector('#storytellingModal .modal-body');
+        if (initialBody) window._mahabalipuram_story_options_html = initialBody.innerHTML;
+    }
+
     const modalBody = document.querySelector('#storytellingModal .modal-body');
     if (stories[storyType] && modalBody) {
-        modalBody.innerHTML = stories[storyType].content;
+        // Render content based on the selected narration language
+        const lang = _selectedNarrationLanguage === 'ta' ? 'ta' : 'en';
+        const titleKey = `title_${lang}`;
+        const contentKey = `content_${lang}`;
+        const renderedTitle = stories[storyType][titleKey] || stories[storyType].title_en || '';
+        const renderedContent = stories[storyType][contentKey] || stories[storyType].content_en || '';
+
+        modalBody.innerHTML = renderedContent;
+
+        // Add a "Back to Stories" button so users can return to the selection
+        const backBtnHtml = `<div class="story-back-wrapper"><button class="action-btn secondary-btn back-to-stories" onclick="showStorySelection()">← Back to Stories</button></div>`;
+        modalBody.insertAdjacentHTML('afterbegin', backBtnHtml);
+
+        // Store current story metadata on the modal for later narration
+        const modal = document.getElementById('storytellingModal');
+        if (modal) {
+            modal.dataset.currentStoryKey = storyType;
+            modal.dataset.currentStoryTitle = renderedTitle || '';
+            modal.dataset.currentStoryHtml = renderedContent || '';
+        }
+
+        // Add Narrate controls (generate & play) below the story — include language + voice selectors
+        const controlsHtml = `
+            <div class="story-narration-controls">
+                <label for="narrationLanguage" class="voice-label">Language:</label>
+                <select id="narrationLanguage" class="quick-narrate-select">
+                    <option value="en">English</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                </select>
+                <label for="voiceSelect" class="voice-label">Voice:</label>
+                <select id="voiceSelect" class="quick-narrate-select"><option>Loading voices...</option></select>
+                <button class="action-btn primary-btn" onclick="narrateStory()">🔊 Narrate this story (AI)</button>
+                <button class="action-btn secondary-btn" onclick="narrateOriginal()">🔈 Narrate Original</button>
+                <button class="action-btn" id="playNarrationBtn" onclick="playNarration()" disabled>Play</button>
+                <button class="action-btn" id="pauseNarrationBtn" onclick="pauseNarration()" disabled>Pause</button>
+                <button class="action-btn" id="stopNarrationBtn" onclick="stopNarration()" disabled>Stop</button>
+                <div id="narrationSpinner" style="display:none;margin-top:10px;color:#DAA520;">Generating narration...</div>
+                <div id="voiceAvailability" class="voice-availability" aria-live="polite" style="margin-top:8px;font-size:0.95rem;color:#f0e6d6"></div>
+                <div id="voiceMismatchWarning" class="voice-mismatch-warning" aria-live="polite" style="margin-top:6px;font-size:0.9rem;color:#ffcc66;display:none"></div>
+            </div>
+            <div id="narrationText" style="margin-top:15px;padding:15px;background:rgba(218,165,32,0.1);border-radius:10px;display:none;"></div>
+        `;
+
+        modalBody.insertAdjacentHTML('beforeend', controlsHtml);
+        
+        // Ensure voice list and language selector populate for the newly-inserted controls
+        try { populateVoiceList(); } catch (e) {}
+        try { populateNarrationLanguageSelector(); } catch (e) {}
     }
+}
+
+// Restore the original story selection grid inside the storytelling modal
+function showStorySelection() {
+    const modalBody = document.querySelector('#storytellingModal .modal-body');
+    if (!modalBody) return;
+    if (window._mahabalipuram_story_options_html) {
+        modalBody.innerHTML = window._mahabalipuram_story_options_html;
+    } else {
+        // Fallback: reconstruct simple options if cached HTML isn't available
+        modalBody.innerHTML = `
+            <div class="story-options">
+                <div class="story-card" onclick="startStory('seven_pagodas')">
+                    <h4>The Legend of the Seven Pagodas</h4>
+                    <p>Discover the mystery of the six lost temples swallowed by the sea, leaving only the Shore Temple standing today</p>
+                </div>
+                <div class="story-card" onclick="startStory('butter_ball')">
+                    <h4>Krishna's Butter Ball</h4>
+                    <p>The tale of the giant boulder that defies gravity and cannot be moved—a divine reminder of Lord Krishna's playful nature</p>
+                </div>
+                <div class="story-card" onclick="startStory('arjuna_penance')">
+                    <h4>Arjuna's Penance / Descent of the Ganges</h4>
+                    <p>Explore the epic ambiguity of the world's largest open-air relief—a masterpiece with two legendary interpretations</p>
+                </div>
+            </div>
+        `;
+    }
+}
+
+// Voice management for SpeechSynthesis
+let _selectedVoiceName = localStorage.getItem('mahabalipuram_voice') || null;
+let _selectedNarrationLanguage = localStorage.getItem('mahabalipuram_narration_lang') || 'ta';
+
+function populateVoiceList() {
+    const select = document.getElementById('voiceSelect');
+    if (!select) return;
+
+    const voices = speechSynthesis.getVoices();
+    if (!voices || !voices.length) return;
+
+    select.innerHTML = '';
+    voices.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.name;
+        opt.textContent = `${v.name} (${v.lang})${v.default ? ' — default' : ''}`;
+        try { opt.dataset.lang = v.lang || ''; } catch (e) {}
+        select.appendChild(opt);
+    });
+
+    if (_selectedVoiceName && Array.from(select.options).some(o => o.value === _selectedVoiceName)) {
+        select.value = _selectedVoiceName;
+    } else {
+        const preferredNames = [/Google US English/i, /Microsoft Zira/i, /Zira/i, /Samantha/i, /Alex/i];
+        const preferred = voices.find(v => preferredNames.some(rx => rx.test(v.name)) || /en-?us|en-?gb/i.test(v.lang));
+        if (preferred) select.value = preferred.name;
+    }
+
+    select.addEventListener('change', () => {
+        _selectedVoiceName = select.value;
+        try { localStorage.setItem('mahabalipuram_voice', _selectedVoiceName); } catch (e) {}
+        try { updateVoiceMismatchWarning(); } catch (e) {}
+    });
+
+    try { updateVoiceAvailabilityIndicator(); } catch (e) {}
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(populateVoiceList, 100);
+    setTimeout(() => {
+        try { populateNarrationLanguageSelector(); } catch (e) {}
+    }, 120);
+});
+
+if (typeof speechSynthesis !== 'undefined') {
+    speechSynthesis.onvoiceschanged = function() {
+        try { populateVoiceList(); } catch (e) {}
+    };
+}
+
+function populateNarrationLanguageSelector() {
+    const langSelect = document.getElementById('narrationLanguage');
+    if (!langSelect) return;
+
+    try {
+        if (_selectedNarrationLanguage && Array.from(langSelect.options).some(o => o.value === _selectedNarrationLanguage)) {
+            langSelect.value = _selectedNarrationLanguage;
+        } else {
+            langSelect.value = _selectedNarrationLanguage || 'en';
+        }
+    } catch (e) {}
+
+    langSelect.addEventListener('change', () => {
+        _selectedNarrationLanguage = langSelect.value;
+        try { localStorage.setItem('mahabalipuram_narration_lang', _selectedNarrationLanguage); } catch (e) {}
+        try { updateVoiceAvailabilityIndicator(); } catch (e) {}
+        try { updateVoiceMismatchWarning(); } catch (e) {}
+        // If a story is currently open, re-render it in the newly selected language
+        try {
+            const modal = document.getElementById('storytellingModal');
+            if (modal && modal.style.display === 'block' && modal.dataset && modal.dataset.currentStoryKey) {
+                startStory(modal.dataset.currentStoryKey);
+            }
+        } catch (e) {}
+    });
+}
+
+function updateVoiceAvailabilityIndicator() {
+    const indicator = document.getElementById('voiceAvailability');
+    const lang = _selectedNarrationLanguage || 'en';
+    if (!indicator) return;
+
+    const voices = speechSynthesis.getVoices() || [];
+    const lower = lang === 'ta' ? 'ta' : 'en';
+    const matches = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith(lower));
+
+    if (matches.length > 0) {
+        indicator.textContent = `Voice availability: ${matches.length} ${lang === 'ta' ? 'Tamil' : 'English'} voice(s) available on your browser/device.`;
+        indicator.style.color = '#DAA520';
+    } else {
+        indicator.textContent = `No ${lang === 'ta' ? 'Tamil' : 'English'} voices detected. Playback may use a fallback voice or server-side TTS.`;
+        indicator.style.color = '#ffcc66';
+
+        // If Tamil was requested and no Tamil voices are present, offer server-side audio fallback (if server supports returning audio)
+        if (lang === 'ta') {
+            // Avoid adding duplicate fallback buttons
+            if (!document.getElementById('serverTamilFallbackBtn')) {
+                const btn = document.createElement('button');
+                btn.id = 'serverTamilFallbackBtn';
+                btn.className = 'action-btn secondary-btn';
+                btn.style.marginLeft = '10px';
+                btn.textContent = 'Use Server Tamil TTS';
+                btn.title = 'Request Tamil narration audio from server (if available)';
+                btn.addEventListener('click', async () => {
+                    try {
+                        const modal = document.getElementById('storytellingModal');
+                        if (!modal) return alert('Open a story first');
+                        const title = modal.dataset.currentStoryTitle || 'Heritage Story';
+                        const html = modal.dataset.currentStoryHtml || '';
+                        const tmp = document.createElement('div'); tmp.innerHTML = html;
+                        const plain = tmp.innerText.trim();
+                        btn.disabled = true;
+                        btn.textContent = 'Requesting audio...';
+                        const audioData = await requestNarrationAudioFromServer(title, plain, 'ta');
+                        if (audioData && audioData.audioBase64) {
+                            await playBase64Audio(audioData.audioBase64);
+                        } else if (audioData && audioData.audioUrl) {
+                            const a = new Audio(audioData.audioUrl);
+                            await a.play();
+                        } else if (audioData && audioData.narration) {
+                            // server returned text only; fallback to speechSynthesis with ta-IN if available
+                            _currentNarrationText = audioData.narration;
+                            const textEl = document.getElementById('narrationText');
+                            if (textEl) { textEl.textContent = _currentNarrationText; textEl.style.display = 'block'; }
+                            playNarration();
+                        } else {
+                            alert('Server did not return Tamil audio. Please try "Narrate this story (AI)" or enable a Tamil voice in your browser.');
+                        }
+                    } catch (err) {
+                        console.error('Server Tamil TTS failed', err);
+                        alert('Server Tamil TTS failed. Check console for details.');
+                    } finally {
+                        btn.disabled = false;
+                        btn.textContent = 'Use Server Tamil TTS';
+                    }
+                });
+
+                indicator.parentNode && indicator.parentNode.appendChild(btn);
+            }
+        }
+    }
+}
+
+// Request narration from server that may return audio (base64 or URL) or text.
+async function requestNarrationAudioFromServer(title, content, language = 'en') {
+    try {
+        const resp = await fetch('/api/chatbot/narrate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, content, language })
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data?.message || 'Narration request failed');
+
+        // Accept a flexible response: { narration: 'text' } or { audioBase64: '...', audioUrl: '...' }
+        return data;
+    } catch (err) {
+        console.error('Narration audio request failed', err);
+        return null;
+    }
+}
+
+// Play base64-encoded audio (assumed to be mp3 or wav) by creating a Blob and using Audio
+async function playBase64Audio(base64) {
+    try {
+        const byteChars = atob(base64);
+        const byteNumbers = new Array(byteChars.length);
+        for (let i = 0; i < byteChars.length; i++) {
+            byteNumbers[i] = byteChars.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'audio/mpeg' });
+        const url = URL.createObjectURL(blob);
+        const audio = new Audio(url);
+        await audio.play();
+        // Cleanup after playback
+        audio.addEventListener('ended', () => { URL.revokeObjectURL(url); });
+    } catch (err) {
+        console.error('playBase64Audio error', err);
+        throw err;
+    }
+}
+
+function updateVoiceMismatchWarning() {
+    const warningEl = document.getElementById('voiceMismatchWarning');
+    if (!warningEl) return;
+
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (!voiceSelect) { warningEl.style.display = 'none'; return; }
+
+    const selectedOpt = voiceSelect.options[voiceSelect.selectedIndex];
+    const voiceLang = (selectedOpt && selectedOpt.dataset && selectedOpt.dataset.lang) ? selectedOpt.dataset.lang.toLowerCase() : '';
+    const requestedLang = (_selectedNarrationLanguage === 'ta') ? 'ta' : 'en';
+
+    if (!voiceLang) {
+        warningEl.style.display = 'none';
+        return;
+    }
+
+    if (!voiceLang.startsWith(requestedLang)) {
+        warningEl.textContent = 'Warning: The selected voice language does not match the chosen narration language; pronunciation may be poor.';
+        warningEl.style.display = 'block';
+    } else {
+        warningEl.style.display = 'none';
+    }
+}
+
+// Narrate the original story text
+function narrateOriginal() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal) return;
+    const html = modal.dataset.currentStoryHtml || '';
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.innerText.trim();
+
+    _currentNarrationText = plain;
+    const textEl = document.getElementById('narrationText');
+    if (textEl) {
+        textEl.textContent = _currentNarrationText;
+        textEl.style.display = 'block';
+    }
+
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+    if (stopBtn) stopBtn.disabled = false;
+
+    const spinner = document.getElementById('narrationSpinner');
+    if (spinner) spinner.style.display = 'none';
+
+    playNarration();
+}
+
+let _currentUtterance = null;
+let _currentNarrationText = '';
+
+async function requestNarrationFromServer(title, content, language = 'en') {
+    try {
+        const resp = await fetch('/api/chatbot/narrate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, content, language })
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data?.message || 'Narration request failed');
+        return data.narration || '';
+    } catch (err) {
+        console.error('Narration request failed', err);
+        throw err;
+    }
+}
+
+async function narrateStory() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal) return;
+    const title = modal.dataset.currentStoryTitle || 'Heritage Story';
+    const html = modal.dataset.currentStoryHtml || '';
+
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.innerText.trim();
+
+    const spinner = document.getElementById('narrationSpinner');
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    const textEl = document.getElementById('narrationText');
+
+    if (spinner) spinner.style.display = 'inline-block';
+    try {
+        const narration = await requestNarrationFromServer(title, plain, _selectedNarrationLanguage);
+        _currentNarrationText = narration || '';
+        if (textEl) {
+            textEl.textContent = _currentNarrationText;
+            textEl.style.display = 'block';
+        }
+
+        if (playBtn) playBtn.disabled = false;
+        if (pauseBtn) pauseBtn.disabled = true;
+        if (stopBtn) stopBtn.disabled = false;
+
+        playNarration();
+    } catch (err) {
+        if (textEl) {
+            textEl.textContent = 'Unable to generate narration. Please try again later.';
+            textEl.style.display = 'block';
+        }
+    } finally {
+        if (spinner) spinner.style.display = 'none';
+    }
+}
+
+function playNarration() {
+    if (!_currentNarrationText) return;
+    if (speechSynthesis.speaking && speechSynthesis.paused) {
+        speechSynthesis.resume();
+        document.getElementById('pauseNarrationBtn').disabled = false;
+        return;
+    }
+
+    if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+    }
+
+    const utter = new SpeechSynthesisUtterance(_currentNarrationText);
+    utter.rate = 1.0;
+    utter.pitch = 1.0;
+    
+    const voices = speechSynthesis.getVoices();
+    if (voices && voices.length) {
+        if (_selectedNarrationLanguage === 'ta') {
+            utter.lang = 'ta-IN';
+        } else {
+            utter.lang = 'en-US';
+        }
+        
+        if (_selectedVoiceName) {
+            const userVoice = voices.find(v => v.name === _selectedVoiceName);
+            if (userVoice) utter.voice = userVoice;
+        }
+
+        if (!utter.voice) {
+            const langPrefix = _selectedNarrationLanguage === 'ta' ? 'ta' : 'en';
+            const preferred = voices.find(v => v.lang && v.lang.toLowerCase().startsWith(langPrefix)) || 
+                            voices.find(v => /Google US English|Microsoft Zira/i.test(v.name)) || 
+                            voices[0];
+            if (preferred) utter.voice = preferred;
+        }
+    }
+    
+    utter.onend = () => {
+        document.getElementById('pauseNarrationBtn').disabled = true;
+        document.getElementById('playNarrationBtn').disabled = false;
+    };
+    utter.onerror = (e) => {
+        console.error('TTS error', e);
+    };
+
+    _currentUtterance = utter;
+    speechSynthesis.speak(utter);
+    document.getElementById('playNarrationBtn').disabled = true;
+    document.getElementById('pauseNarrationBtn').disabled = false;
+}
+
+function pauseNarration() {
+    if (speechSynthesis.speaking && !speechSynthesis.paused) {
+        speechSynthesis.pause();
+        document.getElementById('pauseNarrationBtn').disabled = true;
+        document.getElementById('playNarrationBtn').disabled = false;
+    }
+}
+
+function stopNarration() {
+    if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+    }
+    document.getElementById('pauseNarrationBtn').disabled = true;
+    document.getElementById('playNarrationBtn').disabled = false;
 }
 
 function continueStory(character, choice) {
@@ -341,7 +904,7 @@ function continueStory(character, choice) {
             <div class="story-continuation">
                 <h4>Story Continues...</h4>
                 <p>${continuations[character][choice]}</p>
-                <button onclick="startStory('${character}')" class="story-choice-btn">Return to Story Selection</button>
+                <button onclick="showStorySelection()" class="story-choice-btn">Return to Stories</button>
                 <button onclick="closeModal('storytellingModal')" class="story-choice-btn">End Story</button>
             </div>
         `;
@@ -1528,11 +2091,15 @@ IMPORTANT: Answer whatever the user asks about - general questions, personal que
     toggleChatbot() {
         const window = document.getElementById('chatbotWindow');
         
+        const toggleBtn = document.getElementById('chatbotToggle');
+        
         if (this.isOpen) {
             this.closeChatbot();
+            if (toggleBtn) toggleBtn.setAttribute('aria-pressed', 'false');
         } else {
             window.classList.add('show');
             this.isOpen = true;
+            if (toggleBtn) toggleBtn.setAttribute('aria-pressed', 'true');
             
             // Focus on input if chat interface is shown
             if (!document.getElementById('apiKeySetup').classList.contains('hidden')) {
@@ -1551,6 +2118,8 @@ IMPORTANT: Answer whatever the user asks about - general questions, personal que
         const window = document.getElementById('chatbotWindow');
         window.classList.remove('show');
         this.isOpen = false;
+        const toggleBtn = document.getElementById('chatbotToggle');
+        if (toggleBtn) toggleBtn.setAttribute('aria-pressed', 'false');
     }
     
     resetApiKey() {
@@ -1832,3 +2401,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 1000);
 });
+
+// Fix for Storytelling Modal Button
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🔧 Initializing Storytelling Button Fix...');
+    const storyBtn = document.querySelector('button[onclick="openStorytellingModal()"]');
+    if (storyBtn) {
+        console.log('✅ Found story button by onclick attribute. Attaching event listener directly.');
+        storyBtn.removeAttribute('onclick'); // Remove inline handler to prevent conflicts
+        storyBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('🖱️ Story button clicked');
+            openStorytellingModal();
+        });
+    } else {
+        // Fallback: Find by class and text if onclick was already removed or changed
+        const btns = document.querySelectorAll('.action-btn.primary-btn');
+        let found = false;
+        btns.forEach(btn => {
+            if (btn.textContent.includes('Begin Story Journey')) {
+                console.log('✅ Found story button by text content. Attaching event listener.');
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('🖱️ Story button clicked (fallback)');
+                    openStorytellingModal();
+                });
+                found = true;
+            }
+        });
+        if (!found) console.warn('⚠️ Story button not found');
+    }
+});
+

@@ -19,6 +19,232 @@
     --middle-repeat-height: 60vh;
 }
 
+/*
+    Fix: Reset transforms to prevent global GPU transform rules
+    from turning `position: fixed` into page-relative positioning.
+    The global `* { transform: translateZ(0); }` in
+    `css/performance-optimizations.css` creates new stacking
+    contexts which can break viewport-fixed elements. This
+    override is intentional and scoped to the chatbot elements.
+*/
+html, body {
+    -webkit-transform: none !important;
+    transform: none !important;
+}
+.ai-chatbot-container, .chatbot-toggle, .chatbot-window {
+    -webkit-transform: none !important;
+    transform: none !important;
+}
+
+/* Stronger, ID-based overrides to ensure viewport-fixed behavior */
+#aiChatbot, #chatbotToggle, #chatbotWindow {
+    position: fixed !important;
+    -webkit-transform: none !important;
+    transform: none !important;
+    z-index: 99999 !important;
+}
+
+#chatbotToggle {
+    bottom: 20px !important;
+    right: 20px !important;
+}
+
+#chatbotWindow {
+    bottom: 100px !important;
+    right: 20px !important;
+    width: 380px !important;
+}
+
+/* ===============================================
+   AI Chatbot Styles (copied from Thanjavur standard)
+   Ensures consistent chatbot UI across sites
+   =============================================== */
+
+.ai-chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: 'Cinzel', serif;
+}
+
+/* Floating Toggle Button */
+.chatbot-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #DAA520, #CD853F);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    animation: chatbotFloat 3s ease-in-out infinite;
+}
+
+.chatbot-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 35px rgba(218, 165, 32, 0.6);
+}
+
+.chatbot-icon {
+    width: 28px;
+    height: 28px;
+    fill: #DEBF89;
+    transition: transform 0.3s ease;
+}
+
+.chatbot-toggle:hover .chatbot-icon {
+    transform: scale(1.1);
+}
+
+.chat-pulse {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 16px;
+    height: 16px;
+    background: #00ff88;
+    border-radius: 50%;
+    border: 2px solid white;
+    animation: pulse 2s infinite;
+}
+
+@keyframes chatbotFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Chatbot Window */
+.chatbot-window {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 9998;
+    width: 380px;
+    height: 600px;
+    background: #DEBF89;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    border: 3px solid #DAA520;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatbot-window.show {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Header */
+.chatbot-header {
+    background: linear-gradient(135deg, #8B4513, #5D4037);
+    color: #DEBF89;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid #DAA520;
+}
+
+.chatbot-avatar {
+    width: 40px;
+    height: 40px;
+    background: #DAA520;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-icon {
+    width: 20px;
+    height: 20px;
+    fill: #8B4513;
+}
+
+.chatbot-info {
+    flex: 1;
+}
+
+.chatbot-info h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #DAA520;
+}
+
+.chatbot-info .status {
+    font-size: 12px;
+    color: #00ff88;
+    opacity: 0.9;
+}
+
+.chatbot-close {
+    background: none;
+    border: none;
+    color: #DEBF89;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatbot-close:hover { background: rgba(255,255,255,0.1); }
+
+/* Typing Indicator & Messages */
+.typing-indicator { display: none; align-items: center; margin: 0 20px 15px 20px; animation: messageSlide 0.4s ease-out; }
+.typing-indicator.show { display: flex; }
+.typing-avatar { width: 32px; height: 32px; background: #DAA520; border-radius: 50%; margin-right: 12px; display: flex; align-items: center; justify-content: center; }
+.typing-text { background: rgba(255,255,255,0.95); padding: 12px 15px; border-radius: 15px; border-bottom-left-radius: 5px; display:flex; align-items:center; gap:10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.typing-text span { font-size:14px; color:#8B4513; }
+.typing-dots { display:flex; gap:4px; }
+.typing-dots span { width:8px; height:8px; background:#DAA520; border-radius:50%; animation: typingDot 1.4s infinite ease-in-out; }
+.typing-dots span:nth-child(2){ animation-delay:0.2s; }
+.typing-dots span:nth-child(3){ animation-delay:0.4s; }
+@keyframes typingDot { 0%,60%,100%{ transform:scale(1); opacity:0.5; } 30%{ transform:scale(1.2); opacity:1; }}
+
+/* Input area and buttons */
+.chat-input-container, .chat-input-area { padding: 15px 20px; background: rgba(255,255,255,0.1); border-top:2px solid #DAA520; display:none; }
+.chat-input-container.show, .chat-input-area.show { display:block; }
+.chat-input-wrapper { display:flex; gap:10px; margin-bottom:10px; }
+#chatInput { flex:1; padding:12px 15px; border:2px solid #DAA520; border-radius:20px; background:rgba(255,255,255,0.95); color:#8B4513; font-family:'Cinzel',serif; font-size:14px; }
+.send-button { width:45px; height:45px; background:linear-gradient(135deg,#DAA520,#CD853F); border:none; border-radius:50%; color:#8B4513; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(218,165,32,0.3); }
+.send-button:disabled { background: rgba(218,165,32,0.3); cursor:not-allowed; }
+
+/* Quick questions */
+.quick-questions { display:flex; gap:8px; flex-wrap:wrap; }
+.quick-btn { background: rgba(255,255,255,0.8); border:1px solid #DAA520; color:#8B4513; padding:6px 12px; border-radius:15px; font-size:12px; cursor:pointer; }
+.quick-btn:hover { background:#DAA520; color:#DEBF89; transform: translateY(-2px); }
+
+/* Responsive */
+@media (max-width:768px){ .chatbot-toggle{ bottom:15px; right:15px; } .chatbot-window{ bottom:90px; right:15px; width:calc(100vw - 30px); height:calc(100vh - 120px); max-width:380px; } }
+
 * {
     margin: 0;
     padding: 0;
@@ -115,7 +341,8 @@ body.heritage-site-body::after {
     min-height: 100vh;
     border: none;
     margin: 0;
-    padding: 220px 8vw 220px 8vw;
+    /* Reduced vertical padding for better visual balance */
+    padding: 140px 6vw 140px 6vw;
     background: transparent;
     box-shadow: none;
     position: relative;
@@ -169,6 +396,64 @@ body.heritage-site-body::after {
 
 .site-hero-content {
     text-align: left;
+}
+
+/* Hero alignment improvements */
+.site-hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+    padding: 8px 12px;
+    max-width: 560px;
+}
+
+.site-hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.site-image-container {
+    margin: 0 auto;
+    max-width: 560px;
+}
+
+.site-title {
+    margin-bottom: 8px;
+}
+
+.site-subtitle, .site-description {
+    line-height: 1.5;
+}
+
+/* Nav spacing */
+.heritage-nav {
+    justify-content: center;
+    gap: 24px;
+    padding: 18px 0;
+}
+
+/* Responsive adjustments: stack hero on smaller screens */
+@media (max-width: 1024px) {
+    .site-hero-section {
+        grid-template-columns: 1fr;
+        padding: 20px 4vw;
+        gap: 30px;
+    }
+
+    .site-hero-content, .site-hero-visual {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .site-image-container {
+        max-width: 90%;
+    }
+
+    .ornate-frame {
+        padding: 80px 4vw 90px 4vw;
+    }
 }
 
 .site-title {

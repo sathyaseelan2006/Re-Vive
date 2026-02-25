@@ -137,16 +137,18 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         
                         path.style.cursor = 'pointer';
-                        path.style.transition = 'transform 0.2s ease, opacity 0.2s ease, fill 0.3s ease, filter 0.3s ease';
-                        path.style.willChange = 'transform, opacity';
+                        path.style.transition = 'fill 0.3s ease, filter 0.3s ease';
+                        path.style.willChange = 'fill, filter';
                         
-                        // Mouse enter event - show tooltip
+                        let leaveTimeout;
+                        
+                        // Mouse enter event - apply golden highlight and show tooltip
                         path.addEventListener('mouseenter', function(e) {
-                            // Only apply hover effect if not selected (golden)
-                            if (!path.style.fill || (path.style.fill !== 'rgb(212, 175, 55)' && path.style.fill !== '#d4af37')) {
-                                path.style.transform = 'scale(1.02)';
-                                path.style.opacity = '0.9';
-                            }
+                            clearTimeout(leaveTimeout);
+                            path.style.fill = '#d4af37';
+                            path.style.stroke = '#e6c547';
+                            path.style.strokeWidth = '3px';
+                            path.style.filter = 'drop-shadow(0 0 12px #d4af37) drop-shadow(0 0 20px #d4af37) brightness(1.2)';
                             
                             // Show tooltip with state information
                             if (stateInfo) {
@@ -176,35 +178,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });                        // Mouse leave event - hide tooltip
                         path.addEventListener('mouseleave', function() {
-                            // Only reset hover effect if not selected (golden)
-                            if (!path.style.fill || (path.style.fill !== 'rgb(212, 175, 55)' && path.style.fill !== '#d4af37')) {
-                                path.style.transform = '';
-                                path.style.opacity = '';
-                            }
-                            tooltip.style.display = 'none';
+                            leaveTimeout = setTimeout(function() {
+                                // Remove golden highlight on mouse leave
+                                path.style.fill = '';
+                                path.style.stroke = '';
+                                path.style.strokeWidth = '';
+                                path.style.filter = '';
+                                tooltip.style.display = 'none';
+                            }, 80);
                         });
                         
-                        // Click event - highlight with golden glow and navigate
+                        // Click event - navigate
                         path.addEventListener('click', function(e) {
-                            // Reset all paths
-                            allPaths.forEach(p => {
-                                p.style.fill = '';
-                                p.style.stroke = '';
-                                p.style.strokeWidth = '';
-                                p.style.filter = '';
-                                p.style.transform = '';
-                                p.style.opacity = '';
-                            });
-                            
-                            // Highlight clicked path with golden glow
-                            path.style.fill = '#d4af37';
-                            path.style.stroke = '#e6c547';
-                            path.style.strokeWidth = '3px';
-                            path.style.filter = 'drop-shadow(0 0 12px #d4af37) drop-shadow(0 0 20px #d4af37) brightness(1.2)';
-                            path.style.transform = 'scale(1.05)';
-                            path.style.opacity = '1';
-                            
-                            // Show selection feedback and navigate
+                            // Navigate on click
                             if (stateInfo) {
                                 console.log(`Selected: ${stateInfo.name}`);
                                 
