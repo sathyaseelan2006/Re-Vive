@@ -80,19 +80,17 @@
         </div>
     </div>
 
-    <script>
-        const API_URL = 'http://localhost:5000/api';
+    <script type="module">
+        import { supabase } from './js/supabase-client.js';
+
         const selectedPreferences = new Set();
         const preferenceCards = document.querySelectorAll('.preference-card');
         const submitBtn = document.getElementById('submitPreferences');
         const selectedCount = document.getElementById('selectedCount');
         const errorMessage = document.getElementById('errorMessage');
 
-        // Get user info from localStorage
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
-        const userId = user.id;
-
-        if (!userId) {
+        // Check if user is logged in
+        if (!supabase.isLoggedIn()) {
             alert('Please login first');
             window.location.href = 'login.html';
         }
@@ -126,40 +124,14 @@
             submitBtn.textContent = 'Analyzing your preferences...';
             
             try {
-                const response = await fetch(`${API_URL}/user/preferences`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        userId: userId,
-                        preferences: Array.from(selectedPreferences)
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    // Store preferences and recommendations in localStorage
-                    localStorage.setItem('userPreferences', JSON.stringify(data.data.preferences));
-                    localStorage.setItem('emotionalProfile', data.data.emotionalProfile);
-                    localStorage.setItem('recommendedSites', JSON.stringify(data.data.recommendedSites));
-                    
-                    // Update user object
-                    user.isFirstLogin = false;
-                    localStorage.setItem('user', JSON.stringify(user));
-                    
-                    // Show success and redirect
-                    alert('Preferences saved! We have personalized recommendations for you.');
-                    window.location.href = 'index.html';
-                } else {
-                    errorMessage.textContent = data.message || 'Failed to save preferences';
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Continue to Heritage Explorer';
-                }
+                const result = await supabase.savePreferences(Array.from(selectedPreferences));
+                
+                // Show success and redirect
+                alert('Preferences saved! We have personalized recommendations for you.');
+                window.location.href = 'index.html';
             } catch (error) {
                 console.error('Error saving preferences:', error);
-                errorMessage.textContent = 'Connection error. Please try again.';
+                errorMessage.textContent = error.message || 'Failed to save preferences. Please try again.';
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Continue to Heritage Explorer';
             }

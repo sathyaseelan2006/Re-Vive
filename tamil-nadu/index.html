@@ -269,22 +269,20 @@
         
     </div>
     
-    <script>
-        // Load personalized recommendations
-        const API_URL = 'http://localhost:5000/api';
+    <script type="module">
+        // Load personalized recommendations using Supabase
+        import { supabase } from '../js/supabase-client.js';
         
         window.addEventListener('DOMContentLoaded', async () => {
-            const user = JSON.parse(localStorage.getItem('user') || '{}');
             const recommendationsPanel = document.getElementById('recommendationsPanel');
             const recommendationsList = document.getElementById('recommendationsList');
             const preferencesTags = document.getElementById('preferencesTags');
             
-            if (user && user.id) {
+            if (supabase.isLoggedIn()) {
                 try {
-                    const response = await fetch(`${API_URL}/user/recommendations/${user.id}`);
-                    const data = await response.json();
+                    const data = await supabase.getRecommendations();
                     
-                    if (data.success && data.recommendations && data.recommendations.length > 0) {
+                    if (data.recommendations && data.recommendations.length > 0) {
                         // Show the panel
                         recommendationsPanel.style.display = 'block';
                         
@@ -310,24 +308,18 @@
                             recCard.innerHTML = `
                                 <div class="rec-number">${index + 1}</div>
                                 <div class="rec-content">
-                                    <h4 class="rec-site-name">${site.siteName}</h4>
-                                    <p class="rec-location">📍 ${site.district || site.location}</p>
-                                    <p class="rec-description">${site.reason}</p>
+                                    <h4 class="rec-site-name">${site.site_name || site.siteName}</h4>
+                                    <p class="rec-location">📍 ${site.location || ''}</p>
+                                    <p class="rec-description">${site.reason || ''}</p>
                                     <div class="rec-match">
-                                        <span class="match-badge">${site.matchScore}% Match</span>
-                                        ${site.period ? `<span class="rec-period">${site.period}</span>` : ''}
+                                        <span class="match-badge">${site.match_score || site.matchScore}% Match</span>
                                     </div>
                                 </div>
                             `;
                             
-                            // Add click handler to navigate to site using urlPath or fallback
+                            // Add click handler to navigate to site
                             recCard.addEventListener('click', () => {
-                                if (site.urlPath) {
-                                    window.location.href = site.urlPath;
-                                } else {
-                                    // Fallback: try to find and click the marker
-                                    navigateToSite(site.siteName);
-                                }
+                                navigateToSite(site.site_name || site.siteName);
                             });
                             
                             recommendationsList.appendChild(recCard);
@@ -355,7 +347,7 @@
             const markers = document.querySelectorAll('.heritage-marker');
             
             recommendations.forEach(rec => {
-                const siteName = rec.siteName.toLowerCase();
+                const siteName = (rec.site_name || rec.siteName || '').toLowerCase();
                 
                 markers.forEach(marker => {
                     const tooltip = marker.querySelector('.marker-tooltip h4');

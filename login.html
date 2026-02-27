@@ -46,8 +46,8 @@
         </div>
     </div>
 
-    <script>
-        const API_URL = 'http://localhost:5000/api';
+    <script type="module">
+        import { supabase } from './js/supabase-client.js';
 
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -71,40 +71,22 @@
             submitBtn.textContent = 'Logging in...';
             
             try {
-                // Send login request to backend
-                const response = await fetch(`${API_URL}/auth/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password })
-                });
+                const data = await supabase.signIn(email, password);
+                const fullName = data.user?.user_metadata?.full_name || data.user?.email || 'User';
 
-                const data = await response.json();
-
-                if (data.success) {
-                    // Store token and user info
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    
-                    // Check if first login - redirect to preferences
-                    const checkFirstLogin = await fetch(`${API_URL}/user/first-login/${data.user.id}`);
-                    const firstLoginData = await checkFirstLogin.json();
-                    
-                    if (firstLoginData.success && firstLoginData.isFirstLogin) {
-                        alert(`Welcome, ${data.user.fullName}! Let's personalize your experience.`);
-                        window.location.href = 'preferences.html';
-                    } else {
-                        alert(`Welcome back, ${data.user.fullName}!`);
-                        window.location.href = 'index.html';
-                    }
+                // Check if first login - redirect to preferences
+                const isFirst = await supabase.isFirstLogin();
+                
+                if (isFirst) {
+                    alert(`Welcome, ${fullName}! Let's personalize your experience.`);
+                    window.location.href = 'preferences.html';
                 } else {
-                    // Show error message
-                    errorMessage.textContent = data.message || 'Login failed. Please try again.';
+                    alert(`Welcome back, ${fullName}!`);
+                    window.location.href = 'index.html';
                 }
             } catch (error) {
                 console.error('Login error:', error);
-                errorMessage.textContent = 'Connection error. Please make sure the server is running.';
+                errorMessage.textContent = error.message || 'Login failed. Please try again.';
             } finally {
                 // Re-enable button
                 submitBtn.disabled = false;

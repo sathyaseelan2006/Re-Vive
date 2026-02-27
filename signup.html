@@ -58,8 +58,8 @@
         </div>
     </div>
 
-    <script>
-        const API_URL = 'http://localhost:5000/api';
+    <script type="module">
+        import { supabase } from './js/supabase-client.js';
 
         document.getElementById('signupForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -95,32 +95,20 @@
             submitBtn.textContent = 'Creating Account...';
             
             try {
-                // Send signup request to backend
-                const response = await fetch(`${API_URL}/auth/signup`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ fullName, email, password, confirmPassword })
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    // Store token and user info
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    
-                    // First time signup - always redirect to preferences
-                    alert(`Welcome to Re:Vive, ${data.user.fullName}! Let's personalize your journey.`);
+                const data = await supabase.signUp(email, password, fullName);
+                
+                if (data.access_token) {
+                    // Signup successful and auto-confirmed
+                    alert(`Welcome to Re:Vive, ${fullName}! Let's personalize your journey.`);
                     window.location.href = 'preferences.html';
-                } else {
-                    // Show error message
-                    errorMessage.textContent = data.message || 'Sign up failed. Please try again.';
+                } else if (data.user && !data.session) {
+                    // Email confirmation required
+                    alert(`Welcome to Re:Vive, ${fullName}! Please check your email to confirm your account, then login.`);
+                    window.location.href = 'login.html';
                 }
             } catch (error) {
                 console.error('Signup error:', error);
-                errorMessage.textContent = 'Connection error. Please make sure the server is running.';
+                errorMessage.textContent = error.message || 'Sign up failed. Please try again.';
             } finally {
                 // Re-enable button
                 submitBtn.disabled = false;
