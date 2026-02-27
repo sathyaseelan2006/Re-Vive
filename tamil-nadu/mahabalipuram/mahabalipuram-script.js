@@ -1870,7 +1870,14 @@ document.addEventListener('DOMContentLoaded', () => {
 // AI Chatbot Implementation
 class HeritageGuideAI {
     constructor() {
-        this.apiKey = localStorage.getItem('gemini_api_key');
+        // Priority 1: Use Vite-injected env var (build time replacement)
+        let envKey = null;
+        try { envKey = process.env.GEMINI_API_KEY; } catch(e) {}
+        if (envKey && envKey !== 'your_gemini_api_key_here' && envKey !== 'undefined') {
+            this.apiKey = envKey;
+        } else {
+            this.apiKey = localStorage.getItem('gemini_api_key');
+        }
         this.isOpen = false;
         this.conversationHistory = [];
         this.isTyping = false;

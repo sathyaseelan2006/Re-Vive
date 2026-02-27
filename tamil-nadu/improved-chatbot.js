@@ -24,17 +24,18 @@ class ImprovedHeritageChatbot {
         this.checkBackendProxy().finally(() => {
             // Continue initialization after backend check
         });
-        // Priority 1: Check for a bundle-provided key (injected at build time) - safe access
+        // Priority 1: Check for Vite-injected env var (build time replacement)
         try {
-            if (window.__VITE_GEMINI_API_KEY__ && window.__VITE_GEMINI_API_KEY__ !== 'your_gemini_api_key_here') {
-                this.apiKey = window.__VITE_GEMINI_API_KEY__;
+            const envKey = process.env.GEMINI_API_KEY;
+            if (envKey && envKey !== 'your_gemini_api_key_here' && envKey !== 'undefined') {
+                this.apiKey = envKey;
                 this.showChatInterface();
-                console.log('✅ API key loaded from injected environment variable');
+                console.log('✅ API key loaded from environment variable');
                 this.setupEventListeners();
                 return;
             }
         } catch (err) {
-            // ignore
+            // ignore — process.env not available outside Vite build
         }
 
         // Priority 2: Check for stored API key in localStorage (guarded for Tracking Prevention)
