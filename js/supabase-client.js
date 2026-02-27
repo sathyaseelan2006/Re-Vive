@@ -105,10 +105,9 @@ class SupabaseClient {
         if (data.error || res.status >= 400) {
             throw new Error(data.error_description || data.msg || data.error?.message || 'Sign up failed');
         }
-        // After signup, create user_profiles row
+        // Database trigger handle_new_user() auto-creates user_profiles row
         if (data.access_token) {
             this._saveSession(data);
-            await this._createProfile(data.user.id, fullName);
         }
         return data;
     }
@@ -150,27 +149,7 @@ class SupabaseClient {
     }
 
     // ─── Profile ───────────────────────────────────────────────────
-
-    async _createProfile(userId, fullName) {
-        try {
-            await fetch(`${this.restUrl}/user_profiles`, {
-                method: 'POST',
-                headers: {
-                    ...this._headers(true),
-                    'Prefer': 'return=minimal'
-                },
-                body: JSON.stringify({
-                    id: userId,
-                    full_name: fullName,
-                    is_first_login: true,
-                    preferences: [],
-                    created_at: new Date().toISOString()
-                })
-            });
-        } catch (e) {
-            console.warn('Profile creation may have failed (could already exist):', e);
-        }
-    }
+    // Note: user_profiles row is auto-created by the handle_new_user() database trigger
 
     async _updateLastLogin() {
         if (!this.user) return;
@@ -277,7 +256,7 @@ class SupabaseClient {
                 siteName: r.site_name,
                 location: r.location,
                 district: r.location,
-                matchScore: Math.round((r.match_score || 0) * 100),
+                matchScore: r.match_score || 0,
                 reason: r.reason || '',
                 urlPath: r.url_path || '',
                 period: r.period || ''
@@ -368,7 +347,7 @@ class SupabaseClient {
                 user_id: this.user.id,
                 site_name: r.siteName,
                 location: r.location,
-                match_score: r.matchScore / 100, // Store as 0-1 decimal
+                match_score: r.matchScore, // Store as integer
                 reason: r.reason
             }));
 
