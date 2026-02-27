@@ -58,7 +58,6 @@ export default defineConfig(({ mode }) => {
             preferences: path.resolve(__dirname, 'preferences.html'),
             // Tamil Nadu pages
             'tamil-nadu': path.resolve(__dirname, 'tamil-nadu/index.html'),
-            'tamil-nadu-chennai': path.resolve(__dirname, 'tamil-nadu/chennai/index.html'),
             'tamil-nadu-chettinad': path.resolve(__dirname, 'tamil-nadu/chettinad/index.html'),
             'tamil-nadu-chidambaram': path.resolve(__dirname, 'tamil-nadu/chidambaram/index.html'),
             'tamil-nadu-darasuram': path.resolve(__dirname, 'tamil-nadu/darasuram/index.html'),

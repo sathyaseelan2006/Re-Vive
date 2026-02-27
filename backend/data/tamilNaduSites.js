@@ -241,21 +241,6 @@ export const tamilNaduSites = [
         isActive: true
     },
     {
-        siteName: "Chennai Heritage",
-        location: "Chennai",
-        district: "Chennai",
-        period: "Colonial to Modern",
-        emotionalTags: ["cultural", "history", "architecture", "nature"],
-        highlights: [
-            "Marina Beach promenade",
-            "Colonial architecture",
-            "Cultural institutions",
-            "Gateway to Tamil Nadu"
-        ],
-        urlPath: "/tamil-nadu/chennai/index.html",
-        isActive: true
-    },
-    {
         siteName: "Keeladi Archaeological Site",
         location: "Keeladi",
         district: "Sivaganga",
