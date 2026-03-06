@@ -4,13 +4,20 @@ import react from '@vitejs/plugin-react';
 import fs from 'fs';
 
 // Plugin to copy non-module JS files to dist (Vite skips <script> tags without type="module")
-function copyNonModuleScripts(): Plugin {
+// Also replaces process.env.GEMINI_API_KEY with actual value since Vite won't process these
+function copyNonModuleScripts(envVars: Record<string, string>): Plugin {
   return {
     name: 'copy-non-module-scripts',
     closeBundle() {
       const rootDir = __dirname;
       const distDir = path.join(rootDir, 'dist');
       const dirs = ['js', 'tamil-nadu', 'heritageai'];
+
+      // Env var replacements to apply in copied JS files
+      const replacements: [RegExp, string][] = [
+        [/process\.env\.GEMINI_API_KEY/g, JSON.stringify(envVars.GEMINI_API_KEY || '')],
+        [/process\.env\.API_KEY/g, JSON.stringify(envVars.GEMINI_API_KEY || '')],
+      ];
 
       function copyJsRecursive(dir: string) {
         const fullDir = path.join(rootDir, dir);
@@ -26,7 +33,12 @@ function copyNonModuleScripts(): Plugin {
             // Don't overwrite files Vite already bundled
             if (!fs.existsSync(destPath)) {
               fs.mkdirSync(path.dirname(destPath), { recursive: true });
-              fs.copyFileSync(srcPath, destPath);
+              // Read, replace env vars, then write
+              let content = fs.readFileSync(srcPath, 'utf-8');
+              for (const [pattern, value] of replacements) {
+                content = content.replace(pattern, value);
+              }
+              fs.writeFileSync(destPath, content, 'utf-8');
             }
           }
         }
@@ -35,7 +47,7 @@ function copyNonModuleScripts(): Plugin {
       for (const dir of dirs) {
         copyJsRecursive(dir);
       }
-      console.log('✅ Copied non-module JS files to dist');
+      console.log('✅ Copied non-module JS files to dist (with env var injection)');
     }
   };
 }
@@ -83,7 +95,7 @@ export default defineConfig(({ mode }) => {
         port: 3000,
         host: '0.0.0.0',
       },
-      plugins: [react(), copyNonModuleScripts()],
+      plugins: [react(), copyNonModuleScripts(env)],
       build: {
         outDir: 'dist',
         assetsDir: 'assets',
