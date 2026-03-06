@@ -262,120 +262,314 @@ function openStorytellingModal() {
 function startStory(storyType) {
     const stories = {
         merchant: {
-            title: "The Merchant Prince's Journey",
-            content: `
+            title_en: "The Merchant Prince's Journey",
+            content_en: `
                 <div class="story-content">
                     <h4>From Humble Beginnings to Global Empire</h4>
-                    <p>Young Alagappa Chettiar stood at the port of Rangoon, his first venture into foreign trade beginning. With just a small bag of silver coins and boundless ambition, he would build an empire that spanned from Burma to Ceylon, eventually returning home to construct a palace that would rival any maharaja's...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('merchant', 'journey')" class="story-choice-btn">Follow the Trading Journey</button>
-                        <button onclick="continueStory('merchant', 'mansion')" class="story-choice-btn">Build the Dream Mansion</button>
-                    </div>
+                    <p>Young Alagappa Chettiar stood at the port of Rangoon, his first venture into foreign trade beginning. With just a small bag of silver coins and boundless ambition, he would build an empire that spanned from Burma to Ceylon, eventually returning home to construct a palace that would rival any maharaja's.</p>
+                    <p>From the bustling markets of Rangoon to the rubber plantations of Malaya, he built a network of banks and trading houses. His reputation for honesty and shrewd business sense opened doors across Southeast Asia. Years of careful investment transformed the young trader into one of the wealthiest merchants in Asia.</p>
+                </div>
+            `,
+            title_ta: "வணிக இளவரசரின் பயணம்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>எளிய தொடக்கத்திலிருந்து உலகளாவிய பேரரசு வரை</h4>
+                    <p>இளம் ஆலகப்பா செட்டியார் ரங்கூன் துறைமுகத்தில் நின்றார், வெளிநாட்டு வணிகத்தில் அவரது முதல் பயணம் தொடங்கியது. ஒரு சிறிய வெள்ளி நாணயப் பையும் எல்லையில்லா லட்சியமும் மட்டுமே கையில் இருந்தன. பர்மாவிலிருந்து இலங்கை வரை பரவிய ஒரு பேரரசை அவர் கட்டியெழுப்பி, இறுதியில் எந்த மகாராஜாவையும் மிஞ்சும் அரண்மனையைக் கட்ட சொந்த ஊருக்குத் திரும்பினார்.</p>
+                    <p>ரங்கூனின் சுறுசுறுப்பான சந்தைகளிலிருந்து மலாயாவின் ரப்பர் தோட்டங்கள் வரை, வங்கிகள் மற்றும் வணிக நிறுவனங்களின் வலையமைப்பை உருவாக்கினார். நேர்மை மற்றும் புத்திசாலித்தனமான வணிக உணர்வுக்கான அவரது புகழ், தென்கிழக்கு ஆசியா முழுவதும் கதவுகளைத் திறந்தது. ஆண்டுகள் கடந்த கவனமான முதலீடு, இளம் வணிகரை ஆசியாவின் செல்வந்தர்களில் ஒருவராக மாற்றியது.</p>
                 </div>
             `
         },
         architect: {
-            title: "The Master Builder's Vision",
-            content: `
+            title_en: "The Master Builder's Vision",
+            content_en: `
                 <div class="story-content">
                     <h4>Designing a Palace of Dreams</h4>
-                    <p>Master architect Vishwakarma Sthapathi examined the imported Italian marble, Burmese teak, and Belgian glass. The Chettiar patron wanted a mansion that would blend Tamil traditions with the grandest European palaces he had seen in his travels. "Create something the world has never seen," were his instructions...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('architect', 'design')" class="story-choice-btn">Explore the Architectural Design</button>
-                        <button onclick="continueStory('architect', 'construction')" class="story-choice-btn">Witness the Grand Construction</button>
-                    </div>
+                    <p>Master architect Vishwakarma Sthapathi examined the imported Italian marble, Burmese teak, and Belgian glass. The Chettiar patron wanted a mansion that would blend Tamil traditions with the grandest European palaces he had seen in his travels. "Create something the world has never seen," were his instructions.</p>
+                    <p>The architect's vision was revolutionary: Tamil architectural principles would form the foundation, with European grandeur and Southeast Asian influences creating a unique synthesis. The famous Athangudi tiles were created on-site, each one taking 21 days to complete with intricate geometric patterns. The mansion rose like a dream made manifest.</p>
+                </div>
+            `,
+            title_ta: "தலைசிறந்த கட்டிடக்கலைஞரின் கனவு",
+            content_ta: `
+                <div class="story-content">
+                    <h4>கனவு அரண்மனையை வடிவமைத்தல்</h4>
+                    <p>தலைசிறந்த கட்டிடக்கலைஞர் விஸ்வகர்மா ஸ்தபதி இறக்குமதி செய்யப்பட்ட இத்தாலிய பளிங்கு, பர்மிய தேக்கு மரம் மற்றும் பெல்ஜிய கண்ணாடியை ஆராய்ந்தார். செட்டியார் புரவலர் தமிழ் பாரம்பரியங்களையும் அவர் பயணங்களில் கண்ட மிகப்பெரிய ஐரோப்பிய அரண்மனைகளையும் இணைக்கும் மாளிகையை விரும்பினார். "உலகம் இதுவரை காணாத ஒன்றை உருவாக்குங்கள்" என்பதே அவரது அறிவுரையாக இருந்தது.</p>
+                    <p>கட்டிடக்கலைஞரின் பார்வை புரட்சிகரமானது: தமிழ் கட்டிடக்கலைக் கொள்கைகள் அடித்தளமாகவும், ஐரோப்பிய பிரம்மாண்டமும் தென்கிழக்கு ஆசியத் தாக்கங்களும் ஒரு தனித்துவமான கலவையை உருவாக்கின. புகழ்பெற்ற ஆத்தங்குடி ஓடுகள் அங்கேயே உருவாக்கப்பட்டன — ஒவ்வொன்றும் நுணுக்கமான வடிவியல் வடிவங்களுடன் 21 நாட்கள் ஆனது. மாளிகை ஒரு கனவு நனவாகியது போல் எழுந்தது.</p>
                 </div>
             `
         },
         family: {
-            title: "Life in the Grand Mansion",
-            content: `
+            title_en: "Life in the Grand Mansion",
+            content_en: `
                 <div class="story-content">
                     <h4>The Golden Age of Joint Family Life</h4>
-                    <p>The great mansion buzzed with activity as three generations of the Chettiar family lived under one ornate roof. In the women's quarters, silk sarees rustled as the matriarch organized the day's activities. Children's laughter echoed through marble corridors, while elders discussed business in the grand hall...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('family', 'daily')" class="story-choice-btn">Experience Daily Life</button>
-                        <button onclick="continueStory('family', 'celebration')" class="story-choice-btn">Join a Grand Celebration</button>
-                    </div>
+                    <p>The great mansion buzzed with activity as three generations of the Chettiar family lived under one ornate roof. In the women's quarters, silk sarees rustled as the matriarch organized the day's activities. Children's laughter echoed through marble corridors, while elders discussed business in the grand hall.</p>
+                    <p>Dawn began with prayers in the family temple, followed by breakfast served on silver plates. During Navarathri, the mansion transformed into a cultural palace — classical musicians performed, dancers graced the courtyards, and the entire building glowed with oil lamps. These celebrations showcased the deep cultural traditions and generous spirit that defined the Chettiar community.</p>
+                </div>
+            `,
+            title_ta: "பிரமாண்ட மாளிகையில் வாழ்க்கை",
+            content_ta: `
+                <div class="story-content">
+                    <h4>கூட்டுக் குடும்ப வாழ்க்கையின் பொற்காலம்</h4>
+                    <p>செட்டியார் குடும்பத்தின் மூன்று தலைமுறைகள் ஒரே அலங்கார கூரையின் கீழ் வாழ்ந்ததால், பிரமாண்ட மாளிகை சுறுசுறுப்பாக இயங்கியது. பெண்கள் பகுதியில், குடும்பத் தலைவி அன்றைய நடவடிக்கைகளை ஒழுங்கமைக்கும்போது பட்டுப் புடவைகள் மெல்லிய சலசலப்போடு அசைந்தன. குழந்தைகளின் சிரிப்பு பளிங்குத் தாழ்வாரங்களில் எதிரொலித்தது; பெரியவர்கள் பெரிய மண்டபத்தில் வணிகம் பற்றி விவாதித்தனர்.</p>
+                    <p>விடியற்காலை குடும்பக் கோவிலில் பிரார்த்தனையுடன் தொடங்கியது, அதைத் தொடர்ந்து வெள்ளித் தட்டுகளில் காலை உணவு பரிமாறப்பட்டது. நவராத்திரியின்போது, மாளிகை ஒரு கலாச்சார அரண்மனையாக மாறியது — செவ்வியல் இசைக்கலைஞர்கள் நிகழ்ச்சி நடத்தினர், நடனக்கலைஞர்கள் முற்றங்களை அலங்கரித்தனர், நெய் விளக்குகளால் கட்டிடம் முழுவதும் ஒளிர்ந்தது. இந்த கொண்டாட்டங்கள் செட்டியார் சமூகத்தை வரையறுத்த ஆழமான கலாச்சார மரபுகளையும் தாராள மனப்பான்மையையும் வெளிப்படுத்தின.</p>
                 </div>
             `
         }
     };
-    
-    const story = stories[storyType];
-    if (story) {
-        const modalBody = document.querySelector('#storytellingModal .modal-body');
-        modalBody.innerHTML = story.content;
+
+
+    if (!window._chettinad_story_options_html) {
+        const initialBody = document.querySelector('#storytellingModal .modal-body');
+        if (initialBody) window._chettinad_story_options_html = initialBody.innerHTML;
+    }
+
+    const modalBody = document.querySelector('#storytellingModal .modal-body');
+    if (stories[storyType] && modalBody) {
+        const lang = _selectedNarrationLanguage || 'ta';
+        const content = (lang === 'ta') ? stories[storyType].content_ta : stories[storyType].content_en;
+        const title = (lang === 'ta') ? stories[storyType].title_ta : stories[storyType].title_en;
+
+        modalBody.innerHTML = content;
+
+        const backText = (lang === 'ta') ? '← கதைகளுக்குத் திரும்பு' : '← Back to Stories';
+        const backBtnHtml = `<div class="story-back-wrapper"><button class="action-btn secondary-btn back-to-stories" onclick="showStorySelection()">${backText}</button></div>`;
+        modalBody.insertAdjacentHTML('afterbegin', backBtnHtml);
+
+        const modal = document.getElementById('storytellingModal');
+        if (modal) {
+            modal.dataset.currentStoryKey = storyType;
+            modal.dataset.currentStoryTitle = title;
+            modal.dataset.currentStoryHtml = content;
+        }
+
+
+        const controlsHtml = `
+            <div class="story-narration-controls">
+                <label for="narrationLanguage" class="voice-label">Language:</label>
+                <select id="narrationLanguage" class="quick-narrate-select">
+                    <option value="ta" ${lang === 'ta' ? 'selected' : ''}>தமிழ் (Tamil)</option>
+                    <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
+                </select>
+                <label for="voiceSelect" class="voice-label">Voice:</label>
+                <select id="voiceSelect" class="quick-narrate-select"><option>Loading voices...</option></select>
+                <button class="action-btn primary-btn" onclick="narrateStory()">🔊 Narrate this story (AI)</button>
+                <button class="action-btn secondary-btn" onclick="narrateOriginal()">🔈 Narrate Original</button>
+                <button class="action-btn" id="playNarrationBtn" onclick="playNarration()" disabled>Play</button>
+                <button class="action-btn" id="pauseNarrationBtn" onclick="pauseNarration()" disabled>Pause</button>
+                <button class="action-btn" id="stopNarrationBtn" onclick="stopNarration()" disabled>Stop</button>
+                <div id="narrationSpinner" style="display:none">Generating...</div>
+                <div id="voiceAvailability" class="voice-availability" aria-live="polite" style="margin-top:8px;font-size:0.95rem;color:#f0e6d6"></div>
+                <div id="voiceMismatchWarning" class="voice-mismatch-warning" aria-live="polite" style="margin-top:6px;font-size:0.9rem;color:#ffcc66;display:none"></div>
+            </div>
+            <div id="narrationText"></div>
+        `;
+        modalBody.insertAdjacentHTML('beforeend', controlsHtml);
+        try { populateVoiceList(); } catch (e) {}
+        try { populateNarrationLanguageSelector(); } catch (e) {}
     }
 }
 
-function continueStory(storyType, choice) {
-    const storyParts = {
-        merchant: {
-            journey: `
-                <div class="story-content">
-                    <h4>Building an Empire Across the Seas</h4>
-                    <p>From the bustling markets of Rangoon to the rubber plantations of Malaya, Alagappa Chettiar built a network of banks and trading houses. His reputation for honesty and shrewd business sense opened doors across Southeast Asia. Each successful venture brought him closer to his dream of building the grandest mansion in Chettinad.</p>
-                    <p>Years of careful investment, strategic partnerships, and tireless work transformed the young trader into one of the wealthiest merchants in Asia, ready to return home and create his architectural legacy.</p>
-                    <button onclick="openStorytellingModal()" class="story-choice-btn">Return to Stories</button>
-                </div>
-            `,
-            mansion: `
-                <div class="story-content">
-                    <h4>The Palace Takes Shape</h4>
-                    <p>Returning to Karaikudi with immense wealth, Alagappa Chettiar began his dream project. Italian marble was shipped across oceans, master craftsmen were brought from across India, and the finest materials money could buy were assembled. The mansion would have 96 rooms, multiple courtyards, and architectural details that would amaze visitors for generations.</p>
-                    <p>Every pillar, every tile, every carved detail reflected not just wealth, but the cultural sophistication and global connections of the Chettiar community.</p>
-                    <button onclick="openStorytellingModal()" class="story-choice-btn">Return to Stories</button>
-                </div>
-            `
-        },
-        architect: {
-            design: `
-                <div class="story-content">
-                    <h4>Fusion of Traditions and Innovation</h4>
-                    <p>The architect's vision was revolutionary: Tamil architectural principles would form the foundation, with European grandeur and Southeast Asian influences creating a unique synthesis. The central courtyard would follow traditional Tamil design, while the facades would incorporate colonial elements. Belgian stained glass would filter light into prayer halls designed according to ancient Vastu principles.</p>
-                    <p>This architectural fusion would become the signature style of Chettinad mansions, influencing design across the region.</p>
-                    <button onclick="openStorytellingModal()" class="story-choice-btn">Return to Stories</button>
-                </div>
-            `,
-            construction: `
-                <div class="story-content">
-                    <h4>Craftsmanship Beyond Compare</h4>
-                    <p>The construction became a marvel in itself. Master craftsmen from different traditions worked together: Tamil stone carvers, Burmese teak specialists, Italian marble workers, and local tile makers. The famous Athangudi tiles were created on-site, each one taking 21 days to complete with intricate geometric patterns.</p>
-                    <p>The mansion rose like a dream made manifest, each room more spectacular than the last, creating a legacy that would inspire awe for centuries.</p>
-                    <button onclick="openStorytellingModal()" class="story-choice-btn">Return to Stories</button>
-                </div>
-            `
-        },
-        family: {
-            daily: `
-                <div class="story-content">
-                    <h4>Rhythms of Prosperity</h4>
-                    <p>Dawn began with prayers in the family temple, followed by breakfast served on silver plates in the grand dining hall. The men discussed business ventures while women managed the household's complex operations. Children studied with private tutors in marble-floored classrooms, learning multiple languages and traditional arts.</p>
-                    <p>Every aspect of daily life reflected the family's prosperity and cultural values, from the elaborate meals to the evening music performances in the courtyard.</p>
-                    <button onclick="openStorytellingModal()" class="story-choice-btn">Return to Stories</button>
-                </div>
-            `,
-            celebration: `
-                <div class="story-content">
-                    <h4>Festivals of Grandeur</h4>
-                    <p>During Navarathri, the mansion transformed into a cultural palace. Classical musicians performed in the main hall, dancers graced the courtyards, and the entire building glowed with oil lamps and decorations. Hundreds of guests were welcomed with legendary Chettiar hospitality, served elaborate feasts on banana leaves placed on marble floors.</p>
-                    <p>These celebrations showcased not just wealth, but the deep cultural traditions and generous spirit that defined the Chettiar community.</p>
-                    <button onclick="openStorytellingModal()" class="story-choice-btn">Return to Stories</button>
-                </div>
-            `
-        }
-    };
-    
-    const storyPart = storyParts[storyType]?.[choice];
-    if (storyPart) {
-        const modalBody = document.querySelector('#storytellingModal .modal-body');
-        modalBody.innerHTML = storyPart;
+function showStorySelection() {
+    const modalBody = document.querySelector('#storytellingModal .modal-body');
+    if (!modalBody) return;
+    if (window._chettinad_story_options_html) {
+        modalBody.innerHTML = window._chettinad_story_options_html;
     }
 }
+
+// Voice management for SpeechSynthesis
+let _selectedVoiceName = localStorage.getItem('chettinad_voice') || null;
+let _selectedNarrationLanguage = localStorage.getItem('chettinad_narration_lang') || 'ta';
+
+function populateVoiceList() {
+    const select = document.getElementById('voiceSelect');
+    if (!select) return;
+    const voices = speechSynthesis.getVoices();
+    if (!voices || !voices.length) return;
+    select.innerHTML = '';
+    voices.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.name;
+        opt.textContent = `${v.name} (${v.lang})${v.default ? ' — default' : ''}`;
+        try { opt.dataset.lang = v.lang || ''; } catch (e) {}
+        select.appendChild(opt);
+    });
+    if (_selectedVoiceName && Array.from(select.options).some(o => o.value === _selectedVoiceName)) {
+        select.value = _selectedVoiceName;
+    } else {
+        const preferredNames = [/Google US English/i, /Microsoft Zira/i, /Zira/i, /Samantha/i];
+        const preferred = voices.find(v => preferredNames.some(rx => rx.test(v.name)) || /en-?us|en-?gb/i.test(v.lang));
+        if (preferred) select.value = preferred.name;
+    }
+    select.addEventListener('change', () => {
+        _selectedVoiceName = select.value;
+        try { localStorage.setItem('chettinad_voice', _selectedVoiceName); } catch (e) {}
+    });
+    try { updateVoiceAvailabilityIndicator(); } catch (e) {}
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(populateVoiceList, 100);
+    setTimeout(() => { try { populateNarrationLanguageSelector(); } catch (e) {} }, 120);
+});
+
+if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = () => { try { populateVoiceList(); } catch (e) {} };
+}
+
+function populateNarrationLanguageSelector() {
+    const langSelect = document.getElementById('narrationLanguage');
+    if (!langSelect) return;
+    try {
+        if (_selectedNarrationLanguage && Array.from(langSelect.options).some(o => o.value === _selectedNarrationLanguage)) {
+            langSelect.value = _selectedNarrationLanguage;
+        } else { langSelect.value = 'ta'; }
+    } catch (e) {}
+    langSelect.addEventListener('change', () => {
+        _selectedNarrationLanguage = langSelect.value;
+        try { localStorage.setItem('chettinad_narration_lang', _selectedNarrationLanguage); } catch (e) {}
+        try { updateVoiceAvailabilityIndicator(); } catch (e) {}
+        try { updateVoiceMismatchWarning(); } catch (e) {}
+        const modal = document.getElementById('storytellingModal');
+        if (modal && modal.style.display === 'block' && modal.dataset.currentStoryKey) {
+            startStory(modal.dataset.currentStoryKey);
+        }
+    });
+}
+
+function updateVoiceAvailabilityIndicator() {
+    const indicator = document.getElementById('voiceAvailability');
+    const lang = _selectedNarrationLanguage || 'en';
+    if (!indicator) return;
+    const voices = speechSynthesis.getVoices() || [];
+    const lower = lang === 'ta' ? 'ta' : 'en';
+    const matches = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith(lower));
+    if (matches.length > 0) {
+        indicator.textContent = `Voice availability: ${matches.length} ${lang === 'ta' ? 'Tamil' : 'English'} voice(s) available.`;
+        indicator.style.color = '#DAA520';
+    } else {
+        indicator.textContent = `No ${lang === 'ta' ? 'Tamil' : 'English'} voices detected. Playback may use a default fallback voice.`;
+        indicator.style.color = '#ffcc66';
+    }
+}
+
+function updateVoiceMismatchWarning() {
+    const warningEl = document.getElementById('voiceMismatchWarning');
+    if (!warningEl) return;
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (!voiceSelect) { warningEl.style.display = 'none'; return; }
+    const selectedOpt = voiceSelect.options[voiceSelect.selectedIndex];
+    const voiceLang = (selectedOpt && selectedOpt.dataset && selectedOpt.dataset.lang) ? selectedOpt.dataset.lang.toLowerCase() : '';
+    const requestedLang = (_selectedNarrationLanguage === 'ta') ? 'ta' : 'en';
+    if (!voiceLang) { warningEl.style.display = 'none'; return; }
+    if (!voiceLang.startsWith(requestedLang)) {
+        warningEl.textContent = 'Warning: Selected voice language does not match narration language; pronunciation may be poor.';
+        warningEl.style.display = 'block';
+    } else { warningEl.style.display = 'none'; }
+}
+
+function narrateOriginal() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal) return;
+    const html = modal.dataset.currentStoryHtml || '';
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.innerText.trim();
+    _currentNarrationText = plain;
+    const textEl = document.getElementById('narrationText');
+    if (textEl) textEl.textContent = _currentNarrationText;
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+    if (stopBtn) stopBtn.disabled = false;
+    const spinner = document.getElementById('narrationSpinner');
+    if (spinner) spinner.style.display = 'none';
+    playNarration();
+}
+
+let _currentUtterance = null;
+let _currentNarrationText = '';
+
+async function requestNarrationFromServer(title, content, language) {
+    const resp = await fetch('/api/chatbot/narrate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, content, language })
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data?.message || 'Narration request failed');
+    return data.narration || '';
+}
+
+async function narrateStory() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal) return;
+    const title = modal.dataset.currentStoryTitle || 'Heritage Story';
+    const html = modal.dataset.currentStoryHtml || '';
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.innerText.trim();
+    const spinner = document.getElementById('narrationSpinner');
+    const playBtn = document.getElementById('playNarrationBtn');
+    const textEl = document.getElementById('narrationText');
+    if (spinner) spinner.style.display = 'inline-block';
+    try {
+        const narration = await requestNarrationFromServer(title, plain, _selectedNarrationLanguage);
+        _currentNarrationText = narration || '';
+        if (textEl) textEl.textContent = _currentNarrationText;
+        if (playBtn) playBtn.disabled = false;
+        if (spinner) spinner.style.display = 'none';
+        playNarration();
+    } catch (err) {
+        console.error('Narration failed', err);
+        if (spinner) spinner.style.display = 'none';
+        if (textEl) textEl.textContent = 'Narration generation failed. Try "Narrate Original" instead.';
+    }
+}
+
+function playNarration() {
+    if (!_currentNarrationText) return;
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(_currentNarrationText);
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (voiceSelect && voiceSelect.value) {
+        const voices = speechSynthesis.getVoices();
+        const selected = voices.find(v => v.name === voiceSelect.value);
+        if (selected) utterance.voice = selected;
+    }
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    _currentUtterance = utterance;
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = true;
+    if (pauseBtn) pauseBtn.disabled = false;
+    if (stopBtn) stopBtn.disabled = false;
+    utterance.onend = () => { if (playBtn) playBtn.disabled = false; if (pauseBtn) pauseBtn.disabled = true; };
+    speechSynthesis.speak(utterance);
+}
+
+function pauseNarration() {
+    speechSynthesis.pause();
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+}
+
+function stopNarration() {
+    speechSynthesis.cancel();
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+    if (stopBtn) stopBtn.disabled = true;
+}
+
 
 // Blog Modal Functions
 function openBlogModal() {

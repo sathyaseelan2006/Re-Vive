@@ -270,83 +270,314 @@ function openStorytellingModal() {
 function startStory(storyType) {
     const stories = {
         king: {
-            title: "The Pallava King's Vision",
-            content: `
+            title_en: "The Pallava King's Vision",
+            content_en: `
                 <div class="story-content">
                     <h4>Narasimhavarman I's Grand Vision</h4>
-                    <p>In the 10th century, Raja Raja Chola I stood in what would become Thanjavur, envisioning a magnificent temple that would rival any structure in the world. The fertile Cauvery delta beckoned with divine inspiration...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('king', 'vision')" class="story-choice-btn">Explore the King's Divine Vision</button>
-                        <button onclick="continueStory('king', 'construction')" class="story-choice-btn">Witness the Construction Begin</button>
-                    </div>
+                    <p>In the 10th century, Raja Raja Chola I stood in what would become Thanjavur, envisioning a magnificent temple that would rival any structure in the world. The fertile Cauvery delta beckoned with divine inspiration.</p>
+                    <p>The king saw in his dreams magnificent temples carved from living rock, each telling the story of dharma and devotion. Thousands of skilled artisans gathered from across the empire, ready to transform the king's vision into eternal stone.</p>
+                </div>
+            `,
+            title_ta: "பல்லவ மன்னரின் தெய்வீகக் கனவு",
+            content_ta: `
+                <div class="story-content">
+                    <h4>நரசிம்மவர்மன் I-ன் மகத்தான கனவு</h4>
+                    <p>10ஆம் நூற்றாண்டில், ராஜராஜ சோழன் தஞ்சாவூர் ஆகப்போகும் இடத்தில் நின்று, உலகின் எந்த கட்டிடத்தையும் மிஞ்சக்கூடிய அற்புதமான கோவிலை கற்பனை செய்தார். வளமான காவிரி சமவெளி தெய்வீக உத்வேகத்துடன் அவரை அழைத்தது.</p>
+                    <p>மன்னர் தனது கனவுகளில் உயிருள்ள பாறையில் செதுக்கப்பட்ட அற்புதமான கோவில்களைக் கண்டார் — ஒவ்வொன்றும் தர்மம் மற்றும் பக்தியின் கதையைச் சொன்னது. ஆயிரக்கணக்கான திறமையான கலைஞர்கள் பேரரசு முழுவதிலிருந்தும் ஒன்றுகூடி, மன்னரின் கனவை நிரந்தர கல்லாக மாற்ற தயாரானார்கள்.</p>
                 </div>
             `
         },
         sculptor: {
-            title: "The Master Sculptor's Tale",
-            content: `
+            title_en: "The Master Sculptor's Tale",
+            content_en: `
                 <div class="story-content">
                     <h4>The Artisan's Journey</h4>
-                    <p>Master sculptor Vishvakarma picked up his chisel, examining the massive granite boulder. Each strike would bring the Pancha Rathas closer to reality...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('sculptor', 'technique')" class="story-choice-btn">Learn Ancient Carving Techniques</button>
-                        <button onclick="continueStory('sculptor', 'challenges')" class="story-choice-btn">Face the Sculptor's Challenges</button>
-                    </div>
+                    <p>Master sculptor Vishvakarma picked up his chisel, examining the massive granite boulder. Each strike would bring the Pancha Rathas closer to reality.</p>
+                    <p>The ancient techniques passed down through generations involved precise measurements and understanding of rock grain. Working with granite required immense patience, as one wrong strike could ruin months of careful work.</p>
+                </div>
+            `,
+            title_ta: "தலைசிறந்த சிற்பியின் கதை",
+            content_ta: `
+                <div class="story-content">
+                    <h4>கலைஞனின் பயணம்</h4>
+                    <p>தலைசிறந்த சிற்பி விஸ்வகர்மா தனது உளியை எடுத்து, பிரம்மாண்டமான கிரானைட் பாறையை ஆராய்ந்தார். ஒவ்வொரு அடியும் பஞ்ச ரதங்களை நிஜமாக்கும் என்று அவர் அறிந்திருந்தார்.</p>
+                    <p>தலைமுறை தலைமுறையாகக் கடத்தப்பட்ட பழங்கால நுட்பங்கள், துல்லியமான அளவீடுகளையும் பாறையின் தன்மையைப் புரிந்துகொள்வதையும் உள்ளடக்கியவை. கிரானைட்டில் வேலை செய்வதற்கு மிகுந்த பொறுமை தேவைப்பட்டது — ஒரு தவறான அடி மாதக்கணக்கான கவனமான வேலையை அழித்துவிடும்.</p>
                 </div>
             `
         },
         merchant: {
-            title: "A Merchant's Journey",
-            content: `
+            title_en: "A Merchant's Journey",
+            content_en: `
                 <div class="story-content">
                     <h4>The Bustling Port City</h4>
-                    <p>Merchant Krishnan's caravan approached Thanjavur's gates, loaded with precious goods from across the Chola Empire. The towering Brihadeeswarar Temple gleamed in the morning sun...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('merchant', 'trade')" class="story-choice-btn">Explore International Trade Routes</button>
-                        <button onclick="continueStory('merchant', 'culture')" class="story-choice-btn">Experience Cultural Exchange</button>
-                    </div>
+                    <p>Merchant Krishnan's caravan approached Thanjavur's gates, loaded with precious goods from across the Chola Empire. The towering Brihadeeswarar Temple gleamed in the morning sun.</p>
+                    <p>Caravans from across South India and Southeast Asia regularly came here, making Thanjavur the prosperous capital of the Chola Empire. The port city became a melting pot where Tamil, Sanskrit, and foreign languages blended in daily commerce.</p>
+                </div>
+            `,
+            title_ta: "வணிகரின் பயணம்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>சுறுசுறுப்பான துறைமுக நகரம்</h4>
+                    <p>வணிகர் கிருஷ்ணனின் வண்டிக்குழாம், சோழ பேரரசு முழுவதிலிருந்தும் விலையுயர்ந்த பொருட்களை ஏற்றிக்கொண்டு தஞ்சாவூரின் வாயில்களை நெருங்கியது. உயர்ந்து நிற்கும் பிரகதீஸ்வரர் கோவில் காலை சூரிய ஒளியில் ஜொலித்தது.</p>
+                    <p>தென்னிந்தியா மற்றும் தென்கிழக்கு ஆசியா முழுவதிலிருந்தும் வணிகக் குழாம்கள் தொடர்ச்சியாக இங்கு வந்தன, இது தஞ்சாவூரை சோழ பேரரசின் செழிப்பான தலைநகராக மாற்றியது. துறைமுக நகரம் தமிழ், சமஸ்கிருதம் மற்றும் வெளிநாட்டு மொழிகள் தினசரி வணிகத்தில் கலந்திடும் ஒரு கலாச்சாரக் கலவையாக மாறியது.</p>
                 </div>
             `
         }
     };
-    
+
+
+    if (!window._palani_story_options_html) {
+        const initialBody = document.querySelector('#storytellingModal .modal-body');
+        if (initialBody) window._palani_story_options_html = initialBody.innerHTML;
+    }
+
     const modalBody = document.querySelector('#storytellingModal .modal-body');
     if (stories[storyType] && modalBody) {
-        modalBody.innerHTML = stories[storyType].content;
+        const lang = _selectedNarrationLanguage || 'ta';
+        const content = (lang === 'ta') ? stories[storyType].content_ta : stories[storyType].content_en;
+        const title = (lang === 'ta') ? stories[storyType].title_ta : stories[storyType].title_en;
+
+        modalBody.innerHTML = content;
+
+        const backText = (lang === 'ta') ? '← கதைகளுக்குத் திரும்பு' : '← Back to Stories';
+        const backBtnHtml = `<div class="story-back-wrapper"><button class="action-btn secondary-btn back-to-stories" onclick="showStorySelection()">${backText}</button></div>`;
+        modalBody.insertAdjacentHTML('afterbegin', backBtnHtml);
+
+        const modal = document.getElementById('storytellingModal');
+        if (modal) {
+            modal.dataset.currentStoryKey = storyType;
+            modal.dataset.currentStoryTitle = title;
+            modal.dataset.currentStoryHtml = content;
+        }
+
+
+        const controlsHtml = `
+            <div class="story-narration-controls">
+                <label for="narrationLanguage" class="voice-label">Language:</label>
+                <select id="narrationLanguage" class="quick-narrate-select">
+                    <option value="ta" ${lang === 'ta' ? 'selected' : ''}>தமிழ் (Tamil)</option>
+                    <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
+                </select>
+                <label for="voiceSelect" class="voice-label">Voice:</label>
+                <select id="voiceSelect" class="quick-narrate-select"><option>Loading voices...</option></select>
+                <button class="action-btn primary-btn" onclick="narrateStory()">🔊 Narrate this story (AI)</button>
+                <button class="action-btn secondary-btn" onclick="narrateOriginal()">🔈 Narrate Original</button>
+                <button class="action-btn" id="playNarrationBtn" onclick="playNarration()" disabled>Play</button>
+                <button class="action-btn" id="pauseNarrationBtn" onclick="pauseNarration()" disabled>Pause</button>
+                <button class="action-btn" id="stopNarrationBtn" onclick="stopNarration()" disabled>Stop</button>
+                <div id="narrationSpinner" style="display:none">Generating...</div>
+                <div id="voiceAvailability" class="voice-availability" aria-live="polite" style="margin-top:8px;font-size:0.95rem;color:#f0e6d6"></div>
+                <div id="voiceMismatchWarning" class="voice-mismatch-warning" aria-live="polite" style="margin-top:6px;font-size:0.9rem;color:#ffcc66;display:none"></div>
+            </div>
+            <div id="narrationText"></div>
+        `;
+        modalBody.insertAdjacentHTML('beforeend', controlsHtml);
+        try { populateVoiceList(); } catch (e) {}
+        try { populateNarrationLanguageSelector(); } catch (e) {}
     }
 }
 
-function continueStory(character, choice) {
-    const continuations = {
-        king: {
-            vision: "The king saw in his dreams magnificent temples carved from living rock, each telling the story of dharma and devotion...",
-            construction: "Thousands of skilled artisans gathered from across the empire, ready to transform the king's vision into eternal stone..."
-        },
-        sculptor: {
-            technique: "The ancient techniques passed down through generations involved precise measurements and understanding of rock grain...",
-            challenges: "Working with granite required immense patience, as one wrong strike could ruin months of careful work..."
-        },
-        merchant: {
-            trade: "Caravans from across South India and Southeast Asia regularly came here, making Thanjavur the prosperous capital of the Chola Empire...",
-            culture: "The port city became a melting pot where Tamil, Sanskrit, and foreign languages blended in daily commerce..."
-        }
-    };
-    
+function showStorySelection() {
     const modalBody = document.querySelector('#storytellingModal .modal-body');
-    if (modalBody) {
-        modalBody.innerHTML = `
-            <div class="story-continuation">
-                <h4>Story Continues...</h4>
-                <p>${continuations[character][choice]}</p>
-                <button onclick="startStory('${character}')" class="story-choice-btn">Return to Story Selection</button>
-                <button onclick="closeModal('storytellingModal')" class="story-choice-btn">End Story</button>
-            </div>
-        `;
+    if (!modalBody) return;
+    if (window._palani_story_options_html) {
+        modalBody.innerHTML = window._palani_story_options_html;
     }
 }
+
+// Voice management for SpeechSynthesis
+let _selectedVoiceName = localStorage.getItem('palani_voice') || null;
+let _selectedNarrationLanguage = localStorage.getItem('palani_narration_lang') || 'ta';
+
+function populateVoiceList() {
+    const select = document.getElementById('voiceSelect');
+    if (!select) return;
+    const voices = speechSynthesis.getVoices();
+    if (!voices || !voices.length) return;
+    select.innerHTML = '';
+    voices.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.name;
+        opt.textContent = `${v.name} (${v.lang})${v.default ? ' — default' : ''}`;
+        try { opt.dataset.lang = v.lang || ''; } catch (e) {}
+        select.appendChild(opt);
+    });
+    if (_selectedVoiceName && Array.from(select.options).some(o => o.value === _selectedVoiceName)) {
+        select.value = _selectedVoiceName;
+    } else {
+        const preferredNames = [/Google US English/i, /Microsoft Zira/i, /Zira/i, /Samantha/i];
+        const preferred = voices.find(v => preferredNames.some(rx => rx.test(v.name)) || /en-?us|en-?gb/i.test(v.lang));
+        if (preferred) select.value = preferred.name;
+    }
+    select.addEventListener('change', () => {
+        _selectedVoiceName = select.value;
+        try { localStorage.setItem('palani_voice', _selectedVoiceName); } catch (e) {}
+    });
+    try { updateVoiceAvailabilityIndicator(); } catch (e) {}
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(populateVoiceList, 100);
+    setTimeout(() => { try { populateNarrationLanguageSelector(); } catch (e) {} }, 120);
+});
+
+if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = () => { try { populateVoiceList(); } catch (e) {} };
+}
+
+function populateNarrationLanguageSelector() {
+    const langSelect = document.getElementById('narrationLanguage');
+    if (!langSelect) return;
+    try {
+        if (_selectedNarrationLanguage && Array.from(langSelect.options).some(o => o.value === _selectedNarrationLanguage)) {
+            langSelect.value = _selectedNarrationLanguage;
+        } else { langSelect.value = 'ta'; }
+    } catch (e) {}
+    langSelect.addEventListener('change', () => {
+        _selectedNarrationLanguage = langSelect.value;
+        try { localStorage.setItem('palani_narration_lang', _selectedNarrationLanguage); } catch (e) {}
+        try { updateVoiceAvailabilityIndicator(); } catch (e) {}
+        try { updateVoiceMismatchWarning(); } catch (e) {}
+        const modal = document.getElementById('storytellingModal');
+        if (modal && modal.style.display === 'block' && modal.dataset.currentStoryKey) {
+            startStory(modal.dataset.currentStoryKey);
+        }
+    });
+}
+
+function updateVoiceAvailabilityIndicator() {
+    const indicator = document.getElementById('voiceAvailability');
+    const lang = _selectedNarrationLanguage || 'en';
+    if (!indicator) return;
+    const voices = speechSynthesis.getVoices() || [];
+    const lower = lang === 'ta' ? 'ta' : 'en';
+    const matches = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith(lower));
+    if (matches.length > 0) {
+        indicator.textContent = `Voice availability: ${matches.length} ${lang === 'ta' ? 'Tamil' : 'English'} voice(s) available.`;
+        indicator.style.color = '#DAA520';
+    } else {
+        indicator.textContent = `No ${lang === 'ta' ? 'Tamil' : 'English'} voices detected. Playback may use a default fallback voice.`;
+        indicator.style.color = '#ffcc66';
+    }
+}
+
+function updateVoiceMismatchWarning() {
+    const warningEl = document.getElementById('voiceMismatchWarning');
+    if (!warningEl) return;
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (!voiceSelect) { warningEl.style.display = 'none'; return; }
+    const selectedOpt = voiceSelect.options[voiceSelect.selectedIndex];
+    const voiceLang = (selectedOpt && selectedOpt.dataset && selectedOpt.dataset.lang) ? selectedOpt.dataset.lang.toLowerCase() : '';
+    const requestedLang = (_selectedNarrationLanguage === 'ta') ? 'ta' : 'en';
+    if (!voiceLang) { warningEl.style.display = 'none'; return; }
+    if (!voiceLang.startsWith(requestedLang)) {
+        warningEl.textContent = 'Warning: Selected voice language does not match narration language; pronunciation may be poor.';
+        warningEl.style.display = 'block';
+    } else { warningEl.style.display = 'none'; }
+}
+
+function narrateOriginal() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal) return;
+    const html = modal.dataset.currentStoryHtml || '';
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.innerText.trim();
+    _currentNarrationText = plain;
+    const textEl = document.getElementById('narrationText');
+    if (textEl) textEl.textContent = _currentNarrationText;
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+    if (stopBtn) stopBtn.disabled = false;
+    const spinner = document.getElementById('narrationSpinner');
+    if (spinner) spinner.style.display = 'none';
+    playNarration();
+}
+
+let _currentUtterance = null;
+let _currentNarrationText = '';
+
+async function requestNarrationFromServer(title, content, language) {
+    const resp = await fetch('/api/chatbot/narrate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, content, language })
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data?.message || 'Narration request failed');
+    return data.narration || '';
+}
+
+async function narrateStory() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal) return;
+    const title = modal.dataset.currentStoryTitle || 'Heritage Story';
+    const html = modal.dataset.currentStoryHtml || '';
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.innerText.trim();
+    const spinner = document.getElementById('narrationSpinner');
+    const playBtn = document.getElementById('playNarrationBtn');
+    const textEl = document.getElementById('narrationText');
+    if (spinner) spinner.style.display = 'inline-block';
+    try {
+        const narration = await requestNarrationFromServer(title, plain, _selectedNarrationLanguage);
+        _currentNarrationText = narration || '';
+        if (textEl) textEl.textContent = _currentNarrationText;
+        if (playBtn) playBtn.disabled = false;
+        if (spinner) spinner.style.display = 'none';
+        playNarration();
+    } catch (err) {
+        console.error('Narration failed', err);
+        if (spinner) spinner.style.display = 'none';
+        if (textEl) textEl.textContent = 'Narration generation failed. Try "Narrate Original" instead.';
+    }
+}
+
+function playNarration() {
+    if (!_currentNarrationText) return;
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(_currentNarrationText);
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (voiceSelect && voiceSelect.value) {
+        const voices = speechSynthesis.getVoices();
+        const selected = voices.find(v => v.name === voiceSelect.value);
+        if (selected) utterance.voice = selected;
+    }
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    _currentUtterance = utterance;
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = true;
+    if (pauseBtn) pauseBtn.disabled = false;
+    if (stopBtn) stopBtn.disabled = false;
+    utterance.onend = () => { if (playBtn) playBtn.disabled = false; if (pauseBtn) pauseBtn.disabled = true; };
+    speechSynthesis.speak(utterance);
+}
+
+function pauseNarration() {
+    speechSynthesis.pause();
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+}
+
+function stopNarration() {
+    speechSynthesis.cancel();
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+    if (stopBtn) stopBtn.disabled = true;
+}
+
 
 // Blog Modal Functions
 function openBlogModal() {

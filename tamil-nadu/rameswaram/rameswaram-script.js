@@ -182,61 +182,316 @@ function launchAR() {
 
 // Story functions
 function startStory(storyType) {
-    currentStory = storyType;
-    storyStep = 0;
-    
-    let storyContent = '';
-    switch(storyType) {
-        case 'rama':
-            storyContent = `
+    const stories = {
+        rama: {
+            title_en: "Lord Rama's Sacred Journey",
+            content_en: `
                 <div class="story-content">
                     <h4>Lord Rama's Sacred Journey</h4>
-                    <div class="story-text">
-                        <p>You stand with Lord Rama on the shores of Rameswaram, the weight of dharma heavy on your divine shoulders. Sita has been rescued, Ravana defeated, but your heart carries the burden of having killed a learned Brahmin, despite his demonic nature. The sages advise you to worship Lord Shiva to atone for this sin.</p>
-                        <p>As you prepare the sacred lingam with your own hands, mixing sand with the waters of the ocean, you feel the cosmic significance of this moment. This act of devotion will sanctify this island for all eternity.</p>
-                    </div>
-                    <div class="story-choices">
-                        <button class="story-choice-btn" onclick="continueStory('rama', 1)">Continue the Divine Story</button>
-                    </div>
+                    <p>You stand with Lord Rama on the shores of Rameswaram, the weight of dharma heavy on your divine shoulders. Sita has been rescued, Ravana defeated, but your heart carries the burden of having killed a learned Brahmin, despite his demonic nature. The sages advise you to worship Lord Shiva to atone for this sin.</p>
+                    <p>As you prepare the sacred lingam with your own hands, mixing sand with the waters of the ocean, you feel the cosmic significance of this moment. This act of devotion will sanctify this island for all eternity.</p>
                 </div>
-            `;
-            break;
-        case 'temple':
-            storyContent = `
+            `,
+            title_ta: "ராமபிரானின் புனிதப் பயணம்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>ராமபிரானின் புனிதப் பயணம்</h4>
+                    <p>ராமேஸ்வரத்தின் கரையில் ராமபிரானுடன் நீங்கள் நிற்கிறீர்கள், தர்மத்தின் சுமை உங்கள் தெய்வீகத் தோள்களில் அழுத்துகிறது. சீதா மீட்கப்பட்டாள், ராவணன் தோற்கடிக்கப்பட்டான், ஆனால் அரக்கத்தனம் கொண்டிருந்தாலும் ஒரு கற்ற பிராமணனைக் கொன்ற பாவச்சுமை உங்கள் இதயத்தில் இருக்கிறது. இந்தப் பாவத்திற்குப் பரிகாரமாக சிவபெருமானை வணங்க முனிவர்கள் அறிவுறுத்துகிறார்கள்.</p>
+                    <p>கடல் நீரும் மணலும் கலந்து உங்கள் சொந்தக் கைகளால் புனித லிங்கத்தை உருவாக்கும்போது, இந்த நிமிடத்தின் பிரபஞ்ச முக்கியத்துவத்தை உணர்கிறீர்கள். இந்த பக்தி செயல் இந்தத் தீவை என்றென்றும் புனிதமாக்கும்.</p>
+                </div>
+            `
+        },
+        temple: {
+            title_en: "The Temple Builder's Vision",
+            content_en: `
                 <div class="story-content">
                     <h4>The Temple Builder's Vision</h4>
-                    <div class="story-text">
-                        <p>You are the master architect chosen by the Setupati rulers to expand the sacred Ramanathaswamy Temple. The vision is grand: create the world's longest temple corridor, a pathway that will inspire devotion in every pilgrim who walks its length.</p>
-                        <p>Each of the 1,212 pillars must be unique, carved with intricate designs that tell the stories of the divine. The sacred wells must be positioned according to ancient Vastu principles, each one blessed with specific healing properties.</p>
-                    </div>
-                    <div class="story-choices">
-                        <button class="story-choice-btn" onclick="continueStory('temple', 1)">Begin the Sacred Construction</button>
-                    </div>
+                    <p>You are the master architect chosen by the Setupati rulers to expand the sacred Ramanathaswamy Temple. The vision is grand: create the world's longest temple corridor, a pathway that will inspire devotion in every pilgrim who walks its length.</p>
+                    <p>Each of the 1,212 pillars must be unique, carved with intricate designs that tell the stories of the divine. The sacred wells must be positioned according to ancient Vastu principles, each one blessed with specific healing properties.</p>
                 </div>
-            `;
-            break;
-        case 'pilgrim':
-            storyContent = `
+            `,
+            title_ta: "கோவில் கட்டிடக்கலைஞரின் தரிசனம்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>கோவில் கட்டிடக்கலைஞரின் தரிசனம்</h4>
+                    <p>புனித ராமநாதசுவாமி கோவிலை விரிவுபடுத்த சேதுபதி மன்னர்களால் தேர்ந்தெடுக்கப்பட்ட தலைசிறந்த கட்டிடக்கலைஞர் நீங்கள். உலகின் மிக நீண்ட கோவில் தாழ்வாரத்தை உருவாக்குவதே உங்கள் லட்சியம் — அதில் நடக்கும் ஒவ்வொரு யாத்ரீகரிடமும் பக்தியை ஊக்குவிக்கும் பாதை.</p>
+                    <p>1,212 தூண்களில் ஒவ்வொன்றும் தனித்துவமானதாக இருக்க வேண்டும், தெய்வீகக் கதைகளைச் சொல்லும் நுணுக்கமான வடிவங்களால் செதுக்கப்பட வேண்டும். புனித கிணறுகள் பண்டைய வாஸ்து கொள்கைகளின்படி அமைக்கப்பட வேண்டும், ஒவ்வொன்றும் குறிப்பிட்ட குணப்படுத்தும் சக்திகளால் ஆசீர்வதிக்கப்பட வேண்டும்.</p>
+                </div>
+            `
+        },
+        pilgrim: {
+            title_en: "The Devoted Pilgrim's Path",
+            content_en: `
                 <div class="story-content">
                     <h4>The Devoted Pilgrim's Path</h4>
-                    <div class="story-text">
-                        <p>You have traveled thousands of miles to reach this sacred island, carrying holy water from the Ganges as prescribed by tradition. Your feet touch the blessed soil of Rameswaram, and you feel the spiritual energy that has drawn millions of pilgrims for centuries.</p>
-                        <p>Before you lies the magnificent temple with its towering gopurams and endless corridors. The ritual bath in the 22 sacred wells awaits, each one promising purification and blessings. Your spiritual journey of a lifetime begins now.</p>
-                    </div>
-                    <div class="story-choices">
-                        <button class="story-choice-btn" onclick="continueStory('pilgrim', 1)">Begin the Sacred Pilgrimage</button>
-                    </div>
+                    <p>You have traveled thousands of miles to reach this sacred island, carrying holy water from the Ganges as prescribed by tradition. Your feet touch the blessed soil of Rameswaram, and you feel the spiritual energy that has drawn millions of pilgrims for centuries.</p>
+                    <p>Before you lies the magnificent temple with its towering gopurams and endless corridors. The ritual bath in the 22 sacred wells awaits, each one promising purification and blessings. Your spiritual journey of a lifetime begins now.</p>
                 </div>
-            `;
-            break;
+            `,
+            title_ta: "பக்தியுள்ள யாத்ரீகரின் பாதை",
+            content_ta: `
+                <div class="story-content">
+                    <h4>பக்தியுள்ள யாத்ரீகரின் பாதை</h4>
+                    <p>இந்தப் புனிதத் தீவை அடைய ஆயிரக்கணக்கான மைல்கள் பயணம் செய்துள்ளீர்கள், மரபுப்படி கங்கையிலிருந்து புனித நீரை எடுத்துக்கொண்டு வந்துள்ளீர்கள். உங்கள் பாதங்கள் ராமேஸ்வரத்தின் ஆசீர்வதிக்கப்பட்ட மண்ணைத் தொடும்போது, நூற்றாண்டுகளாக கோடிக்கணக்கான யாத்ரீகர்களை ஈர்த்த ஆன்மீக சக்தியை உணர்கிறீர்கள்.</p>
+                    <p>உயர்ந்த கோபுரங்களும் முடிவில்லாத தாழ்வாரங்களும் கொண்ட அற்புதமான கோவில் உங்கள் முன் உள்ளது. 22 புனிதக் கிணறுகளில் சடங்கு நீராட்டம் காத்திருக்கிறது, ஒவ்வொன்றும் தூய்மையையும் ஆசீர்வாதங்களையும் வாக்குறுதி செய்கிறது. உங்கள் வாழ்நாளின் ஆன்மீகப் பயணம் இப்போது தொடங்குகிறது.</p>
+                </div>
+            `
+        }
+    };
+
+
+    if (!window._rameswaram_story_options_html) {
+        const initialBody = document.querySelector('#storytellingModal .modal-body');
+        if (initialBody) window._rameswaram_story_options_html = initialBody.innerHTML;
     }
-    
-    document.querySelector('#storytellingModal .modal-body').innerHTML = storyContent;
+
+    const modalBody = document.querySelector('#storytellingModal .modal-body');
+    if (stories[storyType] && modalBody) {
+        const lang = _selectedNarrationLanguage || 'ta';
+        const content = (lang === 'ta') ? stories[storyType].content_ta : stories[storyType].content_en;
+        const title = (lang === 'ta') ? stories[storyType].title_ta : stories[storyType].title_en;
+
+        modalBody.innerHTML = content;
+
+        const backText = (lang === 'ta') ? '← கதைகளுக்குத் திரும்பு' : '← Back to Stories';
+        const backBtnHtml = `<div class="story-back-wrapper"><button class="action-btn secondary-btn back-to-stories" onclick="showStorySelection()">${backText}</button></div>`;
+        modalBody.insertAdjacentHTML('afterbegin', backBtnHtml);
+
+        const modal = document.getElementById('storytellingModal');
+        if (modal) {
+            modal.dataset.currentStoryKey = storyType;
+            modal.dataset.currentStoryTitle = title;
+            modal.dataset.currentStoryHtml = content;
+        }
+
+
+        const controlsHtml = `
+            <div class="story-narration-controls">
+                <label for="narrationLanguage" class="voice-label">Language:</label>
+                <select id="narrationLanguage" class="quick-narrate-select">
+                    <option value="ta" ${lang === 'ta' ? 'selected' : ''}>தமிழ் (Tamil)</option>
+                    <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
+                </select>
+                <label for="voiceSelect" class="voice-label">Voice:</label>
+                <select id="voiceSelect" class="quick-narrate-select"><option>Loading voices...</option></select>
+                <button class="action-btn primary-btn" onclick="narrateStory()">🔊 Narrate this story (AI)</button>
+                <button class="action-btn secondary-btn" onclick="narrateOriginal()">🔈 Narrate Original</button>
+                <button class="action-btn" id="playNarrationBtn" onclick="playNarration()" disabled>Play</button>
+                <button class="action-btn" id="pauseNarrationBtn" onclick="pauseNarration()" disabled>Pause</button>
+                <button class="action-btn" id="stopNarrationBtn" onclick="stopNarration()" disabled>Stop</button>
+                <div id="narrationSpinner" style="display:none">Generating...</div>
+                <div id="voiceAvailability" class="voice-availability" aria-live="polite" style="margin-top:8px;font-size:0.95rem;color:#f0e6d6"></div>
+                <div id="voiceMismatchWarning" class="voice-mismatch-warning" aria-live="polite" style="margin-top:6px;font-size:0.9rem;color:#ffcc66;display:none"></div>
+            </div>
+            <div id="narrationText"></div>
+        `;
+        modalBody.insertAdjacentHTML('beforeend', controlsHtml);
+        try { populateVoiceList(); } catch (e) {}
+        try { populateNarrationLanguageSelector(); } catch (e) {}
+    }
 }
 
-function continueStory(storyType, step) {
-    alert(`Continuing ${storyType} story - Step ${step}...\n\nThis would launch the next chapter of the interactive narrative with character choices and spiritual insights about Rameswaram's sacred heritage.`);
+function showStorySelection() {
+    const modalBody = document.querySelector('#storytellingModal .modal-body');
+    if (!modalBody) return;
+    if (window._rameswaram_story_options_html) {
+        modalBody.innerHTML = window._rameswaram_story_options_html;
+    }
 }
+
+// Voice management for SpeechSynthesis
+let _selectedVoiceName = localStorage.getItem('rameswaram_voice') || null;
+let _selectedNarrationLanguage = localStorage.getItem('rameswaram_narration_lang') || 'ta';
+
+function populateVoiceList() {
+    const select = document.getElementById('voiceSelect');
+    if (!select) return;
+    const voices = speechSynthesis.getVoices();
+    if (!voices || !voices.length) return;
+    select.innerHTML = '';
+    voices.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.name;
+        opt.textContent = `${v.name} (${v.lang})${v.default ? ' — default' : ''}`;
+        try { opt.dataset.lang = v.lang || ''; } catch (e) {}
+        select.appendChild(opt);
+    });
+    if (_selectedVoiceName && Array.from(select.options).some(o => o.value === _selectedVoiceName)) {
+        select.value = _selectedVoiceName;
+    } else {
+        const preferredNames = [/Google US English/i, /Microsoft Zira/i, /Zira/i, /Samantha/i];
+        const preferred = voices.find(v => preferredNames.some(rx => rx.test(v.name)) || /en-?us|en-?gb/i.test(v.lang));
+        if (preferred) select.value = preferred.name;
+    }
+    select.addEventListener('change', () => {
+        _selectedVoiceName = select.value;
+        try { localStorage.setItem('rameswaram_voice', _selectedVoiceName); } catch (e) {}
+    });
+    try { updateVoiceAvailabilityIndicator(); } catch (e) {}
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(populateVoiceList, 100);
+    setTimeout(() => { try { populateNarrationLanguageSelector(); } catch (e) {} }, 120);
+});
+
+if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = () => { try { populateVoiceList(); } catch (e) {} };
+}
+
+function populateNarrationLanguageSelector() {
+    const langSelect = document.getElementById('narrationLanguage');
+    if (!langSelect) return;
+    try {
+        if (_selectedNarrationLanguage && Array.from(langSelect.options).some(o => o.value === _selectedNarrationLanguage)) {
+            langSelect.value = _selectedNarrationLanguage;
+        } else { langSelect.value = 'ta'; }
+    } catch (e) {}
+    langSelect.addEventListener('change', () => {
+        _selectedNarrationLanguage = langSelect.value;
+        try { localStorage.setItem('rameswaram_narration_lang', _selectedNarrationLanguage); } catch (e) {}
+        try { updateVoiceAvailabilityIndicator(); } catch (e) {}
+        try { updateVoiceMismatchWarning(); } catch (e) {}
+        const modal = document.getElementById('storytellingModal');
+        if (modal && modal.style.display === 'block' && modal.dataset.currentStoryKey) {
+            startStory(modal.dataset.currentStoryKey);
+        }
+    });
+}
+
+function updateVoiceAvailabilityIndicator() {
+    const indicator = document.getElementById('voiceAvailability');
+    const lang = _selectedNarrationLanguage || 'en';
+    if (!indicator) return;
+    const voices = speechSynthesis.getVoices() || [];
+    const lower = lang === 'ta' ? 'ta' : 'en';
+    const matches = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith(lower));
+    if (matches.length > 0) {
+        indicator.textContent = `Voice availability: ${matches.length} ${lang === 'ta' ? 'Tamil' : 'English'} voice(s) available.`;
+        indicator.style.color = '#DAA520';
+    } else {
+        indicator.textContent = `No ${lang === 'ta' ? 'Tamil' : 'English'} voices detected. Playback may use a default fallback voice.`;
+        indicator.style.color = '#ffcc66';
+    }
+}
+
+function updateVoiceMismatchWarning() {
+    const warningEl = document.getElementById('voiceMismatchWarning');
+    if (!warningEl) return;
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (!voiceSelect) { warningEl.style.display = 'none'; return; }
+    const selectedOpt = voiceSelect.options[voiceSelect.selectedIndex];
+    const voiceLang = (selectedOpt && selectedOpt.dataset && selectedOpt.dataset.lang) ? selectedOpt.dataset.lang.toLowerCase() : '';
+    const requestedLang = (_selectedNarrationLanguage === 'ta') ? 'ta' : 'en';
+    if (!voiceLang) { warningEl.style.display = 'none'; return; }
+    if (!voiceLang.startsWith(requestedLang)) {
+        warningEl.textContent = 'Warning: Selected voice language does not match narration language; pronunciation may be poor.';
+        warningEl.style.display = 'block';
+    } else { warningEl.style.display = 'none'; }
+}
+
+function narrateOriginal() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal) return;
+    const html = modal.dataset.currentStoryHtml || '';
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.innerText.trim();
+    _currentNarrationText = plain;
+    const textEl = document.getElementById('narrationText');
+    if (textEl) textEl.textContent = _currentNarrationText;
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+    if (stopBtn) stopBtn.disabled = false;
+    const spinner = document.getElementById('narrationSpinner');
+    if (spinner) spinner.style.display = 'none';
+    playNarration();
+}
+
+let _currentUtterance = null;
+let _currentNarrationText = '';
+
+async function requestNarrationFromServer(title, content, language) {
+    const resp = await fetch('/api/chatbot/narrate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, content, language })
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data?.message || 'Narration request failed');
+    return data.narration || '';
+}
+
+async function narrateStory() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal) return;
+    const title = modal.dataset.currentStoryTitle || 'Heritage Story';
+    const html = modal.dataset.currentStoryHtml || '';
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.innerText.trim();
+    const spinner = document.getElementById('narrationSpinner');
+    const playBtn = document.getElementById('playNarrationBtn');
+    const textEl = document.getElementById('narrationText');
+    if (spinner) spinner.style.display = 'inline-block';
+    try {
+        const narration = await requestNarrationFromServer(title, plain, _selectedNarrationLanguage);
+        _currentNarrationText = narration || '';
+        if (textEl) textEl.textContent = _currentNarrationText;
+        if (playBtn) playBtn.disabled = false;
+        if (spinner) spinner.style.display = 'none';
+        playNarration();
+    } catch (err) {
+        console.error('Narration failed', err);
+        if (spinner) spinner.style.display = 'none';
+        if (textEl) textEl.textContent = 'Narration generation failed. Try "Narrate Original" instead.';
+    }
+}
+
+function playNarration() {
+    if (!_currentNarrationText) return;
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(_currentNarrationText);
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (voiceSelect && voiceSelect.value) {
+        const voices = speechSynthesis.getVoices();
+        const selected = voices.find(v => v.name === voiceSelect.value);
+        if (selected) utterance.voice = selected;
+    }
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    _currentUtterance = utterance;
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = true;
+    if (pauseBtn) pauseBtn.disabled = false;
+    if (stopBtn) stopBtn.disabled = false;
+    utterance.onend = () => { if (playBtn) playBtn.disabled = false; if (pauseBtn) pauseBtn.disabled = true; };
+    speechSynthesis.speak(utterance);
+}
+
+function pauseNarration() {
+    speechSynthesis.pause();
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+}
+
+function stopNarration() {
+    speechSynthesis.cancel();
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+    if (stopBtn) stopBtn.disabled = true;
+}
+
 
 // Blog functions
 function readFullBlog(articleType) {

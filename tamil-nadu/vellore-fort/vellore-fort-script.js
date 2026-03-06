@@ -238,83 +238,314 @@ function openStorytellingModal() {
 function startStory(storyType) {
     const stories = {
         vijayanagara: {
-            title: "The Vijayanagara Empire's Fortress",
-            content: `
+            title_en: "The Vijayanagara Empire's Fortress",
+            content_en: `
                 <div class="story-content">
                     <h4>The Fortress That Bridged Three Faiths</h4>
-                    <p>In the 16th century, Vellore Fort stood as a testament to the Vijayanagara Empire's power. Within its massive granite walls, Hindu, Muslim, and Christian communities coexisted, each leaving their mark on this magnificent fortress...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('vijayanagara', 'construction')" class="story-choice-btn">Witness the Fortress Construction</button>
-                        <button onclick="continueStory('vijayanagara', 'faiths')" class="story-choice-btn">Explore the Three Faiths</button>
-                    </div>
+                    <p>In the 16th century, Vellore Fort stood as a testament to the Vijayanagara Empire's power. Within its massive granite walls, Hindu, Muslim, and Christian communities coexisted, each leaving their mark on this magnificent fortress.</p>
+                    <p>The massive granite walls were built using advanced engineering techniques. Workers transported massive stones using elephants and innovative pulley systems. The fort housed the Jalakanteswarar Temple, a mosque, and later a church, symbolizing the religious harmony that characterized the region.</p>
+                </div>
+            `,
+            title_ta: "விஜயநகரப் பேரரசின் கோட்டை",
+            content_ta: `
+                <div class="story-content">
+                    <h4>மூன்று நம்பிக்கைகளை இணைத்த கோட்டை</h4>
+                    <p>16ஆம் நூற்றாண்டில், வேலூர் கோட்டை விஜயநகரப் பேரரசின் வலிமைக்கு சாட்சியாக நின்றது. அதன் பிரம்மாண்டமான கிரானைட் சுவர்களுக்குள், இந்து, முஸ்லிம் மற்றும் கிறிஸ்தவ சமூகங்கள் ஒன்றாக வாழ்ந்து, ஒவ்வொன்றும் இந்த அற்புதமான கோட்டையில் தங்கள் அடையாளத்தை விட்டுச் சென்றன.</p>
+                    <p>பிரம்மாண்டமான கிரானைட் சுவர்கள் மேம்பட்ட பொறியியல் நுட்பங்களைப் பயன்படுத்தி கட்டப்பட்டன. தொழிலாளர்கள் யானைகள் மற்றும் புதுமையான கப்பி அமைப்புகளைப் பயன்படுத்தி பெரிய கற்களை நகர்த்தினர். கோட்டையில் ஜலகண்டேஸ்வரர் கோவில், ஒரு மசூதி, பின்னர் ஒரு தேவாலயம் ஆகியவை இருந்தன — இப்பகுதியின் மத நல்லிணக்கத்தின் அடையாளமாக.</p>
                 </div>
             `
         },
         mutiny: {
-            title: "The 1806 Vellore Mutiny",
-            content: `
+            title_en: "The 1806 Vellore Mutiny",
+            content_en: `
                 <div class="story-content">
                     <h4>The First Major Uprising</h4>
-                    <p>On July 10, 1806, the Vellore Fort witnessed the first major armed uprising against British colonial rule in India. Sepoys rose against new uniform regulations that they believed violated their religious practices...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('mutiny', 'rebellion')" class="story-choice-btn">Witness the Rebellion</button>
-                        <button onclick="continueStory('mutiny', 'aftermath')" class="story-choice-btn">Learn About the Aftermath</button>
-                    </div>
+                    <p>On July 10, 1806, the Vellore Fort witnessed the first major armed uprising against British colonial rule in India. Sepoys rose against new uniform regulations that they believed violated their religious practices.</p>
+                    <p>The sepoys, numbering over 1,500, overpowered the guards and took control of the fort. This rebellion predated the famous 1857 uprising by 51 years. Though swiftly suppressed by British cavalry from Arcot, the mutiny led to significant changes in British military policy and foreshadowed later independence movements.</p>
+                </div>
+            `,
+            title_ta: "1806 வேலூர் கலகம்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>முதல் பெரிய எழுச்சி</h4>
+                    <p>ஜூலை 10, 1806 அன்று, வேலூர் கோட்டை இந்தியாவில் பிரிட்டிஷ் காலனிய ஆட்சிக்கு எதிரான முதல் பெரிய ஆயுதமேந்திய கிளர்ச்சிக்கு சாட்சியானது. புதிய சீருடை விதிமுறைகள் தங்கள் மத நடைமுறைகளை மீறுவதாகக் கருதிய சிப்பாய்கள் எழுச்சி கொண்டனர்.</p>
+                    <p>1,500க்கும் மேற்பட்ட சிப்பாய்கள் காவலர்களை மடக்கி கோட்டையைக் கைப்பற்றினர். இந்தக் கிளர்ச்சி புகழ்பெற்ற 1857 எழுச்சிக்கு 51 ஆண்டுகள் முன்னரே நடந்தது. ஆர்காட்டிலிருந்து வந்த பிரிட்டிஷ் குதிரைப்படையால் விரைவாக அடக்கப்பட்டாலும், இந்தக் கலகம் பிரிட்டிஷ் ராணுவக் கொள்கையில் குறிப்பிடத்தக்க மாற்றங்களுக்கு வழிவகுத்தது மற்றும் பிற்கால சுதந்திர இயக்கங்களுக்கு முன்னோடியானது.</p>
                 </div>
             `
         },
         architecture: {
-            title: "Architectural Marvel of Vellore",
-            content: `
+            title_en: "Architectural Marvel of Vellore",
+            content_en: `
                 <div class="story-content">
                     <h4>Engineering Wonder of the 16th Century</h4>
-                    <p>The fort's double-walled construction, surrounded by a deep moat, represents some of the finest military architecture in India. The Jalakanteswarar Temple within showcases exquisite Vijayanagara craftsmanship...</p>
-                    
-                    <div class="story-choices">
-                        <button onclick="continueStory('architecture', 'fortification')" class="story-choice-btn">Study the Fortifications</button>
-                        <button onclick="continueStory('architecture', 'temple')" class="story-choice-btn">Explore the Temple Architecture</button>
-                    </div>
+                    <p>The fort's double-walled construction, surrounded by a deep moat, represents some of the finest military architecture in India. The Jalakanteswarar Temple within showcases exquisite Vijayanagara craftsmanship.</p>
+                    <p>The double-walled construction with a moat 9 meters deep made the fort nearly impregnable. The walls feature battlements and bastions at strategic positions. The Jalakanteswarar Temple inside showcases intricate Vijayanagara architecture with detailed sculptures, magnificent gopurams, and a stunning kalyana mandapa.</p>
+                </div>
+            `,
+            title_ta: "வேலூரின் கட்டிடக்கலை அதிசயம்",
+            content_ta: `
+                <div class="story-content">
+                    <h4>16ஆம் நூற்றாண்டின் பொறியியல் அதிசயம்</h4>
+                    <p>கோட்டையின் இரட்டை சுவர் கட்டுமானம், ஆழமான அகழியால் சூழப்பட்டு, இந்தியாவின் சிறந்த ராணுவ கட்டிடக்கலையின் ஒரு அங்கமாகும். உள்ளே உள்ள ஜலகண்டேஸ்வரர் கோவில் விஜயநகர கைவினைத் திறனை வெளிப்படுத்துகிறது.</p>
+                    <p>9 மீட்டர் ஆழமுள்ள அகழியுடன் கூடிய இரட்டை சுவர் கட்டுமானம் கோட்டையை கிட்டத்தட்ட அழிக்க முடியாததாக ஆக்கியது. சுவர்களில் மூலோபாய இடங்களில் கொத்தளங்கள் மற்றும் படைக்கோட்டைகள் உள்ளன. உள்ளே உள்ள ஜலகண்டேஸ்வரர் கோவில் விரிவான சிற்பங்கள், அற்புதமான கோபுரங்கள் மற்றும் அழகிய கல்யாண மண்டபத்துடன் நுணுக்கமான விஜயநகர கட்டிடக்கலையை வெளிப்படுத்துகிறது.</p>
                 </div>
             `
         }
     };
-    
+
+
+    if (!window._vellore_fort_story_options_html) {
+        const initialBody = document.querySelector('#storytellingModal .modal-body');
+        if (initialBody) window._vellore_fort_story_options_html = initialBody.innerHTML;
+    }
+
     const modalBody = document.querySelector('#storytellingModal .modal-body');
     if (stories[storyType] && modalBody) {
-        modalBody.innerHTML = stories[storyType].content;
+        const lang = _selectedNarrationLanguage || 'ta';
+        const content = (lang === 'ta') ? stories[storyType].content_ta : stories[storyType].content_en;
+        const title = (lang === 'ta') ? stories[storyType].title_ta : stories[storyType].title_en;
+
+        modalBody.innerHTML = content;
+
+        const backText = (lang === 'ta') ? '← கதைகளுக்குத் திரும்பு' : '← Back to Stories';
+        const backBtnHtml = `<div class="story-back-wrapper"><button class="action-btn secondary-btn back-to-stories" onclick="showStorySelection()">${backText}</button></div>`;
+        modalBody.insertAdjacentHTML('afterbegin', backBtnHtml);
+
+        const modal = document.getElementById('storytellingModal');
+        if (modal) {
+            modal.dataset.currentStoryKey = storyType;
+            modal.dataset.currentStoryTitle = title;
+            modal.dataset.currentStoryHtml = content;
+        }
+
+
+        const controlsHtml = `
+            <div class="story-narration-controls">
+                <label for="narrationLanguage" class="voice-label">Language:</label>
+                <select id="narrationLanguage" class="quick-narrate-select">
+                    <option value="ta" ${lang === 'ta' ? 'selected' : ''}>தமிழ் (Tamil)</option>
+                    <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
+                </select>
+                <label for="voiceSelect" class="voice-label">Voice:</label>
+                <select id="voiceSelect" class="quick-narrate-select"><option>Loading voices...</option></select>
+                <button class="action-btn primary-btn" onclick="narrateStory()">🔊 Narrate this story (AI)</button>
+                <button class="action-btn secondary-btn" onclick="narrateOriginal()">🔈 Narrate Original</button>
+                <button class="action-btn" id="playNarrationBtn" onclick="playNarration()" disabled>Play</button>
+                <button class="action-btn" id="pauseNarrationBtn" onclick="pauseNarration()" disabled>Pause</button>
+                <button class="action-btn" id="stopNarrationBtn" onclick="stopNarration()" disabled>Stop</button>
+                <div id="narrationSpinner" style="display:none">Generating...</div>
+                <div id="voiceAvailability" class="voice-availability" aria-live="polite" style="margin-top:8px;font-size:0.95rem;color:#f0e6d6"></div>
+                <div id="voiceMismatchWarning" class="voice-mismatch-warning" aria-live="polite" style="margin-top:6px;font-size:0.9rem;color:#ffcc66;display:none"></div>
+            </div>
+            <div id="narrationText"></div>
+        `;
+        modalBody.insertAdjacentHTML('beforeend', controlsHtml);
+        try { populateVoiceList(); } catch (e) {}
+        try { populateNarrationLanguageSelector(); } catch (e) {}
     }
 }
 
-function continueStory(character, choice) {
-    const continuations = {
-        vijayanagara: {
-            construction: "The massive granite walls were built using advanced engineering techniques. Workers transported massive stones using elephants and innovative pulley systems...",
-            faiths: "The fort housed the Jalakanteswarar Temple, a mosque, and later a church, symbolizing the religious harmony that characterized the region..."
-        },
-        mutiny: {
-            rebellion: "The sepoys, numbering over 1,500, overpowered the guards and took control of the fort. This rebellion predated the famous 1857 uprising by 51 years...",
-            aftermath: "Though swiftly suppressed by British cavalry from Arcot, the mutiny led to significant changes in British military policy and foreshadowed later independence movements..."
-        },
-        architecture: {
-            fortification: "The double-walled construction with a moat 9 meters deep made the fort nearly impregnable. The walls feature battlements and bastions at strategic positions...",
-            temple: "The Jalakanteswarar Temple inside showcases intricate Vijayanagara architecture with detailed sculptures, magnificent gopurams, and a stunning kalyana mandapa..."
-        }
-    };
-    
+function showStorySelection() {
     const modalBody = document.querySelector('#storytellingModal .modal-body');
-    if (modalBody) {
-        modalBody.innerHTML = `
-            <div class="story-continuation">
-                <h4>Story Continues...</h4>
-                <p>${continuations[character][choice]}</p>
-                <button onclick="startStory('${character}')" class="story-choice-btn">Return to Story Selection</button>
-                <button onclick="closeModal('storytellingModal')" class="story-choice-btn">End Story</button>
-            </div>
-        `;
+    if (!modalBody) return;
+    if (window._vellore_fort_story_options_html) {
+        modalBody.innerHTML = window._vellore_fort_story_options_html;
     }
 }
+
+// Voice management for SpeechSynthesis
+let _selectedVoiceName = localStorage.getItem('vellore-fort_voice') || null;
+let _selectedNarrationLanguage = localStorage.getItem('vellore-fort_narration_lang') || 'ta';
+
+function populateVoiceList() {
+    const select = document.getElementById('voiceSelect');
+    if (!select) return;
+    const voices = speechSynthesis.getVoices();
+    if (!voices || !voices.length) return;
+    select.innerHTML = '';
+    voices.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.name;
+        opt.textContent = `${v.name} (${v.lang})${v.default ? ' — default' : ''}`;
+        try { opt.dataset.lang = v.lang || ''; } catch (e) {}
+        select.appendChild(opt);
+    });
+    if (_selectedVoiceName && Array.from(select.options).some(o => o.value === _selectedVoiceName)) {
+        select.value = _selectedVoiceName;
+    } else {
+        const preferredNames = [/Google US English/i, /Microsoft Zira/i, /Zira/i, /Samantha/i];
+        const preferred = voices.find(v => preferredNames.some(rx => rx.test(v.name)) || /en-?us|en-?gb/i.test(v.lang));
+        if (preferred) select.value = preferred.name;
+    }
+    select.addEventListener('change', () => {
+        _selectedVoiceName = select.value;
+        try { localStorage.setItem('vellore-fort_voice', _selectedVoiceName); } catch (e) {}
+    });
+    try { updateVoiceAvailabilityIndicator(); } catch (e) {}
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(populateVoiceList, 100);
+    setTimeout(() => { try { populateNarrationLanguageSelector(); } catch (e) {} }, 120);
+});
+
+if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = () => { try { populateVoiceList(); } catch (e) {} };
+}
+
+function populateNarrationLanguageSelector() {
+    const langSelect = document.getElementById('narrationLanguage');
+    if (!langSelect) return;
+    try {
+        if (_selectedNarrationLanguage && Array.from(langSelect.options).some(o => o.value === _selectedNarrationLanguage)) {
+            langSelect.value = _selectedNarrationLanguage;
+        } else { langSelect.value = 'ta'; }
+    } catch (e) {}
+    langSelect.addEventListener('change', () => {
+        _selectedNarrationLanguage = langSelect.value;
+        try { localStorage.setItem('vellore-fort_narration_lang', _selectedNarrationLanguage); } catch (e) {}
+        try { updateVoiceAvailabilityIndicator(); } catch (e) {}
+        try { updateVoiceMismatchWarning(); } catch (e) {}
+        const modal = document.getElementById('storytellingModal');
+        if (modal && modal.style.display === 'block' && modal.dataset.currentStoryKey) {
+            startStory(modal.dataset.currentStoryKey);
+        }
+    });
+}
+
+function updateVoiceAvailabilityIndicator() {
+    const indicator = document.getElementById('voiceAvailability');
+    const lang = _selectedNarrationLanguage || 'en';
+    if (!indicator) return;
+    const voices = speechSynthesis.getVoices() || [];
+    const lower = lang === 'ta' ? 'ta' : 'en';
+    const matches = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith(lower));
+    if (matches.length > 0) {
+        indicator.textContent = `Voice availability: ${matches.length} ${lang === 'ta' ? 'Tamil' : 'English'} voice(s) available.`;
+        indicator.style.color = '#DAA520';
+    } else {
+        indicator.textContent = `No ${lang === 'ta' ? 'Tamil' : 'English'} voices detected. Playback may use a default fallback voice.`;
+        indicator.style.color = '#ffcc66';
+    }
+}
+
+function updateVoiceMismatchWarning() {
+    const warningEl = document.getElementById('voiceMismatchWarning');
+    if (!warningEl) return;
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (!voiceSelect) { warningEl.style.display = 'none'; return; }
+    const selectedOpt = voiceSelect.options[voiceSelect.selectedIndex];
+    const voiceLang = (selectedOpt && selectedOpt.dataset && selectedOpt.dataset.lang) ? selectedOpt.dataset.lang.toLowerCase() : '';
+    const requestedLang = (_selectedNarrationLanguage === 'ta') ? 'ta' : 'en';
+    if (!voiceLang) { warningEl.style.display = 'none'; return; }
+    if (!voiceLang.startsWith(requestedLang)) {
+        warningEl.textContent = 'Warning: Selected voice language does not match narration language; pronunciation may be poor.';
+        warningEl.style.display = 'block';
+    } else { warningEl.style.display = 'none'; }
+}
+
+function narrateOriginal() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal) return;
+    const html = modal.dataset.currentStoryHtml || '';
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.innerText.trim();
+    _currentNarrationText = plain;
+    const textEl = document.getElementById('narrationText');
+    if (textEl) textEl.textContent = _currentNarrationText;
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+    if (stopBtn) stopBtn.disabled = false;
+    const spinner = document.getElementById('narrationSpinner');
+    if (spinner) spinner.style.display = 'none';
+    playNarration();
+}
+
+let _currentUtterance = null;
+let _currentNarrationText = '';
+
+async function requestNarrationFromServer(title, content, language) {
+    const resp = await fetch('/api/chatbot/narrate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, content, language })
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data?.message || 'Narration request failed');
+    return data.narration || '';
+}
+
+async function narrateStory() {
+    const modal = document.getElementById('storytellingModal');
+    if (!modal) return;
+    const title = modal.dataset.currentStoryTitle || 'Heritage Story';
+    const html = modal.dataset.currentStoryHtml || '';
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.innerText.trim();
+    const spinner = document.getElementById('narrationSpinner');
+    const playBtn = document.getElementById('playNarrationBtn');
+    const textEl = document.getElementById('narrationText');
+    if (spinner) spinner.style.display = 'inline-block';
+    try {
+        const narration = await requestNarrationFromServer(title, plain, _selectedNarrationLanguage);
+        _currentNarrationText = narration || '';
+        if (textEl) textEl.textContent = _currentNarrationText;
+        if (playBtn) playBtn.disabled = false;
+        if (spinner) spinner.style.display = 'none';
+        playNarration();
+    } catch (err) {
+        console.error('Narration failed', err);
+        if (spinner) spinner.style.display = 'none';
+        if (textEl) textEl.textContent = 'Narration generation failed. Try "Narrate Original" instead.';
+    }
+}
+
+function playNarration() {
+    if (!_currentNarrationText) return;
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(_currentNarrationText);
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (voiceSelect && voiceSelect.value) {
+        const voices = speechSynthesis.getVoices();
+        const selected = voices.find(v => v.name === voiceSelect.value);
+        if (selected) utterance.voice = selected;
+    }
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    _currentUtterance = utterance;
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = true;
+    if (pauseBtn) pauseBtn.disabled = false;
+    if (stopBtn) stopBtn.disabled = false;
+    utterance.onend = () => { if (playBtn) playBtn.disabled = false; if (pauseBtn) pauseBtn.disabled = true; };
+    speechSynthesis.speak(utterance);
+}
+
+function pauseNarration() {
+    speechSynthesis.pause();
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+}
+
+function stopNarration() {
+    speechSynthesis.cancel();
+    const playBtn = document.getElementById('playNarrationBtn');
+    const pauseBtn = document.getElementById('pauseNarrationBtn');
+    const stopBtn = document.getElementById('stopNarrationBtn');
+    if (playBtn) playBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = true;
+    if (stopBtn) stopBtn.disabled = true;
+}
+
 
 // Blog Modal Functions
 function openBlogModal() {
