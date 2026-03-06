@@ -1,7 +1,44 @@
 import path from 'path';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import fs from 'fs';
+
+// Plugin to copy non-module JS files to dist (Vite skips <script> tags without type="module")
+function copyNonModuleScripts(): Plugin {
+  return {
+    name: 'copy-non-module-scripts',
+    closeBundle() {
+      const rootDir = __dirname;
+      const distDir = path.join(rootDir, 'dist');
+      const dirs = ['js', 'tamil-nadu', 'heritageai'];
+
+      function copyJsRecursive(dir: string) {
+        const fullDir = path.join(rootDir, dir);
+        if (!fs.existsSync(fullDir)) return;
+        const entries = fs.readdirSync(fullDir);
+        for (const entry of entries) {
+          const srcPath = path.join(fullDir, entry);
+          const stat = fs.statSync(srcPath);
+          if (stat.isDirectory()) {
+            copyJsRecursive(path.join(dir, entry));
+          } else if (entry.endsWith('.js')) {
+            const destPath = path.join(distDir, dir, entry);
+            // Don't overwrite files Vite already bundled
+            if (!fs.existsSync(destPath)) {
+              fs.mkdirSync(path.dirname(destPath), { recursive: true });
+              fs.copyFileSync(srcPath, destPath);
+            }
+          }
+        }
+      }
+
+      for (const dir of dirs) {
+        copyJsRecursive(dir);
+      }
+      console.log('✅ Copied non-module JS files to dist');
+    }
+  };
+}
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
@@ -46,7 +83,7 @@ export default defineConfig(({ mode }) => {
         port: 3000,
         host: '0.0.0.0',
       },
-      plugins: [react()],
+      plugins: [react(), copyNonModuleScripts()],
       build: {
         outDir: 'dist',
         assetsDir: 'assets',
